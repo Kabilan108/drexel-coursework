@@ -14,9 +14,10 @@ This is the problem of taking two DNA or Protein sequences and matching them up 
 
 Algorithm based on reusing solutions to smaller problems - it is an optimization over plain recursion.
 
-<div style="background-color:#cb3c39">
-Redefine alignment of two sequences so we can use the best alignment of shorter sequences and build our way up to the larger problem.
-</div>
+```dif
+- Redefine alignment of two sequences so we can use the best alignment of shorter sequences and build our way up to the larger problem.
+```
+
 Let’s consider the game described below,
 <div style="background-color:#f1f1ef">
 Consider a boardgame with a certain amount of money in each square. You are asked to start from the top left corner, and move your way down to the bottom right corner.
