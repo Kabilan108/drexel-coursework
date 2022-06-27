@@ -1,0 +1,15 @@
+Status	/mnt/h/data/samfiles/SRR1302790.sam	/mnt/h/data/samfiles/SRR1302792.sam
+Assigned	110000180	107152712
+Unassigned_Unmapped	93823771	92169646
+Unassigned_Read_Type	0	0
+Unassigned_Singleton	0	0
+Unassigned_MappingQuality	0	0
+Unassigned_Chimera	0	0
+Unassigned_FragmentLength	0	0
+Unassigned_Duplicate	0	0
+Unassigned_MultiMapping	0	0
+Unassigned_Secondary	0	0
+Unassigned_NonSplit	0	0
+Unassigned_NoFeatures	1204038	2748622
+Unassigned_Overlapping_Length	0	0
+Unassigned_Ambiguity	0	0

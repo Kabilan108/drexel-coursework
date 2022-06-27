@@ -1,0 +1,416 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+# Cellular architecture of human brain metastases
+```{text, include=FALSE, eval=FALSE}
+
+# # Cellular architecture of human brain metastases
+# https://pubmed.ncbi.nlm.nih.gov/35063085
+
+# # GEO dataset: GSE186344
+# https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE186344
+
+```
+
+
+## Install if missing function
+```{r}
+installpackageifmissing = function( package ) {
+ package = package[!(package %in% installed.packages()[,"Package"])]
+ if(length(package)){ 
+   message(cat('Installing ',package,'...'))
+   install.packages(package,dependencies = TRUE,repos = "http://cran.us.r-project.org")
+ }
+ #lapply(package, require, character.only=T)
+}
+installpackageifmissing_bioc = function( package ) {
+ package = package[!(package %in% installed.packages()[,"Package"])]
+ if(length(package)){ 
+   message(cat('Installing ',package,'...'))
+   BiocManager::install(package,ask=FALSE)
+ }
+ #lapply(package, require, character.only=T)
+}
+```
+
+# Install necessary packages
+```{r}
+# https://github.com/satijalab/seurat
+install.packages("Seurat")
+
+# For plotting data
+installpackageifmissing("ggplot2")
+
+installpackageifmissing("BiocManager")
+# For calling cell types by SingleR and available reference cel types (celldex)
+installpackageifmissing_bioc("SingleR")
+installpackageifmissing_bioc("celldex")
+installpackageifmissing_bioc("SingleCellExperiment")
+installpackageifmissing_bioc("scuttle")
+
+```
+
+# Define directories and gather files 
+```{r}
+
+# File path to new directory for data
+singleCellDir = path.expand('~/Downloads/singleCell')
+dir.create(singleCellDir)
+
+# Heterogeneous (malignant and stromal) melanoma tumor
+GSMsample = "GSM5645890_Melan_3"
+dotGov = "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5645nnn/GSM5645890/suppl"
+tenXfilenames = c("matrix.mtx.gz", "features.tsv.gz", "barcodes.tsv.gz")
+
+# Create variables with names of files to get and save as
+web10xFileNames = file.path(dotGov, paste0(GSMsample, "_", tenXfilenames))
+local10xFileNames = file.path(singleCellDir, GSMsample, tenXfilenames)
+
+# Create directory for downloading data
+dir.create(file.path(singleCellDir, GSMsample), recursive = T)
+
+# Download 10x files with specific names
+mapply(download.file, web10xFileNames, local10xFileNames)
+
+# Download cell type call annotations
+webAnnotationFileName = file.path(dotGov, paste0(GSMsample, "_Cell_Types_Annotations.csv.gz"))
+localAnnotationFileName = file.path(singleCellDir, paste0(GSMsample, "_Cell_Types_Annotations.csv.gz"))
+download.file(webAnnotationFileName, localAnnotationFileName)
+
+# Check if files downloaded to folder (and named appropriately)
+dir(file.path(singleCellDir, GSMsample))
+dir(singleCellDir, pattern = "csv.gz")
+
+# expect to see:
+# "barcodes.tsv.gz" "features.tsv.gz" "matrix.mtx.gz"
+# "GSM5645890_Melan_3_Cell_Types_Annotations.csv.gz"
+```
+
+# Read data into R
+```{r}
+library("Seurat")
+library("ggplot2")
+
+# Read annotation data from file
+cellAnnotPaper = read.csv(dir(singleCellDir, pattern = "Annotations.csv.gz", full.names = T), row.names = 1)
+
+# Read 10x data into R via Seurat
+tempSampleData = Read10X(file.path(singleCellDir, GSMsample))
+
+# Exclude genes expressed in less than 5 cells - described in paper
+Melan_3 = CreateSeuratObject(counts = tempSampleData, project = "Melan_3", min.cells = 5)
+
+# For space
+rm(tempSampleData)
+
+# Add the percent of genes counts that are from mitochondrial genes to the metadata
+Melan_3[["percent.mt"]] <- PercentageFeatureSet(Melan_3, pattern = "^MT-")
+
+# Plot some metadata features for each cell
+# VlnPlot(Melan_3, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+VlnPlot(Melan_3, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3, log = T)
+
+FeatureScatter(Melan_3, feature1 = "nFeature_RNA", feature2 = "nCount_RNA")
+FeatureScatter(Melan_3, feature1 = "nFeature_RNA", feature2 = "percent.mt")
+FeatureScatter(Melan_3, feature1 = "nCount_RNA", feature2 = "percent.mt")
+```
+
+## Add cell type calls from the paper to the Seurat object
+```{r}
+# view cell names from paper and Seurat object each
+cellAnnotPaper[1:5, ,drop=F]
+Melan_3@meta.data[1:5,]
+rownames(Melan_3@meta.data)[1:5]
+rownames(cellAnnotPaper)[1:5]
+
+# Store original row names - helps prevent errors if the line is run again
+cellAnnotPaper$orig_row_names = rownames(cellAnnotPaper)
+
+# Capture cell barcodes
+cellAnnotPaper$cellBarcode = gsub("^(1|G).*E13bm_(.*)$", "\\2", cellAnnotPaper$orig_row_names)
+
+# Make names match 10x row names
+cellAnnotPaper$CellBarcode10x = paste0(cellAnnotPaper$cellBarcode, "-1")
+
+# Add paper's cell type calls to seurat object
+rownames(cellAnnotPaper) = cellAnnotPaper$CellBarcode10x
+meta.data = Melan_3@meta.data
+meta.data$Cell_Type_paper = cellAnnotPaper[rownames(meta.data), "Cell_Type"]
+meta.data$Cell_Type_paper[is.na(meta.data$Cell_Type_paper)] = "NA"
+Melan_3 = AddMetaData(Melan_3, meta.data)
+```
+
+# Subset data by QC cutoffs (and cell type annotations)
+```{r}
+# Inspect cutoffs used in paper
+FeatureScatter(Melan_3, feature1 = "nFeature_RNA", feature2 = "percent.mt") +
+    ggplot2::geom_hline(yintercept = 10) + 
+    geom_vline(xintercept = 500) + geom_vline(xintercept = 9000) + ylim(NA,100)
+
+# Subset to only those with a cell type call from the paper
+Melan_3_Pub = subset(Melan_3, subset = Cell_Type_paper != "NA")
+
+FeatureScatter(Melan_3_Pub, feature1 = "nFeature_RNA", feature2 = "percent.mt") +
+    ggplot2::geom_hline(yintercept = 10) +
+    geom_vline(xintercept = 500) + geom_vline(xintercept = 9000)+ ylim(NA,100)
+```
+
+## Call cell type via SingleR and celldex reference
+```{r}
+# https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html
+# https://bioconductor.org/packages/3.15/data/experiment/html/celldex.html
+
+library("SingleR")
+library("celldex")
+
+# Get expression of reference cells
+ref.BP <- BlueprintEncodeData() # melanocytes. skeletal muscle. melanoma and rhabdoid samples
+
+
+# Prepare data for SingleR
+tempSC = as.SingleCellExperiment(Melan_3_Pub)
+# tempSC <- scuttle::logNormCounts(tempSC)
+
+# Make cell type predictions
+pred.Melan_3 = SingleR(test = tempSC, ref = ref.BP, assay.type.test=2, labels = ref.BP$label.main)
+
+# Add SingleR cell type calls to seurat object's metadata
+meta.data = Melan_3_Pub@meta.data
+meta.data[ ,"cellCall"] = NA
+meta.data[rownames(pred.Melan_3), "Cell_Type_SingleR"] = pred.Melan_3$labels
+Melan_3_Pub = AddMetaData(Melan_3_Pub, meta.data)
+
+```
+
+
+## Perform seurat normalization and standard workflow
+```{r}
+# Before clustering, the number of counts and percentage of mitochondrial genes were regressed out (function vars.to.regress)
+
+Melan_3_Pub <- NormalizeData(Melan_3_Pub, verbose = F)
+Melan_3_Pub <- FindVariableFeatures(Melan_3_Pub, selection.method = "vst", nfeatures = 2000, verbose = F)
+Melan_3_Pub <- ScaleData(Melan_3_Pub, vars.to.regress = c("nCount_RNA", "percent.mt"), verbose = F)
+Melan_3_Pub <- RunPCA(Melan_3_Pub, features = VariableFeatures(Melan_3_Pub), verbose = F)
+Melan_3_Pub <- RunUMAP(Melan_3_Pub, dims = 1:18, verbose = F)
+```
+
+
+## Plot cell types from publication and SingleR 
+```{r}
+DimPlot(Melan_3_Pub, reduction = "umap", group.by = "Cell_Type_paper")
+DimPlot(Melan_3_Pub, reduction = "umap", group.by = "Cell_Type_paper", label = T, repel = T)
+
+DimPlot(Melan_3_Pub, reduction = "umap", group.by = "Cell_Type_SingleR")
+DimPlot(Melan_3_Pub, reduction = "umap", group.by = "Cell_Type_SingleR", label = T, repel = T)
+```
+
+
+## Plot common gene markers
+```{r}
+# CD45+ - immune cell marker
+# CD4 - CD4+ T-cell
+# CD8A - CD8+ T-cell
+# MLANA - Melanoma
+
+genesPlot = c("PTPRC", "CD4", "CD8A", "MLANA")
+
+FeaturePlot(Melan_3_Pub, genesPlot)
+```
+
+## Compare numbers between cell type calls
+```{r}
+
+# Add Stromal malignant cell type calls
+meta.data = Melan_3_Pub@meta.data
+
+meta.data$malig_strom_paper = "stromal"
+meta.data$malig_strom_paper[meta.data$Cell_Type_paper == "MTCs"] = "malignant"
+
+meta.data$malig_strom_SingleR = "stromal"
+meta.data$malig_strom_SingleR[meta.data$Cell_Type_SingleR == "Melanocytes"] = "malignant"
+
+Melan_3_Pub = AddMetaData(Melan_3_Pub, meta.data)
+
+# Check numbers of malignant and stroma between the paper's cell calls and SingleR 
+table(Melan_3_Pub@meta.data[,c("malig_strom_SingleR", "malig_strom_paper")])
+
+
+# Check specific cell type calls
+table(Melan_3_Pub@meta.data[,c("Cell_Type_SingleR", "Cell_Type_paper")])
+
+```
+
+
+## Description of cell types called in the paper and the SingleR Blueprint reference
+```{r, include=FALSE, eval=FALSE}
+# All types in paper. All tumors:
+# endothelial cells (EC)
+# pericytes (PC)
+# vascular smooth muscle cells (vSMCs)
+# mesenchymal stromal cell-like cells (MSC-like)
+# T cells (CD4+ CD8+ TReg T memoryT:CD8+:EM, T:CD4+, Tregs and T:CM)
+# B cells (B)
+# metastasis-associated macrophages (MAMs)
+# dendritic cells (DCs)
+# astrocytes
+
+# All types in the Blueprint reference dataset
+# sort(unique(ref.BP$label.main))
+# "Adipocytes"        "Astrocytes"        "B-cells"           "CD4+ T-cells"      "CD8+ T-cells"      "Chondrocytes"      "DC"               
+# "Endothelial cells" "Eosinophils"       "Epithelial cells"  "Erythrocytes"      "Fibroblasts"       "HSC"               "Keratinocytes"    
+# "Macrophages"       "Melanocytes"       "Mesangial cells"   "Monocytes"         "Myocytes"          "Neurons"           "Neutrophils"      
+# "NK cells"          "Pericytes"         "Skeletal muscle"   "Smooth muscle"  
+
+# "DC" - Dendritic cells
+# "HSC" - hematopoietic stem cells
+
+# In Mel_3
+# sort(unique(cellAnnotPaper$Cell_Type))
+# "Astrocytes" "B-c1" "B-c2" "cDC2:CD1C+/CLEC10A+" "EC-1" "EC-2" "EC-3" "MAMs:APOE+" "MAMs:S100A8+" "MSC-like-c1" "MSC-like-c2" "MTCs" "PC-1" "PC-2" "PC-3" "T:CD4+:CM1" "T:CD4+:CM2" "T:CD8+:EM" "T:CM" "Treg" "vSMCs" 
+
+# pericytes - "Pericytes are fibroblast-like cells with extensive cytoplasmic processes that wrap around endothelial cells in arterioles, capillaries, and venules" 
+# - https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/pericyte
+
+```
+
+
+## Exercise - Plot additional gene markers from paper
+```{r}
+# # Stromal markers and curated gene signatures in supplemental file from paper
+# https://www.sciencedirect.com/science/article/pii/S0092867421015658?via%3Dihub#mmc2
+
+genesPlot = c("")
+FeaturePlot(Melan_3_Pub, genesPlot)
+
+```
+
+
+## Exercise - generate tSNE plot
+```{r}
+Melan_3_Pub <- RunTSNE(Melan_3_Pub, dims = 1:18)
+DimPlot(Melan_3_Pub, reduction = "tsne", group.by = "Cell_Type_SingleR", label = T, repel = T)
+
+```
+
+
+## Exercise - perform cell type calling using a different reference 
+```{r, include=FALSE, eval=FALSE}
+ref.HPCA <- HumanPrimaryCellAtlasData() # no melanocytes. Epithelial_cells:bronchial - for Lung_1
+
+
+# Make cell type predictions
+
+
+# Add SingleR cell type calls to seurat object's metadata
+
+
+
+# Add Stromal malignant cell type calls
+
+
+
+# Check numbers of malignant and stroma between the paper's cell calls and SingleR 
+
+
+
+# Check specific cell type calls
+```
+
+
+## Remove cell type samples from blueprint reference and re-run SingleR - check if it improves malignant non-malignant cell type calling
+```{r, include=FALSE, eval=FALSE}
+# Remove cell types that you do not expect to appear in metastatic brain tumors
+
+# Get names of cell types to keep
+checkLabels = colData(ref.BP)
+sort(unique(checkLabels$label.main))
+
+# Exclude some cell types
+labelsKeep = !checkLabels$label.main %in% c("Skeletal muscle")
+
+# Reduce to cell types not including ILC and NKT
+ref.BP.subset = subset(ref.BP, select = labelsKeep)
+
+
+# Make cell type predictions
+
+
+# Add SingleR cell type calls to seurat object's metadata
+
+
+
+# Add Stromal malignant cell type calls
+
+
+
+# Check numbers of malignant and stroma between the paper's cell calls and SingleR 
+
+
+
+# Check specific cell type calls
+
+```
+
+
+## Exercise - broaden labels to non-immune and immune lineages
+```{r, include=FALSE, eval=FALSE}
+# Create new reference labels according to immune cell type lineages:
+# melano
+# non-immune
+# Myeloid
+# Lymphoid
+# Googe search or see slide 7 of https://seer.cancer.gov/tools/heme/webinars/03_lineages1.pdf 
+
+melano = c("Melanocytes")
+nonimmune = c("Fibroblasts", "Keratinocytes", "Epithelial cells", "Skeletal muscle", "Smooth muscle") # not a complete list
+lymphoidCells = c("B-cells", "CD4+ T-cells", "CD8+ T-cells", "NK cells")
+myeloidCells = c()
+
+
+# Get names of cell types to keep
+checkLabels = colData(ref.BP)
+sort(unique(checkLabels$label.main))
+
+# Set new label names
+checkLabels$label.broaden = ""
+checkLabels[checkLabels$label.main %in% melano, "label.broaden"] = "melano"
+checkLabels[checkLabels$label.main %in% nonimmune, "label.broaden"] = "non-immune"
+checkLabels[checkLabels$label.main %in% lymphoidCells, "label.broaden"] = "lymphoid"
+checkLabels[checkLabels$label.main %in% SOMETHING_HERE, "label.broaden"] = "SOMETHING_HERE"
+colData(ref.BP) <- checkLabels
+
+# Make cell type predictions
+
+
+
+# Add SingleR cell type calls to seurat object's metadata
+
+
+
+# Check numbers of malignant and stroma between the paper's cell calls and SingleR 
+
+
+# Check specific cell type calls
+
+
+# Add Stromal malignant cell type calls
+
+
+# Check numbers of malignant and stroma between the paper's cell calls and SingleR 
+
+```
+
+
+
+# Check which do not match
+```{r}
+
+# # Check which do not match
+# Melan_3_Pub@meta.data[Melan_3_Pub@meta.data$malig_strom_paper == "stromal" & Melan_3_Pub@meta.data$malig_stroma_SingleR == "malignant",]
+# Melan_3_Pub@meta.data[Melan_3_Pub@meta.data$malig_strom_SingleR == "stromal" & Melan_3_Pub@meta.data$malig_strom_paper == "malignant",]
+
+
+```
+

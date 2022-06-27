@@ -1,0 +1,116 @@
+---
+title: "Single Cell RNA-Seq Tutorial"
+output: html_document
+author: "Tony Kabilan Okeke"
+---
+
+## Paper's methods
+
+The Seurat pipeline was applied to each sample and for combined analyses 
+([Butler et al., 2018](https://www.nature.com/articles/nbt.4096)).  
+
+Genes that were expressed in less than 5 cells and cells that expressing less 
+than 500, or more than 9,000 genes (outliers), or with a percentage of 
+mitochondrial genes higher than 10% were excluded from further analyses. 
+
+To accurately separate tumor cells and stromal cells in each sample, we merged 
+datasets from different biopsies, this strategy outperforms single sample 
+clustering and efficiently separates stromal cells in samples with higher tumor 
+purities and low stromal fractions (e.g., Melan-2, Breast-3, Lung-1 and 
+Ovarian-1) and also improve the identification of rare cell types 
+(e.g., astrocytes). 
+
+Following identification with known marker genes, we extracted all stromal 
+cells for each patient.
+
+To reveal the shared sources of biological variation (conserved sub-structures) 
+between BrM-associated stromal cells, we used the integration tool for 
+scRNAseq data sets provided by `Seurat` package. 
+
+- The top 2,000 highly variable genes of each sample were detected by variance 
+stabilizing transformation method in` FindVariableFeatures`. 
+- Anchors across the 14 datasets were then identified and the datasets were 
+integrated using the default parameters. 
+- Before clustering, the number of counts and percentage of mitochondrial genes 
+were regressed out using a negative binomial model (function `vars.to.regress`). 
+- We did not regress cell cycle genes because we did not observe cell cycle 
+genes driving clusters in the stroma. 
+- Principal component analysis (PCA) was performed with PCA function and 
+dataset dimensionality kept for downstream analysis was determined 
+heurustically with `Elbowplot` and `ScoreJackStraw` functions. 
+- A UMAP dimensional reduction was performed on the scaled matrix using the 
+first 18 PCA components to obtain a two-dimensional representation. 
+- For clustering, we used the function FindClusters that implements SNN 
+(shared nearest neighbor) modularity optimization-based clustering algorithm 
+on the first 18 PCA components with resolution 0.5 - 1.5. 
+- A resolution of 1.3 was chosen for the analysis, in our hands the most 
+informative resolution but the result was generally robust to hyperparameter 
+choices.
+
+
+### Links
+
+- [Cellular Architecture of Human Brain Metastases](https://pubmed.ncbi.nlm.nih.gov/35063085)
+- [GEO Dataset: GSE186344](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE186344)
+- [Stromal Markers and Curated Gene Signatures](https://www.sciencedirect.com/science/article/pii/S0092867421015658?via%3Dihub#mmc2)
+
+
+## Install and Load Necessary Packages
+
+```{r}
+# singleR will be used for calling cell tyoes and available reference cell
+# types (with celldex)
+pacman::p_load(tidyverse, Seurat, SingleR, celldex, SingleCellExperiment,
+               scuttle)
+```
+
+
+## Define Directories and Download Files
+
+```{r}
+# path to data directory
+datapath <- "/mnt/e/data/singlecell"
+
+# Heterogeneous (malignant and stromal) melanoma tumor
+gsm <- "GSM5645890_Melan_3"
+link <- "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5645nnn/GSM5645890/suppl"
+filetypes_10x <- c("matrix.mtx.gz", "features.tsv.gz", "barcodes.tsv.gz")
+
+# Create variables and names of file to download and save as
+web_10x_files <- file.path(link, paste0(gsm, "_", filetypes_10x))
+local_10x_files <- file.path(datapath, gsm, filetypes_10x)
+
+# Create a directory for downloading data
+dir.create(file.path(datapath, gsm), recursive = T)
+
+# Download 10x files with specific names
+mapply(download.file, web_10x_files, local_10x_files)
+
+# Download cell type call annotations
+web_annot <- file.path(link, paste0(gsm, "_Cell_Types_Annotations.csv.gz"))
+local_annot <- file.path(datapath, paste0(gsm, "_Cell_Type_Annotations.csv.gz"))
+download.file(web_annot, local_annot)
+
+# Check if files were downloaded to folder (and named appropriately)
+dir(file.path(datapath, gsm))
+dir(datapath, pattern = "csv.gz")
+```
+
+
+## Read Data into r
+
+```{r}
+# Read annotation data from file
+cell_annot <- read.csv(local_annot, row.names = 1)
+
+# Read 10x data into R
+sample_data <- Seurat::Read10X(file.path(datapath, gsm))
+
+# Exclude genes expressed in less than 5 cells - as described in the paper
+melan_3 <- CreateSeuratObject(counts = sample_data, project = "Melan_3",
+                              min.cells = 5)
+rm(sample_data)
+
+# Add the percent of gene counts that are from mitochondrial genes to metadata
+melan_3[["percent.mt"]] <- PercentageFeatureSet(melan_3, pattern = "^MT-")
+```
