@@ -1,0 +1,254 @@
+Name	MOA	Target	Phase
+ABC-294640	sphingosine kinase inhibitor	SPHK2	Phase 2
+acetazolamide	carbonic anhydrase inhibitor	AQP1, CA1, CA12, CA14, CA2, CA3, CA4, CA7	Launched
+acetohydroxamic-acid	urease inhibitor	MMP12	Launched
+acetyl-farnesyl-cysteine	methyltransferase inhibitor	PPARG	Launched
+acitretin	retinoid receptor agonist	RARA, RARB, RARG, RBP1, RXRA, RXRB, RXRG, STAT3	Launched
+AEE788	EGFR inhibitor, VEGFR inhibitor	EGFR, ERBB2, ERBB4, FGFR2, FGFR3, KDR	Phase 1/Phase 2
+AG-555	tyrosine kinase inhibitor	CDK2	Preclinical
+agmatine	nitric oxide synthase inhibitor	ADRA2C, ASIC3, CACNA1B, CHRNA1, GRIN1, KCNJ1, NISCH	Phase 3
+AK-7	SIRT inhibitor	SIRT2	Preclinical
+alantolactone	apoptosis stimulant, STAT inhibitor	STAT3	Preclinical
+alvocidib	CDK inhibitor	CDK1, CDK2, CDK4, CDK5, CDK6, CDK7, CDK8, CDK9, EGFR, PYGM	Phase 2
+amiloride	sodium channel blocker	AOC1, ASIC1, ASIC2, ASIC3, PKD2, PKD2L1, PLAU, SCNN1A, SCNN1B, SCNN1D, SCNN1G, SLC9A1, TRPC7, TRPV2	Launched
+aminopurvalanol-a	CDK inhibitor, tyrosine kinase inhibitor	CDK1, CDK2, CDK5	Preclinical
+amitriptyline	norepinephrine inhibitor, norepinephrine reuptake inhibitor, serotonin receptor antagonist, serotonin–norepinephrine reuptake inhibitor (SNRI)	ADRA1A, ADRA1B, ADRA1D, ADRA2A, ADRB1, ADRB2, ADRB3, CHRM1, CHRM2, CHRM3, CHRM4, CHRM5, HRH1, HRH2, HRH4, HTR1A, HTR1B, HTR1D, HTR2A, HTR2C, HTR6, HTR7, KCNA1, KCND2, KCND3, KCNQ2, KCNQ3, NTRK1, NTRK2, OPRD1, OPRK1, OPRM1, SIGMAR1, SLC6A2, SLC6A4	Launched
+amlexanox	histamine receptor modulator	FGF1, IL3, PDE4A, PDE4B, PDE4C, PDE4D, S100A12, S100A13	Launched
+APcK-110	KIT inhibitor	KIT, STAT3	Preclinical
+API-001	sigma receptor antagonist	SIGMAR1	Phase 2
+apigenin	casein kinase inhibitor, cell proliferation inhibitor	AKR1B1, AR, CDK6, CFTR, CYP19A1, CYP1B1, HSD17B1	Preclinical
+apratastat	matrix metalloprotease inhibitor, tumor necrosis factor production inhibitor	ADAM17, MMP1, MMP13, MMP9	Phase 2
+aspirin	cyclooxygenase inhibitor	AKR1C1, ASIC3, EDNRA, HSPA5, IKBKB, NFKB1, NFKB2, NFKBIA, PRKAA1, PRKAA2, PRKAB1, PRKAB2, PRKAG1, PRKAG2, PRKAG3, PTGS1, PTGS2, RPS6KA3, TP53	Launched
+AT-7519	CDK inhibitor	CDK1, CDK2, CDK4, CDK5, CDK6, CDK9	Phase 2
+atiprimod	JAK inhibitor, STAT inhibitor	JAK2, STAT3	Phase 2
+AZD4547	FGFR inhibitor	FGFR1, FGFR2, FGFR3, FGFR4, IGF1R, KDR	Phase 2/Phase 3
+AZD8931	EGFR inhibitor	EGFR, ERBB2, ERBB3	Phase 2
+BADGE	PPAR receptor antagonist	PPARG	Preclinical
+balaglitazone	insulin sensitizer, PPAR receptor partial agonist	PPARG	Phase 3
+balsalazide	cyclooxygenase inhibitor	ALOX5, PPARG, PTGS1, PTGS2	Launched
+bardoxolone	nuclear factor erythroid derived, like (NRF2) activator	NOS2, PPARG	Phase 1
+bardoxolone-methyl	nuclear factor erythroid derived, like (NRF2) activator	PPARG, STAT3	Phase 3
+batimastat	matrix metalloprotease inhibitor	ADAM28, ADAMTS5, MMP12, MMP16, MMP2, MMP8	Phase 3
+BD-1047	adrenergic receptor antagonist	SIGMAR1	Preclinical
+BD-1063	sigma receptor antagonist	SIGMAR1	Preclinical
+bezafibrate	PPAR receptor agonist	PPARA, PPARD, PPARG	Launched
+bicyclol	NFkB pathway inhibitor	HSPA1A, HSPB1	Launched
+bindarit	NFkB pathway inhibitor	CCL2, CCL7, CCL8	Phase 2
+bisindolylmaleimide-IX	PKC inhibitor	AKT1, GSK3B, LCK, MAPK1, MAPK11, MAPK12, MAPK14, MAPK8, PRKCA, ROCK1, RPS6KB1, SIRT1	Preclinical
+BMS-265246	CDK inhibitor	CDK1, CDK2	Preclinical
+BMS-387032	CDK inhibitor, cell cycle inhibitor, MCL1 inhibitor	CDK2, CDK7, CDK9	Phase 1
+BMS-536924	IGF-1 inhibitor	AKT1, CCNE1, CDK2, CYP3A4, ERBB2, IGF1R, KDR, LCK, MAPK1, MET, PDGFRA, PDGFRB	Preclinical
+bosutinib	Abl kinase inhibitor, Bcr-Abl kinase inhibitor, SRC inhibitor	ABL1, BCR, CAMK1D, CAMK2G, CDK2, FRK, FYN, HCK, LYN, MAP2K1, MAP2K2, MAP3K2, MAP4K5, SRC, STK10, STK24, STK4, TNK2, TXK	Launched
+BQU57	Ras GTPase inhibitor	RALA, RALB	Preclinical
+brefeldin-A	protein synthesis inhibitor	ARF1, CYTH2	Preclinical
+brinzolamide	carbonic anhydrase inhibitor	CA1, CA12, CA14, CA2, CA4, CA5A, CA7	Launched
+brivanib-alaninate	FGFR inhibitor, VEGFR inhibitor	FGFR3	Phase 3
+bumetanide	solute carrier family member inhibitor	CFTR, GPR35, SLC12A1, SLC12A2, SLC12A4, SLC12A5	Launched
+BX-795	IKK inhibitor	CDK2, CHEK1, GSK3B, KDR, PDK1, PDPK1	Preclinical
+BX-912	pyruvate dehydrogenase kinase inhibitor	CDK2, CHEK1, GSK3B, KDR, PDK1, PDPK1	Preclinical
+camostat-mesilate	protease inhibitor	PRSS1	Launched
+cardionogen-1	WNT signaling inhibitor	CTNNB1	Preclinical
+carzenide		CA1, CA12, CA14, CA2, CA6, CA9	Preclinical
+CCT-031374	WNT signaling inhibitor	CTNNB1	Preclinical
+celecoxib	cyclooxygenase inhibitor	CA12, PDPK1, PTGS2	Launched
+ceritinib	ALK tyrosine kinase receptor inhibitor	ALK, FLT3, IGF1R, INSR, TSSK1B	Launched
+cetilistat	triacylglycerol lipase inhibitor	PNLIP	Phase 3
+CFTRinh-172	chloride channel blocker	CFTR	Preclinical
+CGP-60474	CDK inhibitor	CDK1, CDK2	Preclinical
+CH-5183284	fibroblast growth factor inhibitor	FGFR1, FGFR2, FGFR3	Phase 2
+chlorthalidone	carbonic anhydrase inhibitor	CA1, CA12, CA14, CA2, CA4, CA7, SLC12A1	Launched
+cholic-acid	bile acid	ADH1C, CES1, COX4I1, COX5A, COX5B, COX6A2, COX6B1, COX6C, COX7A1, COX7B, COX7C, COX8A, ESRRG, FABP6, FECH, GPBAR1, MT-CO1, MT-CO2, MT-CO3, PLA2G1B	Launched
+ciglitazone	PPAR receptor agonist	PPARG	Phase 2
+cipemastat	metalloproteinase inhibitor	ADAM17, MMP1, MMP13, MMP2, MMP3, MMP8, MMP9	Phase 3
+CK-636	actin related protein inhibitor	ACTR2, ACTR3, ARPC1B, ARPC2, ARPC3, ARPC4, ARPC5	Preclinical
+clobetasol-propionate	glucocorticoid receptor agonist	NR3C1, PLA2G1B	Launched
+clocortolone-pivalate	steroid	NR3C1, PLA2G1B	Launched
+coenzyme-I		AASS, ACADS, ADH1A, ADH1B, ADH1C, ADH4, ADH5, ADH7, AKR1B1, AKR1C1, AKR1C2, AKR1C3, AKR1C4, ALDH1A1, ALDH1A2, ALDH1A3, ALDH1B1, ALDH2, ALDH3A1, ALDH3A2, ALDH3B1, ALDH3B2, ALDH4A1, ALDH5A1, ALDH6A1, ALDH7A1, ALDH9A1, AMT, BDH1, BLVRA, BLVRB, CDO1, CYB5R3, CYP17A1, CYP4A11, DHCR7, DHFR, DLAT, DLD, EHHADH, GAPDH, GAPDHS, GLUD1, GLUD2, GPD1, GSR, H6PD, HADH, HADHA, HIBADH, HMGCR, HMOX1, HMOX2, HPGD, HSD11B1, HSD11B2, HSD17B1, HSD17B10, HSD17B2, HSD17B3, HSD17B4, HSD17B7, HSD17B8, HSD3B1, HSD3B2, IDH3A, IDH3B, IDH3G, IMPDH1, IMPDH2, LDHA, LDHAL6A, LDHAL6B, LDHB, LDHC, MDH1, MDH2, ME1, ME2, ME3, MSMO1, MT-ND1, MT-ND2, MT-ND3, MT-ND4, MT-ND4L, MT-ND5, MT-ND6, MTHFD1, MTHFD2, NDUFA1, NDUFA10, NDUFA11, NDUFA12, NDUFA13, NDUFA2, NDUFA3, NDUFA4, NDUFA4L2, NDUFA5, NDUFA6, NDUFA7, NDUFA8, NDUFA9, NDUFAB1, NDUFB1, NDUFB10, NDUFB2, NDUFB3, NDUFB4, NDUFB5, NDUFB6, NDUFB7, NDUFB8, NDUFB9, NDUFC1, NDUFC2, NDUFS1, NDUFS2, NDUFS3, NDUFS4, NDUFS5, NDUFS6, NDUFS7, NDUFS8, NDUFV1, NDUFV2, NDUFV3, NNT, NQO2, NSDHL, OGDH, PDHA1, PDHA2, PDHB, PHGDH, PYCR1, PYCR2, QDPR, RDH5, SORD, TSTA3, TYR, UGDH	Phase 2
+CP-471474	matrix metalloprotease inhibitor	MMP1, MMP13, MMP2, MMP3, MMP9	Preclinical
+CPA-inhibitor	carboxypeptidase inhibitor	CPA1, CPA2	Preclinical
+cryptotanshinone	acetylcholinesterase inhibitor, STAT inhibitor	STAT3	Preclinical
+CTS-1027	metalloproteinase inhibitor	MMP1, MMP13, MMP2, MMP3, MMP9	Phase 2
+curcumin	cyclooxygenase inhibitor, histone acetyltransferase inhibitor, lipoxygenase inhibitor, NFkB pathway inhibitor	APP, CA1, CA12, CA14, CA2, CA4, CA6, CA9, CHRM3, CYP3A4, DNMT3B, EP300, MMP13, MMP9, NOS2, PTGS1, PTGS2, XDH	Launched
+cutamesine	sigma receptor agonist	SIGMAR1	Phase 2
+dabrafenib	RAF inhibitor	BRAF, LIMK1, NEK11, RAF1, SIK1	Launched
+dalbavancin	bacterial cell wall synthesis inhibitor	PNLIP	Launched
+danazol	estrogen receptor antagonist, progesterone receptor agonist	AR, CCL2, ESR1, GNRHR, GNRHR2, PGR	Launched
+darglitazone	PPAR receptor antagonist	PPARG	Phase 2
+desonide	glucocorticoid receptor agonist	NR3C1, PLA2G1B	Launched
+desoximetasone	glucocorticoid receptor agonist	NR3C1, PLA2G1B	Launched
+dexfosfoserine	membrane integrity inhibitor	CFTR, GRM4, GRM6, GRM7, GRM8, KCNC4, PDPK1, PIM1, PRKACA, PRKCQ, PYGL, PYGM, REG1A, RHO, SERPINB3, SMAD2, TAOK2	Preclinical
+dextromethorphan	glutamate receptor antagonist, sigma receptor agonist	CHRNA2, CHRNA3, CHRNA4, CHRNA7, CHRNB2, CHRNB4, CYBA, CYBB, GRIN3A, NCF1, NCF2, NCF4, OPRD1, OPRK1, OPRM1, PGRMC1, RAC1, RAC2, SIGMAR1, SLC6A2, SLC6A4	Launched
+diclofenac	cyclooxygenase inhibitor	AKR1C3, ALOX5, ASIC1, ASIC3, KCNQ2, KCNQ3, PLA2G2A, PPARG, PTGS1, PTGS2, SCN4A	Launched
+diclofenamide	carbonic anhydrase inhibitor	CA1, CA12, CA2, CA4, CA7	Launched
+dimemorfan	sigma receptor agonist	SIGMAR1	Launched
+diminazene-aceturate	angiotensin converting enzyme activator	AOC1, PRDX5, PRSS1	Phase 3
+dinaciclib	CDK inhibitor	CDK1, CDK2, CDK5, CDK9	Phase 3
+ditolylguanidine	sigma receptor agonist	GRIN1, GRIN2A, GRIN2B, SIGMAR1	Preclinical
+dorzolamide	carbonic anhydrase inhibitor	CA1, CA12, CA14, CA2, CA4, CA7	Launched
+dovitinib	EGFR inhibitor, FGFR inhibitor, FLT3 inhibitor, PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor	CSF1R, EGFR, FGFR1, FGFR2, FGFR3, FLT1, FLT3, FLT4, INSR, KDR, KIT, PDGFRA, PDGFRB	Phase 3
+ebselen	cyclooxygenase inhibitor, glutathione peroxidase agonist, H+/K+-ATPase inhibitor, nitric oxide synthase inhibitor	ALB	Phase 2/Phase 3
+edaglitazone	PPAR receptor agonist	PPARG	Phase 2
+efatutazone	PPAR receptor agonist	PPARG	Phase 2
+EHop-016	Ras GTPase inhibitor	RAC1, RAC3	Preclinical
+EIPA	sodium/hydrogen exchanger inhibitor, transient receptor potential polycystic inhibitor	ADRA2A, ASIC1, PKD2L1	Preclinical
+elafibranor	PPAR receptor agonist	PPARA, PPARD, PPARG	Phase 3
+ellagic-acid	glutathione transferase inhibitor, non-nucleoside reverse transcriptase inhibitor	CA1, CA12, CA14, CA2, CA3, CA4, CA5A, CA5B, CA6, CA7, CA9, CSNK2A1, GSK3B, PRKACA, PRKCA, PRKCB, SQLE, SYK	Phase 2
+epigallocatechin-gallate-(-)	bacterial DNA gyrase inhibitor	ELANE, EP300, FASN, KAT2B, MMP14, MMP2	Phase 2/Phase 3
+eprodisate	amyloid protein inhibitor, antiamyloidogenic agent	SAA1	Phase 3
+erdafitinib	FGFR inhibitor	FGFR1, FGFR2, FGFR3, FGFR4	Launched
+erythromycin-estolate	bacterial 50S ribosomal subunit inhibitor	ABCB1, ALB, CYP3A4, CYP51A1, KCNH2, MLNR, SLC47A1	Launched
+erythromycin-ethylsuccinate	cytochrome P450 inhibitor, protein synthesis inhibitor	ABCB1, ALB, CYP3A4, CYP51A1, KCNH2, MLNR, SLC47A1	Launched
+ethoxzolamide	carbonic anhydrase inhibitor	CA1, CA12, CA13, CA14, CA2, CA3, CA4, CA5A, CA5B, CA6, CA7, CA9	Launched
+etomoxir	carnitine palmitoyltransferase inhibitor	CPT1A	Phase 2
+EX-527	SIRT inhibitor	SIRT1	Phase 2
+FH-535	PPAR receptor antagonist, WNT signaling inhibitor	PPARD, PPARG	Preclinical
+flumethasone	glucocorticoid receptor agonist	NR3C1, PLA2G1B	Launched
+flupirtine	glutamate receptor antagonist	ADRA2A, KCNQ1, KCNQ2	Launched
+freselestat	elastase inhibitor	CELA1, ELANE	Preclinical
+gabexate	serine protease inhibitor	PRSS1, TPSAB1	Launched
+gallic-acid	beta amyloid protein neurotoxicity inhibitor, PPAR receptor agonist	CA1, CA12, CA14, CA2, CA4, CA6, CA9, SELP	Preclinical
+genistein	tyrosine kinase inhibitor	CFTR, ESR1, ESR2, ESRRA, ESRRB, ESRRG, NCOA1, NCOA2, PPARG, PTK2B, TOP2A, TRPC5	Phase 2/Phase 3
+glafenine	DeltaF508-CFTR Correctors	CFTR	Withdrawn
+GSK1838705A	insulin growth factor receptor inhibitor	ALK, IGF1R, INSR, RPS6KA1	Preclinical
+GSK1904529A	IGF-1 inhibitor, insulin growth factor receptor inhibitor, insulin receptor ligand	IGF1R, INSR	Preclinical
+GW-1929	PPAR receptor agonist	PPARG	Preclinical
+GW-9662	PPAR receptor antagonist	NCOA2, PPARG, RXRA	Preclinical
+halobetasol-propionate	glucocorticoid receptor agonist	NR3C1, PLA2G1B	Launched
+hydrochlorothiazide	thiazide diuretic	CA1, CA12, CA2, CA4, CA9, KCNMA1, SLC12A3	Launched
+hydroflumethiazide	sodium/potassium/chloride transporter inhibitor	ATP1A1, CA1, CA12, CA2, CA4, CA9, KCNMA1, SLC12A1, SLC12A3	Launched
+ibuprofen-(S)	cyclooxygenase inhibitor	ASIC1, PTGS1, PTGS2, SLC5A8	Launched
+ICG-001	beta-catenin inhibitor	CTNNB1	Preclinical
+icosapent	platelet aggregation inhibitor	ACSL3, ACSL4, FADS1, FFAR1, PPARD, PPARG, PTGS1, PTGS2, SLC8A1, TRPV1	Launched
+iCRT-14	beta catenin inhibitor, WNT signaling inhibitor	CTNNB1, TCF4	Preclinical
+igmesine	sigma receptor agonist	SIGMAR1	Phase 2
+ilomastat	matrix metalloprotease inhibitor	ACAN, ADAM28, MMP1, MMP12, MMP13, MMP14, MMP2, MMP3, MMP8, MMP9	Phase 3
+indeglitazar	PPAR receptor agonist	NCOA1, PPARA, PPARD, PPARG	Phase 2
+indirubin-3-monoxime	CDK inhibitor, glycogen synthase kinase inhibitor	CDK1, CDK2, CDK5, CDK5R1, GSK3B	Preclinical
+indisulam	CDK inhibitor	CA1, CA12, CA14, CA2, CA6, CA7, CA9	Phase 2
+indomethacin	cyclooxygenase inhibitor	GLO1, PLA2G2A, PPARA, PPARG, PTGDR2, PTGR2, PTGS1, PTGS2, SLC46A1	Launched
+ivacaftor	CFTR channel potentiator	CFTR	Launched
+JNJ-7706621	CDK inhibitor	AURKA, AURKB, CDK1, CDK2	Preclinical
+K145	sphingosine kinase inhibitor	SPHK2	Preclinical
+L-aspartic-acid	metallic radical formation stimulant	ACY1, ACY3, ADSS, ADSSL1, ASNS, ASPA, ASPH, ASRGL1, ASS1, CAD, DARS, DARS2, GOT1, GOT2, GRIN1, GRIN2A, GRIN2B, GRIN2C, GRIN2D, LYZ, PAICS, RNASE1, SLC1A1, SLC25A12, SLC25A13	Launched
+L-mimosine	dopamine beta hydroxylase inhibitor, eukaryotic translation initiation factor inhibitor	DBH, EIF5A	Preclinical
+L-365260	CCK receptor antagonist	CCKAR, CCKBR, KCNQ1	Phase 2
+L-693403	sigma receptor agonist, sigma receptor antagonist	DRD2, SIGMAR1	Preclinical
+levosulpiride	dopamine receptor antagonist	CA1, CA12, CA7, DRD2, DRD3	Launched
+linsitinib	IGF-1 inhibitor	IGF1R, INSR, INSRR	Phase 3
+lumacaftor	CFTR channel agonist	CFTR	Launched
+mafenide	carbonic anhydrase inhibitor	CA12, CA14, CA2, CA4, CA6, CA9	Launched
+magnolol	PPAR receptor agonist	GABRA1, PPARG	Preclinical
+marimastat	matrix metalloprotease inhibitor	MMP1, MMP10, MMP11, MMP12, MMP13, MMP14, MMP15, MMP16, MMP17, MMP19, MMP2, MMP20, MMP21, MMP23A, MMP24, MMP25, MMP26, MMP27, MMP28, MMP3, MMP7, MMP8, MMP9	Phase 3
+masitinib	KIT inhibitor, PDGFR tyrosine kinase receptor inhibitor, SRC inhibitor	FGFR3, KIT, PDGFRA, PDGFRB	Launched
+mefenamic-acid	cyclooxygenase inhibitor	KCNQ1, PTGS1, PTGS2, TRPM3	Launched
+meisoindigo	STAT inhibitor	STAT3	Phase 3
+mepacrine	cytokine production inhibitor, NFkB pathway inhibitor, TP53 activator	PLA2G1B	Launched
+mesalazine	cyclooxygenase inhibitor, lipoxygenase inhibitor, prostanoid receptor antagonist	ALOX5, CHUK, IKBKB, MPO, PPARG, PTGS1, PTGS2	Launched
+methazolamide	carbonic anhydrase inhibitor	CA1, CA12, CA14, CA2, CA4, CA7	Launched
+mifobate	PPAR receptor antagonist	PPARG	Phase 2
+miltefosine	membrane integrity inhibitor	PLA2G1B	Launched
+mimosine	DNA replication inhibitor	CCL2, SHMT1, SHMT2, TYR	Preclinical
+MK-2461	FGFR inhibitor, VEGFR inhibitor	FGFR1, FGFR2, FGFR3, FLT1, FLT3, FLT4, KDR, MERTK, MET, MST1R, NTRK1, NTRK2, PDGFRB	Phase 1/Phase 2
+ML277	potassium channel activator	KCNQ1	Preclinical
+nafamostat	serine protease inhibitor	ASIC1, ASIC2, ASIC3, C1R, PRSS1, TPSAB1, TRPM7	Launched
+naltrexone	opioid receptor antagonist	OPRD1, OPRK1, OPRM1, SIGMAR1	Launched
+napabucasin	STAT inhibitor	STAT3	Phase 3
+NE-100	sigma receptor antagonist	SIGMAR1	Phase 2
+niclosamide	DNA replication inhibitor, STAT inhibitor	STAT3	Launched
+niflumic-acid	cyclooxygenase inhibitor	ANO1, CLCN1, CLCNKA, CLCNKB, KCNQ1, PLA2G1B, PLA2G4A, PTGS1, PTGS2, UGT1A9	Launched
+nimodipine	calcium channel blocker	CFTR, NR3C2	Launched
+nintedanib	FGFR inhibitor, PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor	FGFR1, FGFR2, FGFR3, FGFR4, FLT1, FLT4, KDR, PDGFRA, PDGFRB	Launched
+NNC-711	GABA uptake inhibitor	SIGMAR1, SLC6A1	Preclinical
+nortriptyline	tricyclic antidepressant	ADRA1A, ADRA1B, ADRA1D, ADRA2A, ADRA2B, ADRA2C, ADRB1, ADRB2, ADRB3, CHRM1, CHRM2, CHRM3, CHRM4, CHRM5, DRD2, HRH1, HTR1A, HTR2A, HTR2C, HTR6, KCNJ10, PGRMC1, SIGMAR1, SLC6A2, SLC6A4	Launched
+noscapine	bradykinin receptor antagonist, tubulin polymerization inhibitor	SIGMAR1	Launched
+NPC-15199	ICAM1 antagonist	PPARG	Phase 2
+NSC-405020	matrix metalloprotease inhibitor	MMP1	Preclinical
+NSC-625987	CDK inhibitor	CDK2, CDK4	Preclinical
+nTZDpa	PPAR receptor agonist	PPARG	Preclinical
+NU-2058	cyclin D inhibitor	CCNA2, CDK2	Preclinical
+NU-6027	CDK inhibitor	CCNA2, CDK2	Preclinical
+NVP-AEW541	IGF-1 inhibitor	IGF1R, INSR	Preclinical
+NVP-BGJ398	FGFR inhibitor	FGFR1, FGFR2, FGFR3, FGFR4, KDR	Phase 3
+NVP-TAE684	ALK tyrosine kinase receptor inhibitor	ALK, INSR	Preclinical
+ochromycinone	STAT inhibitor	STAT3	Phase 1
+olomoucine	CDK inhibitor	CDK1, CDK2, CDK5, MAPK1	Preclinical
+olopatadine	histamine receptor antagonist	HRH1, S100A1, S100A12, S100A13, S100A2, S100B	Launched
+orlistat	lipase inhibitor	CNR1, DAGLA, DAGLB, FASN, LIPF, PNLIP	Launched
+oxfenicine	carnitine palmitoyltransferase inhibitor	CPT1A, CPT1B	Phase 1
+pazopanib	KIT inhibitor, PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor	CSF1R, FGF1, FGFR1, FGFR3, FLT1, FLT4, ITK, KDR, KIT, PDGFRA, PDGFRB, SH2B3	Launched
+PD-166793	collagenase inhibitor, metalloproteinase inhibitor	MMP13, MMP2, MMP3	Preclinical
+PD-173074	FGFR inhibitor, VEGFR inhibitor	FGFR1, FGFR2, FGFR3, FGFR4, FLT1, FLT4, KDR, PDGFRA, PDGFRB	Preclinical
+perhexiline	carnitine palmitoyltransferase inhibitor	CPT1A	Launched
+PF-573228	focal adhesion kinase inhibitor	CDK1, CDK2, CDK7, GSK3B, IKBKB	Preclinical
+PHA-793887	CDK inhibitor	CDK1, CDK2, CDK4, CDK5, CDK7, CDK9	Phase 1
+PHA-848125	CDK inhibitor, growth factor receptor inhibitor	CDK2, CDK4, CDK7, NTRK1	Phase 2
+phenolphthalein	indicator dye	UGT1A9	Withdrawn
+pifithrin-mu	HSP inhibitor	HSPA1A, TP53	Preclinical
+pioglitazone	insulin sensitizer, PPAR receptor agonist	PPARG, TRPM3	Launched
+PNU-74654	beta-catenin inhibitor	CTNNB1, TCF4	Preclinical
+ponatinib	Bcr-Abl kinase inhibitor, FLT3 inhibitor, PDGFR tyrosine kinase receptor inhibitor	ABL1, BCR, FGFR1, FGFR2, FGFR3, FGFR4, FLT3, KDR, KIT, LCK, LYN, PDGFRA, RET, SRC, TEK	Launched
+PRE-084	sigma receptor agonist	SIGMAR1	Preclinical
+prednicarbate	phospholipase activator	PLA2G1B	Launched
+purvalanol-A	CDK inhibitor	CDK1, CDK2, CDK4, CDK5, CSNK1G3, RPS6KA1, SRC	Preclinical
+purvalanol-B	tyrosine kinase inhibitor	CDK2, CDK4, CDK5, MAPK1, MAPK3, SRPK2	Preclinical
+pyrithione-zinc	ATP synthase inhibitor	KCNQ1, KCNQ2, KCNQ4, KCNQ5	Launched
+RBC8	Ral GTPase inhibitor	RALA, RALB	Preclinical
+remoxipride	dopamine receptor antagonist	DRD2, DRD3, DRD4, HTR2A, SIGMAR1	Withdrawn
+resorcinol	phosphodiesterase inhibitor	CA12, CA14, CA2, PTGS1	Launched
+RGB-286638	CDK inhibitor	CDK1, CDK2, CDK3, CDK4, CDK5, CDK6, CDK7, CDK9, FLT3, GSK3B, JAK2, MAP3K7, MAPK9	Phase 1
+rimcazole	sigma receptor antagonist	SIGMAR1	Phase 1
+roscovitine	CDK inhibitor	CDK2, CDK9	Phase 2
+rosiglitazone	insulin sensitizer, PPAR receptor agonist	FFAR1, PPARG, TRPC5, TRPM3	Withdrawn
+RS-504393	CC chemokine receptor antagonist	CCL2, CCR2	Preclinical
+RX-3117	CDK inhibitor, DNA synthesis inhibitor	CDK2, DNMT1	Phase 1/Phase 2
+ryuvidine	histone lysine methyltransferase inhibitor	CDK2, CDK4	Preclinical
+R547	CDK inhibitor	CDK1, CDK2, CDK4, CDK7	Phase 1
+saccharin	DNA polymerase inhibitor	CA1, CA12, CA2, CA9	Launched
+salicylic-acid	cyclooxygenase inhibitor, prostanoid receptor antagonist	AKR1C1, ASIC3, PTGS1, PTGS2	Launched
+saroglitazar	PPAR receptor agonist	PPARA, PPARG	Launched
+SB-216763	glycogen synthase kinase inhibitor	CCNA2, CDK2, GSK3A, GSK3B	Preclinical
+SCH-900776	CHK inhibitor	CDK2, CHEK1	Phase 2
+scopolamine	acetylcholine receptor antagonist	CHRM1, CHRM2, CHRM3, CHRM4, CHRM5, SI	Launched
+SD-2590	matrix metalloprotease inhibitor	MMP1, MMP13, MMP2	Preclinical
+SirReal-2	SIRT inhibitor	SIRT2	Preclinical
+sirtinol	SIRT inhibitor	SIRT1, SIRT2	Preclinical
+sivelestat	elastase inhibitor	CELA1, ELANE	Launched
+SK&F-10047-(+)	sigma receptor agonist	SIGMAR1	Phase 1
+SM-21	sigma receptor antagonist	PGRMC1	Preclinical
+splitomycin	SIRT inhibitor	SIRT1	Preclinical
+SR-1664	PPAR receptor ligand	PPARG	Preclinical
+SRT1720	SIRT activator	SIRT1	Preclinical
+SRT2104	SIRT activator	SIRT1	Phase 2
+STAT3-inhibitor-VI	STAT inhibitor	STAT3	Preclinical
+sucrose		ACTA1, ATOX1, C22orf28, LYZ	Launched
+sulfasalazine	cyclooxygenase inhibitor	ACAT1, ALOX5, CHUK, IKBKB, PLA2G1B, PPARG, PTGS1, PTGS2, SLC46A1, SLC7A11, TBXAS1	Launched
+suramin	DNA synthesis inhibitor	F2, FSHR, P2RY1, P2RY11, P2RY13, P2RY2, PLA2G2A, RYR1, RYR2, SIRT5	Launched
+SU9516	CDK inhibitor	CDK1, CDK2, CDK4, CDK5	Preclinical
+S26948	PPAR receptor agonist	PPARG	Preclinical
+S4	carbonic anhydrase inhibitor	CA12, CA9	Preclinical
+T-0070907	PPAR receptor antagonist	PPARG	Preclinical
+taurocholate	G protein-coupled receptor agonist	CEL, FABP6, SLCO1C1	Phase 1
+telmisartan	angiotensin receptor antagonist	AGTR1, PPARG	Launched
+tenovin-1	SIRT inhibitor, TP53 activator	SIRT1	Preclinical
+tenovin-6	SIRT inhibitor	SIRT1, SIRT2, SIRT3	Preclinical
+tesaglitazar	insulin sensitizer, PPAR receptor agonist	PPARA, PPARG	Phase 3
+TG-02	CDK inhibitor, FLT3 inhibitor, JAK inhibitor	CDK1, CDK2, CDK7, CDK9, FLT3, JAK2	Phase 1/Phase 2
+tiplaxtinin	plasminogen activator inhibitor	SERPINE1	Phase 1
+topiramate	carbonic anhydrase inhibitor, glutamate receptor antagonist, kainate receptor antagonist	CA1, CA12, CA2, CA4, CA7, GABRA1, GABRA2, GABRA3, GABRA4, GABRA5, GABRA6, GABRB1, GABRB2, GABRB3, GABRD, GABRE, GABRG1, GABRG2, GABRG3, GABRP, GABRQ, GRIA1, GRIA2, GRIA3, GRIA4, GRIK1, GRIK2, GRIK3, GRIK4, GRIK5, SCN10A, SCN11A, SCN1A, SCN2A, SCN3A, SCN4A, SCN5A, SCN7A, SCN8A, SCN9A	Launched
+troglitazone	insulin sensitizer, PPAR receptor agonist	CYP2C8, PPARG, TRPM3	Withdrawn
+U-104	carbonic anhydrase inhibitor	CA1, CA12, CA2, CA9	Phase 1/Phase 2
+UK-356618	metalloproteinase inhibitor	MMP13, MMP14, MMP2, MMP3, MMP9	Preclinical
+urea	hydroxy radical formation stimulant	ARG1, CA2, CTNNB1	Launched
+ursolic-acid	ATPase inhibitor, NFkB pathway inhibitor, STAT inhibitor	HSD11B1, PLA2G1B, PTPN1, PYGM	Phase 2/Phase 3
+valdecoxib	cyclooxygenase inhibitor	CA12, PTGS2	Withdrawn
+vandetanib	EGFR inhibitor, RET tyrosine kinase inhibitor, VEGFR inhibitor	EGFR, EPHA1, EPHA10, EPHA2, EPHA3, EPHA4, EPHA5, EPHA6, EPHA7, EPHA8, EPHB1, EPHB2, EPHB3, EPHB4, EPHB6, ERBB2, ERBB3, ERBB4, FLT1, FLT4, KDR, PTK6, RET, SRC, TEK, VEGFA	Launched
+VER-155008	HSP inhibitor	HSPA1A	Preclinical
+WAY-170523	metalloproteinase inhibitor	MMP13	Preclinical
+WAY-200070	estrogen receptor agonist	ERBB2, ERBB3, ERBB4, ESR2	Preclinical
+WP1066	STAT inhibitor	STAT3	Phase 1
+yohimbine	adrenergic receptor antagonist	ADRA2A, ADRA2B, ADRA2C, DRD2, DRD3, HTR1A, HTR1B, HTR1D, HTR1E, HTR1F, HTR2A, HTR2B, HTR2C, HTR5A, HTR7, KCNJ1, KCNJ10, KCNJ11, KCNJ12, KCNJ14, KCNJ15, KCNJ8	Launched
+Y16	rho associated kinase inhibitor	RHOA	Preclinical
+2-aminobenzenesulfonamide	carbonic anhydrase inhibitor	CA12, CA14, CA2, CA6, CA9	Preclinical
+3-bromopyruvate	hexokinase inhibitor	HK2	Preclinical
+4-IBP	sigma receptor agonist	SIGMAR1	Preclinical
+4-PPBP	sigma receptor ligand	SIGMAR1	Preclinical

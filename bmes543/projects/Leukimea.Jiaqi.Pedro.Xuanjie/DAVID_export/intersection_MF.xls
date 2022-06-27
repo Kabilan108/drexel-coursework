@@ -1,0 +1,24 @@
+Category	Term	Count	%	PValue	Genes	List Total	Pop Hits	Pop Total	Fold Enrichment	Bonferroni	Benjamini	FDR\				
+GOTERM_MF_DIRECT	GO:0042802~identical protein binding	13	13.26530612	0.09684106	"6383, 5265, 4069, 2683, 360, 3759, 1488, 83483, 923, 914, 915, 3932, 916"	89	1693	18765	1.618992945	1	1	1.0}		identical protein binding	13	0.09684106
+GOTERM_MF_DIRECT	GO:0019901~protein kinase binding	11	11.2244898	1.14E-04	"1488, 65125, 8631, 3741, 923, 925, 27040, 481, 2309, 3932, 916"	89	499	18765	4.647834996	0.027524254	0.013954277	0.01395427703712831\		protein kinase binding	11	0.000113912
+GOTERM_MF_DIRECT	GO:0005102~receptor binding	7	7.142857143	0.011046033	"27065, 9840, 653188, 3741, 3485, 914, 3932"	89	398	18765	3.708288634	0.934213194	0.874859645	0.8748596446798541\		receptor binding	7	0.011046033
+GOTERM_MF_DIRECT	GO:0005131~growth hormone receptor binding	4	4.081632653	1.60E-05	"2689, 2688, 1444, 1442"	89	11	18765	76.6700715	0.003912991	0.003920635	0.003920635358760059\		growth hormone receptor binding	4	1.60026E-05
+GOTERM_MF_DIRECT	GO:0005179~hormone activity	4	4.081632653	0.014283423	"2689, 2688, 1444, 1442"	89	108	18765	7.808988764	0.970538505	0.874859645	0.8748596446798541\		hormone activity	4	0.014283423
+GOTERM_MF_DIRECT	GO:0008083~growth factor activity	4	4.081632653	0.043222305	"2689, 2688, 1444, 1442"	89	166	18765	5.080546907	0.999980107	1	1.0\		growth factor activity	4	0.043222305
+GOTERM_MF_DIRECT	GO:0004888~transmembrane signaling receptor activity	4	4.081632653	0.058535056	"915, 6967, 916, 11314"	89	188	18765	4.486014822	0.999999618	1	1.0\		transmembrane signaling receptor activity	4	0.058535056
+GOTERM_MF_DIRECT	GO:0038023~signaling receptor activity	4	4.081632653	0.09099387	"124222, 924, 914, 11314"	89	227	18765	3.715289808	1	1	1.0\		signaling receptor activity	4	0.09099387
+GOTERM_MF_DIRECT	GO:0051117~ATPase binding	3	3.06122449	0.066797973	"5962, 481, 3932"	89	90	18765	7.028089888	0.999999956	1	1.0\		ATPase binding	3	0.066797973
+GOTERM_MF_DIRECT	GO:0019903~protein phosphatase binding	3	3.06122449	0.069404197	"8631, 3783, 3932"	89	92	18765	6.875305325	0.999999978	1	1.0\		protein phosphatase binding	3	0.069404197
+GOTERM_MF_DIRECT	GO:0098882~structural constituent of presynaptic active zone	2	2.040816327	0.023231468	"1488, 27445"	89	5	18765	84.33707865	0.996845311	1	1.0\		structural constituent of presynaptic active zone		
+GOTERM_MF_DIRECT	GO:0019869~chloride channel inhibitor activity	2	2.040816327	0.045929228	"65125, 8417"	89	10	18765	42.16853933	0.999990063	1	1.0\		chloride channel inhibitor activity		
+GOTERM_MF_DIRECT	GO:0042608~T cell receptor binding	2	2.040816327	0.050405806	"3932, 916"	89	11	18765	38.33503575	0.999996861	1	1.0\		T cell receptor binding		
+GOTERM_MF_DIRECT	"GO:0016627~oxidoreductase activity, acting on the CH-CH group of donors"	2	2.040816327	0.081165685	"1355, 1717"	89	18	18765	23.42696629	0.999999999	1	1.0\				
+{\rtf1\ansi\ansicpg1252\cocoartf2636																
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}																
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}																
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}																
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0																
+\deftab720																
+\pard\pardeftab720\partightenfactor0																
+																
+\f0\fs26 \cf0 \expnd0\expndtw0\kerning0																

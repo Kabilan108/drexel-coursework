@@ -1,0 +1,12 @@
+title: Meta Analysis of COVID-19 Patient Data
+author: Ammiel Hundley, Owen Gift, and Kasey Bryan
+abstract: For this study, three datasets were used 
+  to analyze similar differentially expressed genes 
+  in covid-19 patients and healthy patients. If successful, 
+  this could greatly assist with treatment due to 
+  the pathophysiology information now being understood and cataloged. T
+  he three data sets were analyzed separately using MATlab, then integrated 
+  at the end to be compared. Since the data sets were so large, 
+  only the top 10% was used in this analysis to allow for MATlab to handle 
+  the large amounts of data. We found data sets 1 and 2 had a large 
+  quantity of shared differentially expressed genes.

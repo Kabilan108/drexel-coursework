@@ -1,0 +1,13 @@
+title: GUI for Registration of Brains and Neuron Detection
+author: Liangyu Tao, Jamie Trihn
+abstract: There are many studies on how populations of neurons interact to generate
+  everyday behaviors. Confocal imaging has allowed us obtain high resolution images
+  of these neurons and their anatomical locations. However, the variations in imaging
+  setup across studies make it difficult to perform precise comparisons of neuron
+  populations across multiple studies. This project is aimed at creating a graphical
+  user interface (GUI) using MATLAB that allows for registration of Drosophila brains
+  and cell detection to determine the number of overlapping neurons labeled in both
+  brains. We found that the GUI was able to successfully perform registration on 2d
+  images. This tool will allow researchers to generate a database of registered brains
+  and overlapping cells, which will allow for accurate and efficient mapping of neural
+  circuit.
