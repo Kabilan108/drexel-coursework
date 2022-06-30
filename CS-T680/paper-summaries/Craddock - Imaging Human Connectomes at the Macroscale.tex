@@ -1,0 +1,94 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% Header and footer styles
+\pagestyle{fancy}
+\lhead{CS T680}
+\chead{Paper Summary}
+\rhead{Tony Kabilan Okeke}
+\setlength{\headheight}{14pt}
+
+
+% Document
+\begin{document}
+
+\begin{center}
+    \large\textbf{Imaging Human Connectomes at the Macroscale.\\
+                  Craddock, R., Jbabdi, S., Yan, CG. et al.}
+\end{center}
+
+The term connectome refers to a multiscale construct that describes different 
+regions of the brain, their anatomical connections and functional interactions. 
+The connectome can be analyzed at microscopic, macroscopic and mesoscopic 
+resolutions, with macroscopic resolutions being the most useful the mapping and 
+annotation of human connectomes with cognitive and behavioral associations. 
+Magnetic Resonance Imaging (MRI) serves as the dominant modality used for 
+macroconnectomics due to its relative safety and spatial resolution. In the 
+study of structural connectivity, Diffusion-weighted MRIs (dMRI) provide 
+cubic-milimeter resolution depictions of white-matter tracts which allow for 
+the identification of axon trajectories; functional MRIs (fMRI) allow for the 
+investigation of the brain's functional architechure. The paper described 
+connectomes mathematically as graphs of interactions between regions of the 
+brain. An initial challenge with the creation of these "brain-graphs" is the 
+identification of nodes; there is no consensus on the optimal approach for 
+defining brain regions, atlases tend to be selected based on the regions of 
+interest in the study being conducted; each cortical region in the selected 
+atlas serves as node the connectome (brain graph).
+
+The primary tool in the investigation of structural connectivity has been dMRI 
+data. In dMRI, a series of images are acquired by measuring the deflection of 
+water molecules due to changes in the direction of the surrounding magnetic 
+field; several images are generated at different unique directions. The 
+combination of these images allows for the estimation of the directions of 
+axonal fibers in each voxel; this information is then combined to form a 
+tractogram - a collection of all the identified axonal tracts which can be 
+viewed as a 3D rendering of white matter tracts. These trajectories 
+(streamlines) are linked to corresponding brain regions (nodes) using a variety 
+of tractography approaches. These techniques allow for the inference of the 
+existence (or absence) of connections between nodes, as well as the 
+determination of the strengths of those connections - these serve as the edges 
+(and weights) of the connectome (brain graph). Tractography is not without it's 
+limitations however, noise in the dMRI data can affect the accuracy of the 
+measurements. The models used to determine streamline direction are also unable 
+to resolve certain axon arrangements accurately.
+
+Functional connectivity tends to be less intuitive than its counterpart and is 
+also more challenging to estimate. BOLD-based (Blood Oxygenation Level Dependent) 
+fMRIs are the most widely used technique for inferring functional connectivity. 
+BOLD fMRIs are measured using ultrafast imaging sequences that detect relatice 
+concentrations of deoxyheamoglobin (due to its paramagnetic nature); this 
+provides a measure of neuronal activation. The fMRI images undergo several 
+preprocessing steps in order to construct the functional connectome.
+
+Once the connectomes (brain graphs) have been constructed, the next goal is to 
+develop annotations for relevant higher-order cognitive processes, 
+neuropsychiatric diagnoses or other phenotypic variables. These annotations are 
+typically inferred through categorical and dimensional analyses comparing the 
+connectomes of several individuals across time or different treatments. The 
+connectomes can be compared using a variety of graph theory approaches, the 
+simplest of which involves treating each graph as a collection of edges and 
+performing statistical analyses one edge at a time; this approach does not take 
+into account the interactions between edges. Alternatively, multivariate 
+classification and regression techniques can be applied to evaluate the 
+relationship between the connectome as a whole and associated phenotypic 
+variables with a single statistical test. Predictive modelling techniques can 
+also be used in the identification of distinct connectivity patterns that are 
+predictive of specific pheotypic variables.
+
+The study of connectomics offers several potential benefits including the 
+expansion of our knowledge of brain architecture and its links to behavior and 
+cognition, as well as advancements in clinical tools for the diagnosis and 
+treatment of different neurological disorders. 
+
+In my opinion, the paper provides an excellent introduction to the field of 
+connectomics. The descriptions of dMRI and fMRI, and the associated data 
+preprocessing steps necessary for each were very insightful. My main critique of 
+the paper is that the authors did not go into great depth in discussing the 
+analytical tools used in connectomics.
+
+\end{document}
