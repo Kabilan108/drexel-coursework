@@ -74,4 +74,4 @@ term project, and peer reviews .
 
 [*Fornito, A., Zalesky, A. and Bullmore, E., 2016. Fundamentals of brain 
 network analysis. Academic Press. ISBN-13: 978-0124079083, ISBN-10: 
-0124079083*]('./Fundamentals of Brain Network Analysis.pdf')
+0124079083*](./Fundamentals\ of\ Brain\ Network\ Analysis.pdf)
