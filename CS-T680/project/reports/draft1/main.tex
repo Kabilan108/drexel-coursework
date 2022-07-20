@@ -1,4 +1,4 @@
-\documentclass[11pt,twoside]{article}
+\documentclass[12pt,twoside]{article}
 
 \usepackage{paperlighter}
 
@@ -21,56 +21,30 @@
 % if you use cleveref..
 \usepackage[capitalize,noabbrev]{cleveref}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THEOREMS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
 
 % Todonotes is useful during development; simply uncomment the next line
-%    and comment out the line below the next line to turn off comments
-%\usepackage[disable,textsize=tiny]{todonotes}
+% and comment out the line below the next line to turn off comments
 \usepackage[textsize=tiny]{todonotes}
 
 
 
-\slimtitle{The Search for an Autism Biomarker}
+\slimtitle{CNNs for the Prediction of ASD and Biomarker Identification}
 \slimauthor{Tony Kabilan Okeke}
 
 % ---------------------------------------------------------------------------------------
 \begin{document}
 
 % Article Information
-\lightertitle{The Search for an Autism Biomarker}
+\lightertitle{Convolutional Neural Networks for the Prediction of ASD and Biomarker Identification}
 \lighterauthor{Tony Kabilan Okeke$^{\dagger}$}
-
-% ------------------------------------ ABSTRACT -----------------------------------------
-\begin{abstract}
-    Using \LaTeX{} to write papers is concise and convenient. However, for writing in life, 
-    complicated \LaTeX{} style-files (e.g., elegantpaper) are difficult to access, or 
-    submission style-files (e.g., journal or conference) are not free indeed. To tackle 
-    these problems and satisfy an elegant and straightforward scientific writing, 
-    \textbf{paperlighter.sty}, a one-column style-file, is designed. This document is 
-    edited from icml2022.sty and provides a basic paper template. Compared to icml2022.sty, 
-    paperlighter.sty contain fewer operations, reducing adjustment while keep graceful. 
-    \textbf{\textit{Notably, the paper's main content only describes the format of 
-    icml2022.sty. We place the content to show the actual effect of paperlighter.sty.}}
-\end{abstract}
 
 % ----------------------------------- MAIN TEXT -----------------------------------------
 
 \input{content}
 
 % ---------------------------------- REFERENCES -----------------------------------------
+\newpage
 \bibliographystyle{apalike}
-\bibliography{../references}
+\bibliography{references.bib}
 
 \end{document}
