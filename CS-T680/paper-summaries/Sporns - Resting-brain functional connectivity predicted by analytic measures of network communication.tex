@@ -1,0 +1,85 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% Header and footer styles
+\pagestyle{fancy}
+\lhead{CS T680}
+\chead{Paper Summary}
+\rhead{Tony Kabilan Okeke}
+\setlength{\headheight}{14pt}
+
+    
+% Document
+\begin{document}
+
+\begin{center}
+    \large\textbf{Resting-brain functional connectivity predicted by analytic measures 
+                  of network communication}\\
+    \medium Joaquin Goni, Martijn P. van den Heuvel et. al.
+\end{center}
+
+
+\noindent\textbf{Introduction}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    
+    \item  Several studies are being performed to characterize the architechture of structural networks and the spatially distributed components and time-varying dynamics of functional newtorks.
+    \item Structural Connectivity (SC) is inferred from diffusion imaging and tractography
+    \item Functional Connectivity (FC) is generally derived from pairwise correlations of time series recorded during "resting" brain activity, measured with fMRI. 
+    \item Mounting evidence indicates that SC and FC are robustly related. 
+        \begin{itemize}
+            \setlength\itemsep{0.05em}
+            \item Studies have documented significant, strong correlations between the strengths of structural and functional connections at whole-brain and mesoscopic scales, as well as acute changes in FC after perturbation of SC.
+        \end{itemize}
+    \item If SC plays a major causal role in shaping resting-state FC, then models that incorporate SC topology should be able to predict FC patterns.
+    \item The strength of FC is related to measures of network communication. The principal measure applied previously is the efficiency, computed as the averaged inverse of the length of the shortest paths between node pairs. 
+        \begin{itemize}
+            \setlength\itemsep{0.05em}
+            \item This measure does not take into account how paths are embedded in the rest of the network, which may further modulate the dynamic interactions of neuronal populations. 
+        \end{itemize}
+\end{itemize}
+
+
+\noindent\textbf{Analytic Measures Related to Network Communication}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    
+    \item Focus on four measures capturing various aspects of internodal interactions along the shortest path.
+    \item Once the shortest paths in the SC have been identified, the lengths can be expressed as the \textit{weighted path length} $D$ (sum of edge lengths) and the corresponding number of steps ($K$).
+    \item \textit{Search information} quantifies the accessibility (hiddenness) of a path by measuring the amount of knowledge or information needed to access the path.
+    \item \textit{Matching Index} is a measure that quantifies the similarity of input and/or output connections of two nodes excluding their mutual connections.
+    \item \textit{Path transitivity} is a measure that captures the number of ways by which signals that deviate from the shortest path can reaccess it (e.g. through brief (one-step) excursions or detours).
+\end{itemize}
+
+
+\noindent\textbf{Prediction of FC}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    
+    \item - Three high-resolution datasets were used for constructing and testing computational models.
+    \item - SC was inferred on the basis of diffusion imaging and tractography; 
+    \item - resting-state FC was measured as Pearson cross-correlations between fMRI time series recorded for periods totaling 35 min (LAU1), 9 min(LAU2), and 8 min (UTR).
+    \item The strength of functional connections between structurally connected node pairs was on average significantly stronger than functional connections between unconnected node pairs.
+    \item Jointly, these observations suggest that connectedness, physical distance, and path length are partially predictive of the strength of FC.
+    \item Ranking the capacity of these four predictors to model empirical FC revealed that predictions on the basis of S and M were comparably strong across all three datasets (single and both hemispheres), and consistently outperformed predictions derived from D and K.
+\end{itemize}
+
+
+\noindent\textbf{Discussion}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    
+    \item -SC (sparse network of axonal links among brain regions) is related to FC (the dense network of statistical couplings among their neural time series)
+    \item analytic measures that capture the network embedding of shortest paths, derived from the SC matrix, were found to predict the strength of FC among both connected and unconnected node pairs
+    \item search information and path transitivity along shortest paths were strong predictors of FC
+    \item the capacity of search information and path transitivity along shortest paths to predict whole-brain FC may provide some conceptual insight about the nature of the underlying communication process
+    \item limitations of the study include that analytic measures only predict the long-time covariance structure of communication processes unfolding on the SC matrix and that the model explored here assumes that FC is exclusively due to communication along shortest paths within the network
+\end{itemize}
+
+
+\end{document}
