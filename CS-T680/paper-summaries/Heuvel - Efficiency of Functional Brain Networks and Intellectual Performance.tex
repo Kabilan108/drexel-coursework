@@ -1,0 +1,125 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% Header and footer styles
+\pagestyle{fancy}
+\lhead{CS T680}
+\chead{Paper Summary}
+\rhead{Tony Kabilan Okeke}
+\setlength{\headheight}{14pt}
+
+    
+% Document
+\begin{document}
+
+\begin{center}
+    \large\textbf{Efficiency of Functional Brain Networks and Intellectual Performance\\
+                  Martijn P. van den Heuvel et. al.}
+\end{center}
+
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    
+    \item {Information is constantly processed and integrated between \textit{functionally linked},
+           \textit{spatially distributed} brain regions}
+    \item {
+        Functional connections in the brain network are organized in an efficient \textit{small-world} manner; 
+        this suggests:
+        \begin{itemize}
+            \setlength\itemsep{0.05em}
+            \item high-level of local neighborhood clustering which is responsible for efficient local information processing
+            \item existence of several long-distance connections that increases global communication efficiency (across sub-networks (regions)>
+        \end{itemize}
+    }
+    \item {The organization of the brain network raises the question of whether there is a relationship between
+           the efficiency of functional connections and intelligence}
+    
+\end{itemize}
+
+
+\noindent\textbf{Materials and Methods}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    \item Subjects - Healthy (No psychiatric history); 14 Male; 5 Female; Age$=29\pm7.8$
+    \item {Intelligence Scores - Dutch WAIS-III test - gives a standardized full-scale IQ based on
+           several subtests that assess verbal IQ and nonverbal (performance) IQ}
+    \item {Functional Connectomes - constructed using correlations between spontaneous brain signals of
+           different brain regions at rest from fMRI time series}
+    \item {Preprocessing - fMRI time series were realigned to correct for small head movements; coregistered 
+           T1 images for anatomical overlap; normalized to standard-space; bandpass filtered (0.01 - 0.1Hz)}
+    \item {
+        Graph analysis
+        \begin{itemize}
+            \setlength\itemsep{0.05em}
+            \item Connectoms were constructed from all cortical and subcortical brain voxels (~9500 nodes) with
+                  connections between all functionally linked voxels
+            \item $|Functional~Connectivity|_{ij} =$ zero-lag correlation between voxelwise resting-state BOLD time series;
+            \item {Voxels $i$ and $j$ are \textit{functionally linked} when the zero-lag correlation > threshold, 
+                   $T$ ($0.05 \leq T \leq 5$)}
+            \item Computed key graph theory measures including \textbf{clustering coefficient, $C$} and 
+            \textbf{characteristic path length, $L$}
+            \item {Computed the ratios: $\gamma = C/C^{random}$ and $\lambda = L/L^{random}$.
+                   Where $C^{random}$ and $L^{random}$ are properties of a random organized network of similar size.}
+            \item {Small-world organization is characterized by $\gamma >> 1$ and $\lambda \approx 1$}
+        \end{itemize}
+    }
+    \item {Intelligence -  $\gamma$ and $\lambda$ values were correlated with the full-scale IQ scores of the
+           participants}
+    \item {Intelligence - The total number of connections $k$ was also correlated with IQ scores to determine 
+           whether intelligence was correlated with the number of connections in a brain network.}
+    \item {
+        To identify which brain regions had the strongest association between network organization and IQ,
+        the normalized path lengths of each node were correlated with IQ separately.
+        \begin{itemize}
+            \item {Individual normalized path length reflects how closely (efficiently) connected a node is to 
+                   other nodes in the network}
+            \item {A correlation-coefficient map was constructed showing which voxels (nodes) exhibited a
+                   significant (p < 0.05) association between IQ and normalized path length}
+        \end{itemize} 
+    }
+\end{itemize}
+
+
+\noindent\textbf{Results}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    \item The functional connectomes exhibited small-world organization for $0.3\leq T \leq0.5$
+    \item {For higher $T$, a significant negative correlation was found between normalized characteristic path 
+           length $\lambda$ and IQ}
+    \item {IQ scores showed no correlation with the number of total number of connections $k$; this indicates that the
+           observed correlation between IQ and $lambda$ was not related to potential variations in overall connectivity}
+    \item No significant correlation was found between the clustering coefficient $\gamma$ and IQ
+    \item {The most prominent correlation between individual normalized path length (for each node/voxel) and IQ was
+           in the medial prefrontal gyrus, posterior cingulate gyrus, and bilateral inferior parietal regions}.
+\end{itemize}
+
+
+\noindent\textbf{Discussion}
+\begin{itemize}
+    \setlength\itemsep{0.05em}
+    \item {The study found a strong association between global communication efficiency and intellectual performance.\\
+           (Normalized characteristic path length $\lambda$ was strongly negatively correlated with IQ) \\
+           This suggests that more efficiently functionally connected brains show a higher level of intellectual
+           performance}
+    \item {Normalized clustering coefficient $\gamma$ and number of connections $k$ were found to not be
+           significantly correlated with IQ \\
+           This suggests that intelligence is not directly related to the level of local information processing
+           or to the total number of functional connections}
+    \item {The strong correlation between $\lambda$ and $IQ$ suggests that intelligence is more related to the
+           efficiency of the organization of global connections and the efficiency of information integration
+           between different brain regions}
+    \item {Strong associations between ID and individual normalized path length were found in several brain regions.
+           This is important since efficient hub nodes are more likely to have a strong effect on global network 
+           efficiency than less connected nodes.}
+    \item {\textit{post-hoc} analyses were performed to examine the association between $\lambda$ and IQ. \\
+           The association between $\lambda$ and the subscales of the WAIS test was examined. $\lambda$ was most 
+           related to PIQ and perceptual organization index (POI)}
+\end{itemize}
+
+
+\end{document}
