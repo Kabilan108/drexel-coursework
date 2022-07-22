@@ -2,6 +2,8 @@
 
 ## Reports
 
+- replace md files with qmd
+
 - [ ] Project Idea and Background
   - **Due Week 3**
   - Find a problem and a data set, write a *2 page* report stating the problem, 
