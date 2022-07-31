@@ -9,6 +9,7 @@ This repository contains material from courses I've taken while at Drexel Univer
 - [BMES 375](BMES-375)
 - [BMES 543](BMES-543)
 - [BMES 544](BMES-544)
+- [BMES 550](BMES-550)
 - [CS 171](CS-171)
 - [CS 172](CS-172)
 - [CS T680](CS-T680)
