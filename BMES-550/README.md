@@ -24,5 +24,5 @@ See the [syllabus](Syllabus.pdf) for more information.
 - [Image Processing](6_image): Week 9
 - [Object Orientied Programming](7_oop): Week 10
 - [C++ Programming](8_cpp): Week 10
-- [Course Project](project)
+- [Course Project](guiproject)
 
