@@ -1,3 +1,6 @@
 [submodule "CS-T680/AutismCNN"]
 	path = CS-T680/AutismCNN
 	url = git@github.com:Kabilan108/AutismCNN.git
+[submodule "BMES-550/guiproject"]
+	path = BMES-550/guiproject
+	url = git@github.com:Kabilan108/guiproject.git
