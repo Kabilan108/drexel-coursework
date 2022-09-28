@@ -1,2 +1,0 @@
-[~,~,raw] = xlsread('myCRPS.xlsx');
-
