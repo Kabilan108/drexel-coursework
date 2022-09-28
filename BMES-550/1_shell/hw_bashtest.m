@@ -10,21 +10,21 @@ if ispc
 end
 
 %% helloworld.sh
-system([ BASH ' helloworld.sh 2>&1']);
+system([ BASH ' hw_helloworld.sh 2>&1']);
 
 
 %% wctop10lines.sh
-system([ BASH ' wctop10lines.sh 2>&1']);
+system([ BASH ' hw_wctop10lines.sh 2>&1']);
 
 
 %% listmyhome.sh
-system([ BASH ' listmyhome.sh 2>&1']);
+system([ BASH ' hw_listmyhome.sh 2>&1']);
 
 
 %% backupself.sh
 delete backupself.sh.bak
-system([ BASH ' backupself.sh 2>&1']);
-info=dir('backupself.sh.bak')
+system([ BASH ' hw_backupself.sh 2>&1']);
+info=dir('hw_backupself.sh.bak')
 
 
 %% findrecentdocx.sh
