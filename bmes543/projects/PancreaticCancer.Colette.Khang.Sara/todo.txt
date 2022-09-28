@@ -1,0 +1,5 @@
+May 12, 2022:
+* Analyze each of the three datasets. Identify differentially expressed genes.
+* Venn Diagram of the significant genes across two datasets.
+Find siggenes just in Dataset A, find siggenes just in Dataset B (setdiff). find siggenes that are in both (intersect).
+

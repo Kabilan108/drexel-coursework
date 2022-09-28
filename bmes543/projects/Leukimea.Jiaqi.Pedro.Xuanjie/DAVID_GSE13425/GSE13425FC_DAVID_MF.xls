@@ -1,0 +1,17 @@
+Category	Term	Count	%	PValue	Genes	List Total	Pop Hits	Pop Total	Fold Enrichment	Bonferroni	Benjamini	FDR\	
+GOTERM_MF_DIRECT	GO:0042802~identical protein binding	18	14.17322835	0.024797214	"6310, 7399, 4882, 9468, 10591, 6091, 259197, 2625, 4914, 10007, 1677, 3248, 104, 2641, 53842, 923, 60491, 917"	114	1693	18765	1.750085491	0.999362008	1	1.0\	identical protein binding
+GOTERM_MF_DIRECT	GO:0061629~RNA polymerase II sequence-specific DNA binding transcription factor binding	6	4.724409449	0.005618438	"2625, 6929, 405, 60491, 23414, 2637"	114	188	18765	5.253359462	0.808112189	1	1.0\	RNA polymerase II sequence-specific DNA binding transcription factor binding
+GOTERM_MF_DIRECT	GO:0008134~transcription factor binding	5	3.937007874	0.036556728	"2625, 6929, 405, 60491, 23414"	114	207	18765	3.97597254	0.999981758	1	1.0\	transcription factor binding
+GOTERM_MF_DIRECT	GO:0000987~core promoter proximal region sequence-specific DNA binding	3	2.362204724	0.047754573	"2625, 6929, 405"	114	58	18765	8.514065336	0.999999406	1	1.0\	core promoter proximal region sequence-specific DNA binding
+GOTERM_MF_DIRECT	GO:0030883~endogenous lipid antigen binding	2	1.57480315	0.029751929	"910, 913"	114	5	18765	65.84210526	0.999856564	1	1.0\	endogenous lipid antigen binding
+GOTERM_MF_DIRECT	GO:0030884~exogenous lipid antigen binding	2	1.57480315	0.029751929	"910, 913"	114	5	18765	65.84210526	0.999856564	1	1.0\	exogenous lipid antigen binding
+GOTERM_MF_DIRECT	GO:0071723~lipopeptide binding	2	1.57480315	0.058626283	"910, 913"	114	10	18765	32.92105263	0.999999979	1	1.0}	lipopeptide binding
+{\rtf1\ansi\ansicpg1252\cocoartf2636													
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}													
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}													
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}													
+\paperw11900\paperh16840\margl1440\margr1440\vieww21320\viewh10240\viewkind0													
+\deftab720													
+\pard\pardeftab720\partightenfactor0													
+													
+\f0\fs26 \cf0 \expnd0\expndtw0\kerning0													

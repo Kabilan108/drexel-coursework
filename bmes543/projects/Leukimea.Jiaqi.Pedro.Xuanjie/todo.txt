@@ -1,0 +1,43 @@
+May 12:
+* Build & test model (Cross-validate) using GSE13425.
+
+ - Filter 90%
+ - 10 fold cross-validate
+ - top 100 genes
+ - T ALL vs. B ALL for now, no need to worry about subtypes
+ - Wednesday 6pm complete individual model and testing
+
+
+May 19:
+ * Train using GSE13425 and test on GSE13351.
+
+ 	using intersection, find shared GENE in two dataset.
+	in both dataset, remove not shared GENE
+	
+	After selection, move on to training and testing on 1st dataset.
+	After, train the entire dataset, and test on 2nd dataset.
+
+May 27:
+    unequal amount of sample, m-learning will have issue
+    m-learning test: B ALL vs T ALL
+
+June 02:
+
+    Things todo:
+    Download both GSE - completed
+    Read and translate both GSE - completed
+    Get intersection - completed
+    Training and testing on GSE13425 - incomplete 
+        - just like machinelearning, do cross-validation using self created function, then calculate fold change, accuracy
+    Test on GSE13351 - incomplete - GSE13425 as trainer, GSE13351 as tester 
+        - input: own function(training filtered(GSE13425),training relapse(GSE13425),testing filtered(GSE13351), testing relapse(GSE13351))
+
+    presentation/report: leukemea background, T ALL vs. B ALL, article's finding, our finding, comparation, summary
+
+June 07:
+
+	important article: 
+	Uscanga‐Palomeque, Calvillo‐Rodríguez, K. M., Gómez‐Morales, L., Lardé, E., Denèfle, T., Caballero‐Hernández, D., Merle‐Béral, 
+	H., Susin, S. A., Karoyan, P., Martínez‐Torres, A. C., & Rodríguez‐Padilla, C. (2019). 
+	CD47 agonist peptide PKHB1 induces immunogenic cell death in T‐cell acute lymphoblastic leukemia cells. Cancer Science, 110(1), 256–268. 
+	https://doi.org/10.1111/cas.13885

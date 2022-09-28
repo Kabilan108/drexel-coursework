@@ -1,0 +1,6 @@
+May 12, 2022:
+* Train & test ML model for the first dataset. Cross-validation. AD vs. Control.
+* Train ML model on the entire first dataset, test it on the second dataset. (Independent validation).
+    * Future: If the ML method produces scores, see if scores are correlated with severity levels.
+* Future: Put 3th & 4th datasets on the back-burner. (Will use Homologene).
+
