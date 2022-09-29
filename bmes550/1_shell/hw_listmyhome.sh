@@ -7,5 +7,5 @@
 
 old_dir=$(pwd)
 cd ~
-ls -lha
+ls -lhA
 cd $old_dir
