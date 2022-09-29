@@ -13,15 +13,14 @@ if [ $# -ne 2 ]; then
 fi
 
 # Move files
-oldnames=()
-newnames=()
+if grep -q 'bmes550.TonyOkeke.tko35' <<< $(realpath $2); then\
+    ptns=""
 
-for file in $1/hw_*; do
-    oldfilename=$(basename $file)
-    newfile="$2/${oldfilename#hw_}"
-    newfilename=$(basename $newfile)
-    
-    if grep -q 'bmes550.TonyOkeke.tko35' <<< $(realpath $newfile); then
+    for file in $1/hw_*; do
+        oldfilename=$(basename $file)
+        newfile="$2/${oldfilename#hw_}"  # Remove prefix 'hw_'
+        newfilename=$(basename $newfile)
+         
         # Copy file to dropbox
         cp $file $newfile
         
@@ -30,24 +29,21 @@ for file in $1/hw_*; do
             echo "Error: could not copy $file to $newfile"
             exit 1
         fi
-    else
-        echo "$2 is not a subfolder of bmes550.TonyOkeke.tko35"
-        exit 1
-    fi
 
-    oldnames+=($oldfilename)
-    newnames+=($newfilename)
-done;
+        ptns+="s/$oldfilename/$newfilename/g;"
+    done;
 
-# Fix file paths
-for i in "${!oldnames[@]}"; do
+    # Fix paths in new files
     for file in $2/*; do
-        "sed -i 's/${oldnames[$i]}/${newnames[$i]}/g' "
-    done
-done
+        if ! file $file | grep -iq -e 'ASCII' -e 'JSON'; then
+            echo "Skpping $file (Can't fix paths in non-ASCII files)"
+        else
+            sed -i "$ptns" $file
+        fi
+    done;
 
-# export oldnames=$oldnames
-# export newnames=$newnames
-
-
-echo "Moved files from $1 to $(realpath $2)"
+    echo "Moved files from $1 to $(realpath $2)"
+else
+    echo "$2 is not a subfolder of bmes550.TonyOkeke.tko35"
+    exit 1
+fi
