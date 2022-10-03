@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Write a script wctop10lines.sh that prints the name of the file, followed by 
-# the number of words on the first 10 lines of each file in the current 
-# directory. (Hint: head, pipe, wc).
+# Print the name of each file in the current directory and the word count 
+# in the first 10 lines.
+
+printf "%-25s\t%-10s\n" 'FILE' 'WORD COUNT'
 
 for file in $(ls); do
     if [ -f $file ]; then
-        echo -e "$file \t $(head -n 10 $file | wc -w) words"
+        printf "%-25s\t%-10s\n" $file $(head -n 10 $file | wc -w)
     fi
 done
