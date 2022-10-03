@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# Write a bash script compareab.sh that takes a filename as input and prints 
-# out whether the number of a's is greater than number of b's in the contents 
-# of that file.
+# Compare the number of a's and b's in a file
 
 # Check that input file was provided
 if [ $# -ne 1 ]; then
