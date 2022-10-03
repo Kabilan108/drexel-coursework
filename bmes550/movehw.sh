@@ -37,7 +37,7 @@ if grep -q 'bmes550.TonyOkeke.tko35' <<< $(realpath $2); then\
     for file in $2/*; do
         if ! file $file | grep -iq -e 'ASCII' -e 'JSON'; then
             echo "Skpping $file (Can't fix paths in non-ASCII files)"
-        else
+        elif [[ -f $file ]]; then
             sed -i "$ptns" $file
         fi
     done;
