@@ -34,8 +34,8 @@ def load_data(filepath):
     return df
 
 
-def plot_data(data, xvar, yvar, xlab, ylab, title, highlight_ramp, 
-              ramp_time=None):
+def plot_data(data, xvar, yvar, xlab, ylab, title, team='05',
+              highlight_ramp=False, ramp_time=None):
     """
     Compare LCL and MCL data
     """
@@ -43,7 +43,7 @@ def plot_data(data, xvar, yvar, xlab, ylab, title, highlight_ramp,
     fig, axes = plt.subplots(1, 2, figsize=(8, 4), sharey=True)
 
     for tissue, color, ax in zip (['LCL', 'MCL'], ['#377eb8', '#e41a1c'], axes):
-        I = (data['team'] == '05') & (data['tissue'] == tissue)
+        I = (data['team'] == team) & (data['tissue'] == tissue)
         
         # Plot data
         sns.lineplot(
@@ -108,8 +108,9 @@ def get_linear_region(data):
     n = data.shape[0]
 
     while flag:
-        if i > 0.3 * n:
-            print("R^2 didn't converge after 30% of the data was removed")
+        if i > 0.4 * n:
+            print("R^2 didn't converge after 40% of the data was removed")
+            i = 1
             break
 
         # Fit model
