@@ -13,23 +13,25 @@ def load_data(filepath, datastart=46):
     """
     Load data from csv files
 
-    This function should work on data from Labs 1 and 2. 
+    This function should work on data from Labs 1 and 2. For lab 3, 
+    change the datastart parameter to 45.
 
     This assumes that the data is in the format of a csv file with numeric 
-    data beginning on line 46. 
+    data beginning on the `datastart` line. 
     This function only loads the 'Elapsed Time', 'Disp' and 'Load' columns.
     """
 
     ## Check assumptions about file structure
+    head, units = datastart-3, datastart-2
     with open(filepath, 'r') as file:
         lines = file.readlines()
-    assert lines[43] == '"Points","Elapsed Time","Scan Time","Disp","Load",\n', \
+    assert 'Points,Elapsed Time,Scan Time,Disp,Load' in lines[head].replace('"', ''), \
         "Unexpected header format on line 44"
-    assert lines[44] == '"","Sec","Sec","mm","N",\n', \
+    assert 'Sec,Sec,mm,N' in lines[units].replace('"', ''), \
         "Unexpected header format on line 45"
 
-    df = (pd.read_csv(filepath, header=None, skiprows=45)
-        .drop([0, 2, 5], axis=1)
+    df = (pd.read_csv(filepath, header=None, skiprows=datastart-1)
+        .iloc[:, [1, 3, 4]]
         .astype(float))
     df.columns = ["time", "disp", "load"]
 
