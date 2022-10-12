@@ -19,6 +19,7 @@ import os
 
 
 def searchinfile(filename: str, keyword: str) -> list:
+    # Check for invalid inputs
     assert os.path.exists(filename), "file does not exist"
     assert isinstance(keyword, str), "keyword must be a string"
     keyword = keyword.lower()

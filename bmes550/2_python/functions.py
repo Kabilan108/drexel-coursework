@@ -2,6 +2,40 @@
 import os
 
 
+def bmicategory(height: float, weight: float):
+    """
+    Compute the BMI for a given height-weight combination and assign a 
+    category.
+    """
+
+    # Check for valid input
+    assert height > 0, "height must be greater than 0"
+    assert weight > 0, "weight must be greater than 0"
+
+    # Compute BMI
+    output = dict(bmi = round(weight * 4.88 / height**2, 4))
+
+    # Assign category
+    if output['bmi'] < 15:
+        output['category'] = 'Very severely underweight'
+    elif output['bmi'] < 16:
+        output['category'] = 'Severely underweight'
+    elif output['bmi'] < 18.5:
+        output['category'] = 'Underweight'
+    elif output['bmi'] < 25:
+        output['category'] = 'Normal'
+    elif output['bmi'] < 30:
+        output['category'] = 'Overweight'
+    elif output['bmi'] < 35:
+        output['category'] = 'Moderately obese'
+    elif output['bmi'] < 40:
+        output['category'] = 'Severely obese'
+    else:
+        output['category'] = 'Veru severely obese'
+
+    return output
+
+
 def getprostaterisk(
     history: bool, 
     euro_ances: float, 
