@@ -230,4 +230,8 @@ def assign_cycles(data, ncycles=10, timecol='time', loadcol='load',
     # Get rid of pre and post cycles
     data = data[data['stage'] != 'nan']
 
+    # Zero the time and displacement
+    data['time'] = data['time'] - data['time'].iloc[0]
+    data['disp'] = data['disp'] - data['disp'].iloc[0]
+
     return data
