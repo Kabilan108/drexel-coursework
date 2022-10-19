@@ -2,11 +2,14 @@
 Functions for Data Analysis
 """
 
+# Imports
 import statsmodels.formula.api as smf
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
+from scipy.signal import argrelextrema
 
 
 def load_data(filepath, datastart=46):
@@ -170,3 +173,61 @@ def plot_regression(data, model, i, title):
     sns.despine()
 
     return fig, ax
+
+def assign_cycles(data, ncycles=10, timecol='time', loadcol='load', 
+                  dispcol='disp'):
+    """
+    Identify the preconditioning cycle start times from mechanical
+    testing data.
+    """
+
+    # Check inputs
+    data = data.copy()
+    assert timecol in data.columns, "timecol not in data"
+    assert loadcol in data.columns, "loadcol not in data"
+    assert dispcol in data.columns, "dispcol not in data"
+
+    # Identify the local minima
+    minima = argrelextrema(data[dispcol].values, np.less)[0]
+
+    # Compute the period between minima
+    min_period = np.diff(data[timecol].iloc[minima])
+
+    # Identify the start of the preconditioning cycles
+    for i, diff in enumerate(min_period):
+        if np.floor(diff) > 3:  break
+        i = 0
+    cycle_starts = minima[i:]
+
+    # Preallocate the cycle and stage arrays
+    cycle = np.array([0 for _ in range(len(data))])
+    stage = np.array(['nan' for _ in range(len(data))], 
+                     dtype=np.dtype('U9'))
+
+    # Assign the cycle and stage
+    for i, start in enumerate(cycle_starts, 1):
+        # Create slice for the cycel
+        cycle_slice = (slice(start, -1) if i == len(cycle_starts)
+                                    else slice(start, cycle_starts[i]))
+
+        # Assign the cycle
+        cycle[cycle_slice] = i
+
+        # Assign the stage
+        ipeak = np.argmax(data[cycle_slice]['disp'])
+        stage[start:start+ipeak] = 'loading'
+        stage[start+ipeak:cycle_slice.stop] = 'unloading'
+
+    # Add the cycle and stage to the dataframe
+    data['cycle'] = cycle
+    data['stage'] = stage
+
+    # This process erronously assigns additional cycles to the plateau
+    # region of the displacement-time curve. To correct this, we remove
+    # the cycles that are not part of the preconditioning cycles
+    data = data[data['cycle'] <= ncycles]
+
+    # Get rid of pre and post cycles
+    data = data[data['stage'] != 'nan']
+
+    return data
