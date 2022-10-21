@@ -29,4 +29,4 @@ def searchinfile(filename: str, keyword: str) -> list:
         lines = file.readlines()
 
     # Search for the keyword
-    return [i for i, line in enumerate(lines, start=1) if keyword in line]
+    return [i for i, line in enumerate(lines, start=1) if keyword in line.lower()]
