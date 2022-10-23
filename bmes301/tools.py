@@ -5,6 +5,7 @@ Functions for Data Analysis
 # Imports
 import statsmodels.formula.api as smf
 import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -100,7 +101,7 @@ def plot_data(data, xvar, yvar, xlab, ylab, title, team='05',
     return fig, axes
 
 
-def get_linear_region(data):
+def get_linear_region(data, cutoff=0.4):
     """
     Determing the linear region of the stress-strain curve
 
@@ -115,8 +116,8 @@ def get_linear_region(data):
     n = data.shape[0]
 
     while flag:
-        if i > 0.4 * n:
-            print("R^2 didn't converge after 40% of the data was removed")
+        if i > cutoff * n:
+            print(f"R^2 didn't converge after {cutoff*100}% of the data was removed")
             i = 1
             break
 
@@ -173,6 +174,7 @@ def plot_regression(data, model, i, title):
     sns.despine()
 
     return fig, ax
+
 
 def assign_cycles(data, ncycles=10, timecol='time', loadcol='load', 
                   dispcol='disp'):
@@ -235,3 +237,55 @@ def assign_cycles(data, ncycles=10, timecol='time', loadcol='load',
     data['disp'] = data['disp'] - data['disp'].iloc[0]
 
     return data
+
+
+def plot_disp_cycles(data):
+
+    # Plot Displacement-time curves
+    fig, axes = plt.subplots(5, 2, figsize=(8, 8), sharex=True)
+    axes = axes.flatten()
+
+    ## Cycle colors
+    colors = sns.color_palette("tab10", 10).as_hex()
+
+    ## Create data for legend
+    line = lambda c, ls, x: Line2D([], [], color=c, lw=2, linestyle=ls, label=x)
+    legend_patches = (
+        [line('black', ls, x) for ls, x in zip(['-', '--'], ['Loading', 'Unloading'])] +
+        [line(None, '', '')] + 
+        [line(c, '-', f"Cycle {x}") for c, x in zip(colors, range(1, 11))]
+    )
+
+    for i, team in enumerate(data['team'].unique()):
+        ## Extract data for this team
+        _df = data.query(f"team == '{team}'")
+
+        ## Plot data
+        for cycle, color in zip(_df['cycle'].unique(), colors):
+            for stage, ls in zip(['loading', 'unloading'], ['-', '--']):
+                sns.lineplot(
+                    data=_df.query(f"cycle == {cycle} and stage == '{stage}'"),
+                    x='time', y='disp', ax=axes[i], color=color, 
+                    linestyle=ls, legend=False
+                ).set(xlabel=None, ylabel=None)
+                sns.despine()
+                axes[i].set_title(f"Team {team}")
+            
+    ## Legend
+    fig.legend(
+        handles=legend_patches, 
+        loc='upper left', 
+        bbox_to_anchor=(1, 0.7),
+        facecolor='#f2f2f2',
+        edgecolor='#ffffff',
+        fancybox=False,
+        fontsize=11
+    )
+
+    ## Plot Labels
+    fig.subplots_adjust(left=0.15, bottom=0.15)
+    fig.supxlabel('Time (s)', size=14)
+    fig.supylabel('Displacement (mm)', size=14)
+    fig.tight_layout()
+
+    return fig, axes
