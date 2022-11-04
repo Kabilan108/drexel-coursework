@@ -1,0 +1,17 @@
+p#abstract{
+ color:green;
+ font-weight:bold;
+ font-style:italic;
+ font-family:Verdana;
+}
+
+p.important {
+	color:red;
+	font-weight:bold;
+	border:1px solid black;
+}
+
+tr.myfruits td{
+	color:pink;
+}
+

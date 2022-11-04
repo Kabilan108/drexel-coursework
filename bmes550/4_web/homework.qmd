@@ -1,4 +1,13 @@
-# Web Programming Homework
+---
+title: "Web Programming Homework"
+format: 
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+
+## Instructions
 
 - Include your name in each file you write.
 - Place a copy of [`hwweb_tester.php`](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:web:hwweb_tester.php) in your web homework folder.
