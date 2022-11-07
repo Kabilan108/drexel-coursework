@@ -4,21 +4,17 @@ Tree-Based Modeling of Androgen Pathway Genes and Prostate Cancer Risk",
 Cancer Epidemiol Biomarkers Prev. 2011 Jun; 20(6): 1146-1155
 """
 
-
 def getprostaterisk(
-    history: bool, 
+    history: str, 
     euro_ances: float, 
-    repeat: int, 
+    repeat: float, 
     haplotype: str
 ) -> float:
     
-    # Check for invalid inputs
-    assert isinstance(history, bool), "history must either be True or False"
-    assert 0 <= euro_ances <= 1, "euro_ances must be between 0 and 1"
-    assert isinstance(repeat, int), "repeat must be an integer"
-    assert isinstance(haplotype, str), \
-        "haplotype must be one of 'AA', 'AG', 'GG', or 'GG'"
+    # Fix input variabels
+    euro_ances = euro_ances / 100
     haplotype = haplotype.upper()
+    history = True if history == 'Yes' else False
 
     # Compute risk
     if history:
@@ -38,25 +34,9 @@ def getprostaterisk(
     return round(risk, 4)
 
 
-def test_getprostaterisk():
-    # Test for invalid inputs
-    try:
-        getprostaterisk(1, 0.5, 10, 'GG')
-    except AssertionError:
-        pass
-    else:
-        raise AssertionError("getprostaterisk did not raise an AssertionError "
-                             "when given invalid inputs")
-
-    # Test for valid inputs
-    assert getprostaterisk(False, 0.8, 12, 'GG') == 0.2428
-    assert getprostaterisk(True, 0.1, 16, 'AA') == 0.3333
-    assert getprostaterisk(True, 0.1, 10, 'AA') == 0.6364
-    assert getprostaterisk(True, 0.8, 12, 'AA') == 0.2308
-    assert getprostaterisk(True, 0.5, 16, 'GA') == 0.6667
-
-    print("All tests passed!")
-
-
 if __name__ == '__main__':
-    test_getprostaterisk()
+    import sys
+
+    print(getprostaterisk(
+        sys.argv[1], float(sys.argv[2]), float(sys.argv[3]), sys.argv[4]
+    ))
