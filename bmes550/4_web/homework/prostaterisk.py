@@ -37,6 +37,7 @@ def getprostaterisk(
 if __name__ == '__main__':
     import sys
 
-    print(getprostaterisk(
+    risk = getprostaterisk(
         sys.argv[1], float(sys.argv[2]), float(sys.argv[3]), sys.argv[4]
-    ))
+    )
+    print(f"{risk*100:.2f}%")
