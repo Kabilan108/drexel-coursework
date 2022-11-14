@@ -2,13 +2,10 @@
 #Example taken/adapted  from: https://stackoverflow.com/questions/10737459/embedding-a-matplotlib-figure-inside-a-wxpython-panel
 
 
-import wx
-import numpy as np
 import matplotlib
-
-from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
-
+import numpy as np
 import wx
+from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
 
 
 class HelloFrame(wx.Frame):
@@ -19,8 +16,10 @@ class HelloFrame(wx.Frame):
 
 
         vsizer = wx.BoxSizer(wx.VERTICAL)
+        
         topsizer =  wx.StaticBoxSizer(wx.VERTICAL,panel,"Buttons and controls")
         bottomsizer =  wx.BoxSizer(wx.HORIZONTAL)
+
         vsizer.Add(topsizer);
         vsizer.Add(bottomsizer,flag=wx.EXPAND);
 
