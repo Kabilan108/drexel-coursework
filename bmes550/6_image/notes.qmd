@@ -1,0 +1,27 @@
+---
+title: "Object-Oriented Image Processing"
+format:
+  html:
+    theme: slate
+---
+
+## K-Means Clustering-Based Image Segmentation
+
+- [MATLAB Tutorial](https://www.mathworks.com/help/images/ref/imsegkmeans.html)
+
+
+## Watershed Transform-Based Image Segmentation
+
+- [MATLAB Tutorial](https://www.mathworks.com/help/images/ref/watershed.html)
+
+
+## Intensity-Based Image Registration
+
+- [MATLAB Tutorial](https://www.mathworks.com/help/images/ref/imregister.html)
+
+
+## Cell Detection in Microscopy Images
+
+### Edge Detection and Morphology
+
+- [MATLAB Tutorial](https://www.mathworks.com/help/images/examples/detecting-a-cell-using-image-segmentation.html)

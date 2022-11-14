@@ -1,0 +1,42 @@
+---
+title: "Object-Oriented Image Processing"
+format:
+  html:
+    theme: slate
+---
+
+The MATLAB functions you need for this exercise are exemplified [here](https://www.mathworks.com/help/images/detecting-a-cell-using-image-segmentation.html).
+
+## Templates
+
+- *If you are working in MATLAB:* Download the [template function file](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:img:hwbmeimg_countcells.m) and the [template demo file](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:img:hwbmeimg_countcells_demo.mlx), and fill in with your code to accomplish the tasks below.
+
+- *If you are working in Python:* Download the [template function file](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:img:hwbmeimg_countcells.py) and the [template demo file](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:img:hwbmeimg_countcells_demo.ipynb), and fill in with your code to accomplish the tasks below.
+
+
+## Tasks
+
+- Write a function `numcells = bmeimg_countcells(file, dbg)` that takes in a cell
+  microscopy image file name and returns the number of cells in that image. The
+  second argument `dbg` is a logical value controlling whether your function
+  should display any intermediate images. Your function should perform the
+  following steps:
+  - If an option to an image processing step is not specified here, you can come
+    up with your own options.
+  - Use sections/cells (using '%%') in MATLAB for each of the tasks below.
+  - If file argument is not given or is empty, use: `file=bmes.downloadurl('http://sacan.biomed.drexel.edu/lib/exe/fetch.php?media=course:bcomp2:img:samplecells.jpg','samplecells.jpg',true)`
+  - If `dbg` argument is not give, use `dbg=True`
+  - Read the image data from the file (`imread`)
+    - If dbg is on, show the image
+  - Apply sobel edge detection (`edge`)
+    - If dbg is on, show the edges as a binary image
+  - Dilate the edge image (`imdilate`)
+    - If dbg is on, show the dilated edge image
+  - Fill interior gaps of the edge image (`imfill`)
+    - If dbg is on, show the filled edge image
+  - Smoothen the objects in the edge image (`imerode`)
+    - If dbg is on, show the smoothened edge image
+  - If dbg is on, show the edge image overlayed on the original image
+  - Find the connected components in the edge image (`bwconncomp`)
+  - Return the number of cells found
+  - Publish your template demo file as a PDF file
