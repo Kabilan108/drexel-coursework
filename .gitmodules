@@ -5,5 +5,5 @@
 	path = rustlings
 	url = git@github.com:Kabilan108/rustlings.git
 [submodule "bmes550/guiproject"]
-	path = bmes550/guiproject
+	path = bmes550/CaBiD
 	url = git@github.com:Kabilan108/guiproject.git
