@@ -1,0 +1,35 @@
+---
+title: "C++"
+format:
+  html:
+    theme: sandstone
+---
+
+Write a MATLAB script `cctests.m` that compiles and runs the programs you write for
+each of the questions below. You need to perform your own tests to demonstrate your
+C/C++ program works as intended. Publish this script to a pdf. Submit all of your
+.m, .cc, and .pdf files.
+
+::: {.callout-note}
+## `simplecalculator.cc`
+
+Write a program that that takes three command line arguments: two numbers separated
+with one of the four arithmetic operators (+, -, \*, /), and prints out the result of
+this arithmetic expression.
+:::
+
+::: {.callout-note}
+## `average5.cc`
+
+Write a program that takes 5 numbers from the command line and prints their average.
+:::
+
+::: {.callout-note}
+## `mat2x2_inv.cc`
+
+Write a program that takes 4 numbers as command line arguments, representing a 2-by-2
+matrix (numbers are given in row-order, the first row first, second row next). Take
+the inverse of this matrix and print the inverse as a 1-by-4 vector (again, in
+row-order)
+:::
+
