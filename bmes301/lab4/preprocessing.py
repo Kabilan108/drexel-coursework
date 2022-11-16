@@ -170,6 +170,8 @@ def main():
     with open('results/data.pkl', 'wb') as f:
         pickle.dump([specimen, data], f)
 
+    return specimen, data
+
 
 if __name__ == '__main__':
     main();
