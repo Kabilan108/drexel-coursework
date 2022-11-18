@@ -2,7 +2,7 @@
 title: "Object-Oriented Image Processing"
 format:
   html:
-    theme: slate
+    theme: sandstone
 ---
 
 The MATLAB functions you need for this exercise are exemplified [here](https://www.mathworks.com/help/images/detecting-a-cell-using-image-segmentation.html).
@@ -39,4 +39,12 @@ The MATLAB functions you need for this exercise are exemplified [here](https://w
   - If dbg is on, show the edge image overlayed on the original image
   - Find the connected components in the edge image (`bwconncomp`)
   - Return the number of cells found
-  - Publish your template demo file as a PDF file
+
+- Choose a parameter used in one of the image processing steps used in
+  `bmeimg_countcells()`. Extend the function `bmeimg_countcells()` to take an
+  additional input argument for this parameter. In the function use a default
+  value when the parameter is not given as input.
+  - Analyze the dependency of the cell count found on this parameter, by calling
+    `bmeimg_countcells()` for a range of values for this parameter. Create a
+    plor for the parameter value vs. the number of cells found.
+  - Publish your template demo file as a PDF file.
