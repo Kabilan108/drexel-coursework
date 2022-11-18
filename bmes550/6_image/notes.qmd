@@ -315,10 +315,13 @@ io.imshow(image);
 bins = 256
 
 # Get the image histogram
-hist, edges = np.histogram(image, bins=bins)
+hist, edges = np.histogram(image, bins=bins, range=(0, 1))
 
-# Normalize the intensity histogram
-hist = np.divide(hist.ravel(), hist.max())
+plt.bar(edges[0:-1], hist, width=1/bins, color='black')
+plt.show()
+
+# # Normalize the intensity histogram
+# hist = np.divide(hist.ravel(), hist.max())
 
 # Calculate bin centers
 centers = (edges[:-1] + edges[1:]) / 2.

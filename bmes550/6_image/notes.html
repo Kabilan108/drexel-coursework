@@ -308,33 +308,45 @@ P(i) = \frac{n_i}{n}
 <span id="cb3-2"><a href="#cb3-2"></a>bins <span class="op">=</span> <span class="dv">256</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Get the image histogram</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>hist, edges <span class="op">=</span> np.histogram(image, bins<span class="op">=</span>bins)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>hist, edges <span class="op">=</span> np.histogram(image, bins<span class="op">=</span>bins, <span class="bu">range</span><span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
 <span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Normalize the intensity histogram</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>hist <span class="op">=</span> np.divide(hist.ravel(), hist.<span class="bu">max</span>())</span>
+<span id="cb3-7"><a href="#cb3-7"></a>plt.bar(edges[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>], hist, width<span class="op">=</span><span class="dv">1</span><span class="op">/</span>bins, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>plt.show()</span>
 <span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># Calculate bin centers</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>centers <span class="op">=</span> (edges[:<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> edges[<span class="dv">1</span>:]) <span class="op">/</span> <span class="fl">2.</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># # Normalize the intensity histogram</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># hist = np.divide(hist.ravel(), hist.max())</span></span>
 <span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># Iterate over all thresholds and calculate the probabilities w1(t) and w2(t)</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>weight1 <span class="op">=</span> np.cumsum(hist)</span>
-<span id="cb3-15"><a href="#cb3-15"></a>weight2 <span class="op">=</span> np.cumsum(hist[::<span class="op">-</span><span class="dv">1</span>])[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb3-16"><a href="#cb3-16"></a></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co"># Get the class means</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>mean1 <span class="op">=</span> np.cumsum(hist <span class="op">*</span> centers) <span class="op">/</span> weight1</span>
-<span id="cb3-19"><a href="#cb3-19"></a>mean2 <span class="op">=</span> (np.cumsum((hist <span class="op">*</span> centers)[::<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> weight2[::<span class="op">-</span><span class="dv">1</span>])[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb3-20"><a href="#cb3-20"></a></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co"># Calculate the between-class variance</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>variance <span class="op">=</span> weight1[:<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> weight2[<span class="dv">1</span>:] <span class="op">*</span> (mean1[:<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> mean2[<span class="dv">1</span>:])<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># Calculate bin centers</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>centers <span class="op">=</span> (edges[:<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> edges[<span class="dv">1</span>:]) <span class="op">/</span> <span class="fl">2.</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co"># Iterate over all thresholds and calculate the probabilities w1(t) and w2(t)</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>weight1 <span class="op">=</span> np.cumsum(hist)</span>
+<span id="cb3-18"><a href="#cb3-18"></a>weight2 <span class="op">=</span> np.cumsum(hist[::<span class="op">-</span><span class="dv">1</span>])[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co"># Get the class means</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>mean1 <span class="op">=</span> np.cumsum(hist <span class="op">*</span> centers) <span class="op">/</span> weight1</span>
+<span id="cb3-22"><a href="#cb3-22"></a>mean2 <span class="op">=</span> (np.cumsum((hist <span class="op">*</span> centers)[::<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> weight2[::<span class="op">-</span><span class="dv">1</span>])[::<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb3-23"><a href="#cb3-23"></a></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co"># Fnd the maximum variance</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a>idx <span class="op">=</span> np.argmax(variance)</span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co"># Calculate the between-class variance</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>variance <span class="op">=</span> weight1[:<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> weight2[<span class="dv">1</span>:] <span class="op">*</span> (mean1[:<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> mean2[<span class="dv">1</span>:])<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb3-26"><a href="#cb3-26"></a></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co"># Determine the threshold</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a>threshold <span class="op">=</span> centers[:<span class="op">-</span><span class="dv">1</span>][idx]</span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="bu">print</span>(<span class="st">"Otsu's algorithm threshold:"</span>, threshold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co"># Fnd the maximum variance</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>idx <span class="op">=</span> np.argmax(variance)</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co"># Determine the threshold</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>threshold <span class="op">=</span> centers[:<span class="op">-</span><span class="dv">1</span>][idx]</span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="bu">print</span>(<span class="st">"Otsu's algorithm threshold:"</span>, threshold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="notes_files/figure-html/cell-6-output-1.png" width="369" height="404"></p>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Otsu's algorithm threshold: 0.5229800960918162</code></pre>
+<pre><code>Otsu's algorithm threshold: 0.001953125</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_20921/2750809233.py:21: RuntimeWarning:
+
+invalid value encountered in true_divide
+</code></pre>
 </div>
 </div>
 </section>
