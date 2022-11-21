@@ -1,57 +1,60 @@
-import sys,os; sys.path.append(os.environ['BMESAHMETDIR']); import bmes
-bmes.pipinstall('skimage','scikit-image')
+"""
+Functions for Image Processing
 
-from skimage import io
+By Tony Kabilan Okeke <mailto:tko35@drexel.edu>
+"""
 
-#rather than repeating this block of code many times, let's define a function for it:
-def myimgshow(img,title=None,dbg=True):
-    from skimage import io
-    import matplotlib.pyplot as plt
+# Import the required libraries
+import matplotlib.pyplot as plt
+import skimage.io as io
+import numpy as np
+
+# Import the bmes module
+import sys, os
+sys.path.append(os.environ['BMESAHMETDIR'])
+import bmes
+
+
+def myimshow(img: np.ndarray, title: str='', dbg: bool=True) -> None:
+    """
+    Show an image with a title
+    """
+
     if dbg:
         io.imshow(img)
         if title: plt.title(title)
         io.show();
 
 
-def hwbmeimg_countcells(file=None,dbg=False):
-    # by [[Write your fullname(s) here]]
-    # takes a microscopy image file and returns the number of cells detected.
+def hwbmeimg_countcells(file: str='', dbg: bool=False) -> int:
+    """
+    Count the cells in a microscopy image
+    """
 
+    # If no file is given, download the sample image
+    if not file:
+        URL = ('http://sacan.biomed.drexel.edu/lib/exe/fetch.php'
+               '?media=course:bcomp2:img:samplecells.jpg')
+        file = bmes.downloadurl(URL, './samplecells.jpg')
+    
+    # Read the image data from the file
+    img = io.imread(file)
+    myimshow(img, 'Original Image', dbg);
 
-    ##	* If file argument is not given or is empty, use: file=bmes.downloadurl('http://sacan.biomed.drexel.edu/lib/exe/fetch.php?media=course:bcomp2:img:samplecells.jpg','samplecells.jpg',true);
-    if not file: file=bmes.downloadurl('http://sacan.biomed.drexel.edu/lib/exe/fetch.php?media=course:bcomp2:img:samplecells.jpg','samplecells.jpg');
+    # Apply sobel edge detection
 
-    ##	* Read the image data from the file. imread()
-    #		* if dbg is on, show this image.
-    img = io.imread(file);
-    myimgshow(img,'original image',dbg);
+    # Dilate the edge image
 
+    # Fill the interior gaps of the edge image
 
-    ##  * Apply sobel edge detection. edge()
-    #		* if dbg is on, show the edges as a binary image.
+    # Smoothen the objects in the edge image
 
+    # Show the edge image overlayed on the original image
+    if dbg:
+        pass
 
-    ##	* Dilate the edge image. imdilate()
-    #		* if dbg is on, show the dilated edge image.
+    # Find the connected components in the edge image
 
+    # Count the number of cells in the image
 
-
-    ##	* Fill interior gaps of the edge image. imfill()
-    #		* if dbg is on, show the filled edge image.
-
-
-
-    ##	* Smoothen the objects in the edge image. imerode()
-    #		* if dbg is on, show the smoothened edge image.
-
-
-
-    ##	* If dbg is on, show the edge image overlayed on the original image.
-
-
-
-    ##	* Find the connected components in edge image. bwconncomp()
-
-
-    ##	* Return the number of cells found.
-
+    return 0
