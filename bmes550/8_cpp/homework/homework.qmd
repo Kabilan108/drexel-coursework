@@ -5,31 +5,70 @@ format:
     theme: sandstone
 ---
 
-Write a MATLAB script `cctests.m` that compiles and runs the programs you write for
-each of the questions below. You need to perform your own tests to demonstrate your
-C/C++ program works as intended. Publish this script to a pdf. Submit all of your
-.m, .cc, and .pdf files.
+## Homework
+
+- In this assignment, you are going to create a command-line executable
+  `mymatrix_invert.exe` that calculates and prints the inverse of a given
+  matrix.
+  - The executable should take in as command-line arguments the number of rows
+    and the number of columns of a matrix; followed by the values of the matrix
+    in row-order.
+- Create a `mymatrix` class (`mymatrix.hh` and `mymatrix.cc`) that has an
+  armadillo matrix attribute. 
+  - The constructor of `mymatrix` should accept as input:
+    - the number of rows and columns of the matrix, and
+    - `std::vector<double>` of the values of the matrix in row-order.
+  - The constructor should initialize the matrix attribute and store the given
+    vector of values in that armadillo matrix.
+- `mymatrix` class should have an `invert()` method that inverts the armadillo
+  matrix and also returns the modified `mymatrix` object (i.e., returns `*this`)
+- Write a main program file `mymatrix_invert.cc` that takes in command-line
+  arguments and creates a `mymatrix` object from the given R, C and matrix
+  values; and calls mymatrix's `invert()` method to invert it.
+  - Print the `mymatrix` before and after inversion.
+  - The main program should also perform error-checking to ensure there are
+    enough command-line arguments and prints an error message when the command
+    line arguments are missing or invalid.
+- Compile the cc files to create the executable `mymatrix_invert.exe` in the
+  same folder.
+- Download [mymatrix_invert_test.mlx](https://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:bcomp2:cc.dll:hwarmacompileandrunonly:mymatrix_invert_test.mlx) in
+  to your homework folder containing all your C++ files and the executable.
+  - Run the code in `mymatrix_invert_test.mlx` to regenerate the output.
+  - Save that notebook as a pdf and upload the pdf on Blackboard.
+- Solutions to the C++ program described above are available here
+  [mymatrix.hh](../mymatrix.hh), [mymatrix.cc](../mymatrix.cc), and
+  [mymatrix_invert.cc](../mymatrix_invert.cc).
+  - You may download and use these files (with no grade penalty), or create
+    your own solutions.
+
+
+## Old Assignment
+
+Write a MATLAB script `cctests.m` that compiles and runs the programs you write
+for each of the questions below. You need to perform your own tests to
+demonstrate your C/C++ program works as intended. Publish this script to a pdf.
+Submit all of your.m, .cc, and .pdf files.
 
 ::: {.callout-note}
 ## `simplecalculator.cc`
 
-Write a program that that takes three command line arguments: two numbers separated
-with one of the four arithmetic operators (+, -, \*, /), and prints out the result of
-this arithmetic expression.
+Write a program that that takes three command line arguments: two numbers
+separated with one of the four arithmetic operators (+, -, \*, /), and prints
+out the result of this arithmetic expression.
 :::
 
 ::: {.callout-note}
 ## `average5.cc`
 
-Write a program that takes 5 numbers from the command line and prints their average.
+Write a program that takes 5 numbers from the command line and prints their
+average.
 :::
 
 ::: {.callout-note}
 ## `mat2x2_inv.cc`
 
-Write a program that takes 4 numbers as command line arguments, representing a 2-by-2
-matrix (numbers are given in row-order, the first row first, second row next). Take
-the inverse of this matrix and print the inverse as a 1-by-4 vector (again, in
-row-order)
+Write a program that takes 4 numbers as command line arguments, representing a
+2-by-2 matrix (numbers are given in row-order, the first row first, second row
+next). Take the inverse of this matrix and print the inverse as a 1-by-4 vector
+(again, in row-order)
 :::
-
