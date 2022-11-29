@@ -1,0 +1,370 @@
+---
+format:
+  pdf:
+    documentclass: scrartcl
+    fig-width: 4
+    fig-height: 2.5
+    fontfamily: FiraSans
+    fontsize: 11pt
+    geometry: 
+      - top=0.7in
+      - bottom=1in
+      - left=0.5in
+      - right=0.5in
+      - heightrounded
+    highlight-style: github
+    include-in-header: 
+      text: |
+        \usepackage[shortlabels]{enumitem}
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \lhead{Tony Kabilan Okeke}
+        \chead{Assignment 8}
+        \rhead{BMES 315}
+    mainfont: Lato
+    papersize: letter
+---
+
+<!-- \vspace{-1.45in} -->
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Load packages
+pacman::p_load(tidyverse)
+
+# Custom functions
+plot.lm <- function(data, x, y, xlab, ylab, main) {
+    # Plot the linear model
+    ggplot(data, aes_string(x = x, y = y)) +
+        geom_point(size = 2) +
+        geom_smooth(method = "lm", formula = y~x, color = "red",
+                    fill = "#db8e88", se=FALSE) +
+        ggpubr::stat_regline_equation(aes(
+            label = paste(..eq.label.., ..adj.rr.label.., sep = "~~~")
+        )) +
+        labs(title = main, x = xlab, y = ylab) +
+        ggpubr::theme_pubr() +
+        theme(
+            plot.title=element_text(hjust=0.5, size=13),
+            axis.title=element_text(size=12),
+            axis.text=element_text(size=10),
+            text=element_text(family="Helvetica"),
+        )
+}
+
+pred <- function(fit, cap, ...) {
+    # Predict the fitted values
+    x <- predict(fit, newdata=data.frame(...))
+    paste("For a student with ", cap, ", GPA = ", round(x, 2), sep = "")
+}
+
+# Load data set
+df <- tibble(read.csv("hw8-data.txt", sep='\t'))
+```
+
+
+# Question 1
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+Data was collected after the end of an introductory statistics course in order 
+to investigate the relationship between certain variables, such as study time
+per week, and overall GPA. The table presented below shows the data for 8
+females in the class on these variables.
+
+\begin{enumerate}[(a)]
+\item {Create a scatter plot between study time and college GPA}
+\item {Analyze the data and report the equation and slope of the regression line}
+\item {Interpret the results – what information should be given to students
+       concerning the impact of study time on academic performance?}
+\item {Find the predicted GPA for a student who spends 25 hours a week studying}
+\end{enumerate}
+
+\vspace{-5mm}
+```{r}
+#| echo: false
+
+# Show the data
+knitr::kable(df, "pipe", align="c")
+```
+
+:::
+
+```{r}
+#| echo: true
+
+# Fit the data to a linear model
+fit <- lm(gpa ~ study.time, data=df)
+summary(fit)
+```
+
+::: {.callout-tip appearance="minimal"}
+
+Based on the results of the analysis, there appears to be an increase in the
+overall GPA of students as their weekly study time increases 
+$\left(R_{adj} = 0.60, p=0.015\right)$; specifically, for every additional hour
+of study time, there is an increase in GPA of 0.04.  
+
+The students should be informed that studying for a greater amount of time per
+week tends to increase their overall GPA.
+
+:::
+
+```{r}
+# Predict the GPA for a student who spends 25 hours a week studying
+pred(fit, "a study time of 25 hours", study.time = 25)
+```
+
+```{r fig.align='center'}
+#| echo: false
+
+plot.lm(df, "study.time", "gpa", "Study Time (hours/week)", "GPA", 
+        "Study Time vs. GPA")
+```
+
+# Question 2
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+Repeat a-c from above with number of lectures missed as the predictive, x,
+variable. For part d, find the predicted GPA for a student who missed 12
+lectures.
+
+:::
+
+```{r}
+#| echo: true
+
+# Fit the data to a linear model
+fit <- lm(gpa ~ missed.lectures, data=df)
+summary(fit)
+```
+
+::: {.callout-tip appearance="minimal"}
+
+Based on the results of the analysis, there appears to be a decrease in 
+overall GPA of students as the number of lectures they miss increases
+$\left(R_{adj} = 0.77, p=0.002\right)$; specifically, for every lecture missed,
+there students' GPA decreases by 0.082.  
+
+The students should be informed that missing lectures tends to decrease their
+overall GPA.
+
+:::
+
+```{r}
+# Predict the GPA for a student who missed 12 lectures
+pred(fit, "12 missed lectures", missed.lectures = 12)
+```
+
+```{r fig.align='center'}
+#| echo: false
+
+plot.lm(df, "missed.lectures", "gpa", "Missed Lectures", "GPA", 
+        "Missed Lectures vs. GPA")
+```
+
+
+# Question 3
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+Repeat a-c from above with average daily sleep time as the predictive, x,
+variable. For part d, find the predicted GPA for a student who averaged 7.8
+hours of sleep.
+
+:::
+
+```{r}
+#| echo: true
+
+# Fit the data to a linear model
+fit <- lm(gpa ~ sleep.time, data=df)
+summary(fit)
+```
+
+::: {.callout-tip appearance="minimal"}
+
+Based on the results, there appears to be an increase in overall GPA with an
+increase in the number of hours spent sleeping 
+$\left(R_{adj} = 0.97, p=3.3\cdot10^{-6}\right)$; specifically, the closer a
+student's sleep time is to 8 hours, the higher their GPA tends to be.
+Furthermore, average daily sleep time was found to be responsible for 97% of
+the variation in GPA.  
+
+The students should be informed that students who sleep for closer to 8 hours
+per day tend to have higher GPAs.
+
+:::
+
+```{r}
+# Predict the GPA for a student who missed 12 lectures
+pred(fit, "an average of 7.8 hours of sleep each day", sleep.time = 7.8)
+```
+
+```{r fig.align='center'}
+#| echo: false
+
+plot.lm(df, "sleep.time", "gpa", "Sleep Time (hours/day)", "GPA", 
+        "Sleep Time vs. GPA")
+```
+
+
+# Question 4
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+Consider the study as described. Would this receive IRB approval? If not, why
+not and how could the study be changed so as to make the study more likely to
+be approved?
+
+:::
+
+::: {.callout-tip appearance="minimal"}
+
+I think it is unlikely that the study would receive IRB approval as it is
+currently designed. For one, the study only includes 8 female students who
+were all enrolled in an introductory statistics course. Also, The data collected
+was from a convenience samlple, which is not representative of the population of
+students at the university. 
+In order to improve the study, I would suggest that the researchers collect
+a stratified random sample of students from a variety of different majors, 
+including multiple genders. In addition, the researchers would have to
+more clearly define how study time and average daily sleep time are calculated
+for each student.
+
+:::
+
+
+# Question 5
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+The above study was observational. Choose one of the factors and create an
+experimental study. Would your design be likely to receive IRB approval? What
+might some of the confounding factors be in your study design and how might
+you control for them?
+
+:::
+
+::: {.callout-tip appearance="minimal"}
+
+**Experimental Design**  
+
+- **Sampling:** Take a stratified random sample of 100 students in their freshman
+  year (all genders included) from the College of Engineering at Drexel
+  University who are currently enrolled in classes. This should be done at the
+  start of an academic quarter. Students should be stratified by gender.
+    - The selected students should all be enrolled in an introductory statistics
+      course which meets twice a week for 1 hour each.
+    - The students should be randomly assigned to five groups of 20 students each.
+        - Group 1: Students will be instructed to attend 100% of the lectures
+        throughout the quarter.
+        - Group 2: Students will be instructed to attend 75% of the lectures
+        throughout the quarter.
+        - Group 3: Students will be instructed to attend 50% of the lectures
+        throughout the quarter.
+        - Group 4: Students will be instructed to attend 25% of the lectures
+        throughout the quarter.
+        - Group 5: Students will be instructed not to attend any lectures
+        throughout the quarter.
+        - Students will be allowed to select which lectures they attend.
+    - *Sample Size*, $n = 20 ~\forall~ \text{groups}$ 
+
+- **Measurements:** The students performance in the course will be measured
+  based on their performance on the midterm and final exams. The midterm and
+  final will be weighted equally in the final grade. The midterm will cover
+  material from weeks 1-5 and the final will cover material from weeks 6-10.
+  Students overall grade will be calculated as the average of their midterm and
+  final exam scores.
+
+- **Analysis:** The students' performance in the course will be compared across
+  the five groups. The students' performance will be measured by their overall
+  grade in the course. The data will be analyzed using a two-way ANOVA with
+  the factors being number of lectures attendend and gender. If the ANOVA
+  indicates that there is a significant difference in the students' performance
+  across the five groups, then a post-hoc test will be performed to determine
+  which groups are significantly different from each other.
+
+- **Note:** This study will narrow the scope of the original study by only
+  focusing on the effect of lecture attendance on the students' performance in
+  a single course, instead of on their overall GPA.
+
+
+**IRB Approval**
+
+This study is unlikely to be approved by an IRB because there may not be an
+ethical way to fully control the sleep time of the students. Whereas study time
+could theoretically be controlled by the researchers, it would be much harder to
+require students to sleep for a certain amount of time each day throughout an 
+entire quarter; depending on the nature of their courseload and extracurricular
+activities, students are likely to have varying amounts of sleep. Furthermore, 
+it would likely be an invasion of the students' privacy to implement any strict
+monitoring system for their sleep schedules throughout the 10 weeks of the term. 
+Additionally, since the study is only being conducted on students in the College
+of Engineering taking an introductory statistics course, the results of the
+study may not be generalizable to the entire student population at Drexel
+University. Finally, since the study could have a negative impact on the
+students' GPA which could have consequences on their emotional and mental
+health, and may impact their job prospects since GPA is often used as a
+screening tool by employers.
+
+
+**Confounding Factors**
+
+- Students may have varying levels of prior experience with the material covered
+  in the course
+
+- The amount of time spent studying for the course may vary across the groups
+  which would likely impact their performance in the course. To control for
+  this, students across all groups should be required to study for an average
+  of 12 hours per week. For the purposes of this study, "study time" will be
+  defined as the number of hours spent working on course material outside of
+  class time.
+
+- The amount of sleep time (as shown in our analyses above) has a significant
+  impact on students' overall GPA. To control for this, students across all
+  groups should be required to sleep for an average of 8 hours per day.
+
+- There students' performance could also be impacted by variations in course
+  instructors, teaching assistants, and the lecture material used. To control
+  for this, all students in the study should be taught the same material by the
+  same instructor and teaching assistants throughout the quarter.
+
+:::
+
+
+# Question 6
+\vspace{-5mm}
+
+::: {.callout-note appearance="minimal"}
+
+Run the data table as a multiple regression using all three predictive variables
+and GPA as the variable being predicted. Do the conclusions change? How?
+
+:::
+
+```{r}
+#| echo: true
+
+# Fit the data to a linear model
+fit <- lm(gpa ~ sleep.time + study.time + missed.lectures, data=df)
+summary(fit)
+```
+
+::: {.callout-tip appearance="minimal"}
+
+When we look at a multiple regression model, only daily sleep time was found
+to be a significant predictor of GPA. This is because the other variables
+were likely confounding variables and the correlation between them and GPA
+was spurious.
+
+:::
