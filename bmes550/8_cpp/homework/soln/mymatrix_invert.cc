@@ -42,9 +42,9 @@ int main(int argc, char* argv[]) {
 	
 	// Create mymatrix from R,C, and vector of values. Invert & print.
 	mymatrix m(R, C, vec);
-	cout << "Input: " << m << endl;
-	m = m.invert();
-	cout << "After inversion: " << m << endl;
+	// cout << "Input: " << m << endl;
+	// m = m.invert();
+	// cout << "After inversion: " << m << endl;
 
 
 	//PAUSE
