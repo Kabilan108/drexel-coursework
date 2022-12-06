@@ -35,7 +35,7 @@ def main():
     datapath = Path("data")
 
     ## Regular expression to pull team information from file name
-    meta = re.compile(r'G(?P<team>\d{2})_(?P<strain_group>[AB])')
+    meta = re.compile(r'G(?P<team>\d{2})_(?P<strain_group>[ABCD])')
 
     raw_data = []
 
@@ -71,21 +71,21 @@ def main():
         .drop(columns=['Notes']))
 
     ## Compute second moment of area
-    specimen['I'] = np.pi / 64 * (specimen['b0']*specimen['h0']**4 - specimen['bi']*specimen['hi']**4)
+    specimen['I'] = np.pi / 64 * (specimen['b0']*specimen['h0']**3 - specimen['bi']*specimen['hi']**3)
 
     ## Fixed Span Length
     L = 40  # mm
 
     ## Create figures
     ### Force-Deflection Curves
-    FD_fig = plt.figure(constrained_layout=True, figsize=(6, 25))
+    FD_fig = plt.figure(constrained_layout=True, figsize=(5, 55))
     FD_fig.suptitle("Force-Deflection Curves", fontsize=16)
-    FD_subfigs = FD_fig.subfigures(10, 1, wspace=0.1, hspace=0.1)
+    FD_subfigs = FD_fig.subfigures(20, 1, wspace=0.1, hspace=0.1)
 
     ### Flexural Stress-Flexural Strain Curves
-    SS_fig = plt.figure(constrained_layout=True, figsize=(6, 25))
+    SS_fig = plt.figure(constrained_layout=True, figsize=(5, 55))
     SS_fig.suptitle("Flexural Stress-Flexural Strain Curves", fontsize=16)
-    SS_subfigs = SS_fig.subfigures(10, 1, wspace=0.1, hspace=0.1)
+    SS_subfigs = SS_fig.subfigures(20, 1, wspace=0.1, hspace=0.1)
 
     ## Define strain rates for each group
     strain_rates = {'A': 0.0016, 'B': 0.40, 'C': 0.0016, 'D': 0.40}
@@ -106,7 +106,9 @@ def main():
         SS_ax.set_xlabel("Flexural Strain", fontsize=11)
         SS_ax.set_ylabel("Flexural Stress (MPa)", fontsize=11)
 
-        for strain_group, color in zip(raw_data['strain_group'].unique(), ['#f24444', '#4185f2']):
+        print("Team", team, ":", sep=" ", end=" ")
+
+        for strain_group, color in zip(raw_data['strain_group'].unique(), ['#f24444', '#4185f2', '#f2b141', '#41f2a1']):
 
             ### Subset data for this team and strain group
             _raw = (raw_data.query("team == @team & strain_group == @strain_group")
@@ -114,9 +116,13 @@ def main():
 
             ### Locate yield point
             force = _raw['force'].values
-            if strain_group == 'A':
-                J = np.where(abs(np.diff(force)) > 100)[0] - 1
+            if strain_group in ['A', 'C']:
+                J = np.where(abs(np.diff(force)) > 40)[0] - 1
                 J = J[0]
+            elif strain_group == 'D':
+                smooth = np.convolve(force, np.ones(5)/5, mode='same')
+                d2y = np.gradient(np.gradient(smooth))
+                J = np.where(d2y > 1)[0][0] - 8
             else:
                 J = np.argmax(np.diff(force) < 0)
 
@@ -133,28 +139,32 @@ def main():
             
             ### Plot the Force-Deflection Curve
             sns.lineplot(data=_df, x='deflect', y='force', ax=FD_ax, 
-                         label=f"{strain_group}", linewidth=2, 
-                         linestyle='-', color=color)
+                            label=f"{strain_group}", linewidth=2, 
+                            linestyle='-', color=color)
             sns.lineplot(data=_raw, x='deflect', y='force', ax=FD_ax,
-                         legend=False, linewidth=2, linestyle='--', 
-                         color=color)
+                            legend=False, linewidth=2, linestyle='--', 
+                            color=color)
             FD_ax.plot(yield_point['deflect'], yield_point['force'], 'ok',
-                       markersize=7)
+                        markersize=7)
+            sns.despine(ax=FD_ax)
 
             ### Plot Flexural Stress-Flexural Strain Curve
             sns.lineplot(data=_df, x='flex_strain', y='flex_stress', ax=SS_ax, 
-                         label=f"{strain_group}", linewidth=2, linestyle='-', 
-                         color=color)
+                            label=f"{strain_group}", linewidth=2, linestyle='-', 
+                            color=color)
             sns.lineplot(data=_raw, x='flex_strain', y='flex_stress', ax=SS_ax,
-                         legend=False, linewidth=2, linestyle='--', color=color)
+                            legend=False, linewidth=2, linestyle='--', color=color)
             SS_ax.plot(yield_point['flex_strain'], yield_point['flex_stress'], 
-                       'ok', markersize=7)
+                        'ok', markersize=7)
+            sns.despine(ax=SS_ax)
 
             ### Store data
             _df['strain_rate'] = strain_rates[strain_group]
             data.append(_df)
 
-            print(f"Team {team} (Sample {strain_group}) processed.")
+            print(strain_group, ",", sep="", end=" ")
+
+        print('processed.')
 
     ## Save figures
     with PdfPages('results/force-deflection.pdf') as pdf:
