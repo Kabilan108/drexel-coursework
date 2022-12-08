@@ -1,0 +1,11 @@
+Title:   
+Rapid Functional Annotation of Bacterial Genes
+
+Authors:  
+Kelvin Koser and Michael Welsh
+
+Abstract: 
+Gene ontology is a useful tool for determining the molecular function and biological processes of genetic constructs, as well as the cellular components involved. 
+To further improve the usefulness of this technology, a tool was developed in this final project that accepts a nucleotide sequence, uses BLAST homology to identify 
+the encoded gene construct(s), and finally pipes them into a gene ontology database, returning the molecular functions. Ideally, the tool will make it easy to quickly 
+identify the molecular functions, pathways, or cellular constructs potentially impacted by a gene.

@@ -1,0 +1,10 @@
+name: blast2go_env
+channels:
+- bioconda
+- conda-forge
+dependencies:
+- numpy
+- pandas
+- PySimpleGUI
+- biopython
+- goatools
