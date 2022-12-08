@@ -1,0 +1,16 @@
+title: Monkeypox Risk Calculator
+author: Madison White , Dimitri Kounis , Joshua Yang
+abstract: We developed a Monkeypox Risk Calculator (MRC) that 
+will calculate the risk of a person’s demographic. Specific 
+parameters include the user’s age, ethnicity, gender, 
+vaccination status, and region they live in. Data from the 
+Center of Disease Control and Prevention (CDC) was imported
+to create a SQL database which had the number of cases based 
+on demographic parameters such as ethnicity and vaccination 
+status. The MRC was created through MATLAB’s AppDesigner. 
+The MRC will display a user’s risk as well as summary plots. 
+Once a parameter is chosen by the user, all the cases are 
+shown binned by that parameter (i.e. age ranges, cases per 
+state). The percent of cases that match their demographic, 
+for example, all male cases, will be shown to them next to 
+the summary plots.

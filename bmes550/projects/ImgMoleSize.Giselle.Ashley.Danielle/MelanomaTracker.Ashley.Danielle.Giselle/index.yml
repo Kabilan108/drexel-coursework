@@ -1,0 +1,21 @@
+title: Melanoma Tracker: Image Processing Application for Tracking Changes in Mole Size
+authors: Ashley Bishop, Danielle Shoshany, Giselle Matlis
+abstract: Melanoma is a rapidly growing and fatal cancer. However, if caught early, 
+it can be treated. Early detection and self monitoring is crucial to decrease mortality. 
+With melanoma’s prevalence in the United States on the rise, there is a need for a self 
+monitoring app that can track the growth and assess the risk of potentially malignant moles. 
+Therefore, a series of linked web pages,  Matlab code, and a database were created for individuals 
+to track the progression or advancement of a potentially malignant mole that could be diagnosed as 
+Melanoma.   The web pages were created in PHP, where users login or create an account which compares 
+and/or stores this  user information into a table in SQLite database. Then able to upload an image of 
+a suspicious mole. The image was then evaluated in Matlab based on diameter with a qualitative (i.e.,
+ high, moderate, or low) risk based on the diameter. The image, diameter, and risk were then presented 
+to the user on a new page where they can also evaluate the growth history of the given mole. This mole 
+information was also stored in the database. This process can be used for multiple users and multiple 
+moles per user. In conclusion, the hope for this project is to assist patients in self-assessment of suspicious 
+ moles to potentially increase the detection rate, which could reduce unnecessary melanoma related deaths due to
+late-stage diagnosis. 
+
+
+ 
+

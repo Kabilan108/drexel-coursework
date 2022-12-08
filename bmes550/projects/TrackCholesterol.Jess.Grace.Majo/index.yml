@@ -1,0 +1,17 @@
+title: Cholesterol Tracker
+author: Jess Baggett, Grace Fan, Majo Garcia
+abstract: One of the leading causes of death in the United States is heart disease. The most common type of heart
+  disease is coronary artery disease. High cholesterol is associated with a higher risk in cardiovascular
+  disease. Therefore, being able to keep track of cholesterol is important if a person is at risk for high
+  cholesterol. Healthy adults usually get their cholesterol checked every four to six years, but those
+  who have heart disease, diabetes, or a family history of high cholesterol, have to get
+  their cholesterol checked more frequently. Additionally, it is recommended for older adults, 
+  to receive annual cholesterol tests. This means that patients at risk of high cholesterol will
+  have to visit the doctor's rather often to make sure their cholesterol levels are not too high. 
+  Moreover, checking cholesterol regularly will keep a person at risk of high cholesterol 
+  from plaque buildup in their arteries, which could lead to heart disease or stroke. This project 
+  utilizes two MATLAB GUI's where the user would input their own data and keeps track of patients' cholesterol 
+  test information and analyzes this information to return if their levels are low, normal, or high, 
+  provide recommendations according to those levels, and a 10-year risk assessment for a hard coronary 
+  heart disease. It also allows a patient to determine if their cholesterol levels are risky in the comfort 
+  of their own home. 

@@ -1,0 +1,3 @@
+title: Webpage for Phenotype Exploration
+author:  Monica Jesteen, Balsam Mohammad,Jon Perdomo
+abstract: While many genetic variations are benign, some have been linked to various types of diseases.  Databases such as dbVar provide a curated list of common variants vs. variants linked to clinical phenotypes. Previous studies have identified specific variants that produce disease phenotypes. Characterizing the types and locations of genomic variations associated with specific diseases is beneficial for informing ongoing studies, with the ultimate goal of identifying disease causal variants. This web user interface (GUI) was developed using Python to calculate a distribution of variant type, length, and genomic location for each phenotype. 

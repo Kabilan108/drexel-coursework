@@ -1,0 +1,10 @@
+title: Cystic Fibrosis Survey
+author: Corine Lontoc, Soham Patel, Sam Schonwald
+abstract: Existing questionnaires used in monitoring symptoms for Cystic Fibrosis (CF) 
+  are not specific to the disease, and are used for multiple different diseases. 
+  Available digital applications focus on one area of symptoms, such as respiratory or 
+  digestive issues, without incorporating a broader range of symptoms. We have created 
+  a Cystic Fibrosis tracking system utilizing Matlab functions and  GUI applications as 
+  well as SQLite databases that cover both digestive and respiratory symptoms caused by 
+  Cystic Fibrosis. This tracking system is user specific to ensure privacy and retains 
+  all symptom inputs which enables users to view previous symptoms for later comparison. 

@@ -1,0 +1,18 @@
+title: Osteoporosis Predictor
+author: Abanob Elias, Nathan Pentecost, Bohdan Tkachov
+abstract: Osteoporosis is a condition where one's bones become brittle and fragile. This can be from
+  loss of tissue or lack of calcium and vitamin D over time. There is no simple and quick evaluation
+  for osteoporosis other than sophisticated scans, such as DXA, used to measure bone mineral density
+  as a primary method of diagnosis. The study aims to assist primary care physicians to evaluate
+  patients' risk without the need for expensive and invasive procedures as a preliminary discovery
+  method. This study will be a GUI that predicts the percentage of osteoporosis based on a variety of
+  risk factors and parameters inputted by the user. The primary user base of the GUI will be
+  physicians or healthcare professionals. It asks for the patient's name, age, gender, grip strength,
+  height, weight, number of fractures the patient had, race or ethnicity, if they have a vitamin
+  deficiency, history of maternal fractures, and if they are a smoker. The GUI will send the inputs
+  to a database which will compare the patient's data to pre-existing patients and will predict the
+  patient's risk of osteoporosis through a series of calculations. The GUI will generate a pie chart
+  that will display the percentages or likelihood of having osteoporosis based on historical
+  diagnoses. The output of the pie chart will show percentages of having osteoporosis (Yes), not
+  having osteoporosis (No), and an uncertainty percentage (Unknown) that instructs the user for
+  further assessment of the patient.

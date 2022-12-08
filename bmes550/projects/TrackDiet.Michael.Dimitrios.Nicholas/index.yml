@@ -1,0 +1,16 @@
+title: Dietary tracker using Food and Nutrient Database for Dietary Studies (FNDDS)
+author: Nick Fioravanti, Dimitri Dogias, Michael Mathews
+abstract:
+  Tracking and quantifying individuals' dietary consumption over time can be 
+  critical for actively maintaining/achieving a healthy lifestyle. Monitoring
+  parameters like caloric, carbohydrate, vitamin, and fat intake throughout one's
+  everyday life can inform them of necessary dietary changes, exercise regimens,
+  weight loss, supplements, et cetera to employ to live a healthy life. However, 
+  the time-consuming burden of reading labels and doing math for every meal
+  consumed can discourage individuals from tracking nutritional information
+  manually. This study, therefore, aims to create a user-friendly graphical
+  user interface (GUI) that allows users to input the meals they consume over a 
+  certain period, and automatically generates different nutritional information
+  about those meals like calories and vitamins by accessing data from the USDA's
+  Food and Nutrient Databse for Dietary Studies (FNDDS) databases to provide users
+  a more active way to take control of their health.

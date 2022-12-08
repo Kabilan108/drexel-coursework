@@ -1,0 +1,16 @@
+title: Risk of Developing Breast Cancer in US Women
+author: Landon Leininger, Isabella Spinelli, Demetri Tsitsios
+abstract: Breast cancer is a disease that affects a large number of women in the United States, and
+  it is a disease that has numerous risk factors associated with it. In using a woman's known risk
+  factors to determine her risk of developing breast cancer, the woman can be more knowledgeable of
+  this risk and work to control certain risk factors that she is capable of influencing. This
+  graphical user interface (GUI) calls for the user to input her own risk factors, such as age,
+  race/ethnicity, etc., and it outputs the percentage of known US women with these same risk factors
+  who have a history of breast cancer. This application involves a MATLAB GUI with numerous dropdown
+  menus corresponding to different risk factors. It interacts with an SQL database of mammogram data
+  from US women. A separate MATLAB function searches women in this database who have risk factors
+  associated with those inputted by the user, and it outputs the subsequent percentage who have a
+  history of breast cancer. The results are shown in a pie chart with up to three sections:
+  percentage of women with a history of breast cancer, percentage of women with no history of breast
+  cancer, and percentage of women with an unknown history of breast cancer, all with the risk factors
+  inputted by the user.

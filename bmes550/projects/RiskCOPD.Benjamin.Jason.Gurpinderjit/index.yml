@@ -1,0 +1,10 @@
+title: Graphical User Interface (GUI) Platform to Estimate Chronic Obstruc-tive Pulmonary Disorder (COPD) from User-Given Risk Factors
+author: Ben Barrett, Jason Huang, Gurpinderjit Judge
+abstract: Chronic Obstructive Pulmonary Disorder (COPD) affects millions of people in the US, with an
+  estimated prevalence of up to 10% of the US population. Sever-al risk factors for developing COPD 
+  include age, smoking habits, genetic mutations or the presence of variants, and exercise habits. Literature
+  reviews demonstrate that there are few comprehensive risk calculators, specifically for COPD and designed for
+  both user and physician interaction. Here, we demon-strate the feasibility of a Graphical User Interface (GUI)
+  based platform to deliver a risk score to pa-tients, and an interactive platform for physicians to determine a
+  patient’s changing risk score. Despite the feasibility of the platform itself, future alterations will be needed
+  to validate in the output results for both patients and physicians

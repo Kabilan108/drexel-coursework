@@ -1,0 +1,14 @@
+https://www.kaggle.com/datasets/andrewmvd/us-hospital-locations?resource=download
+
+https://www.unitedstateszipcodes.org/zip-code-database/
+zipcode, lat, long.
+
+zipcode --> lat/long.
+dist< 20miles.
+
+
+foreach hospital:
+  lat/long (X/Y)
+  zipcode -> lat/long.
+  https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+

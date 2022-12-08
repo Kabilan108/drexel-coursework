@@ -1,0 +1,7 @@
+﻿Title: Cancer-Gene Association Risk Assessment Based on Genetic Database
+
+
+Author: Patrick Chapagain, Dao Lin, Henry Nguyen
+
+
+Abstract: There are genetic information about genes associated with cancer but have not yet been utilized for any diagnostics. End stage diagnosis of cancer does not have many treatment options. There is a big need for an early diagnosis/prediction if a person has a risk of cancer. Our model takes patient’s information and desired genes input to assess if they are at risk for  certain types of cancer. The application will generate a tree diagram associating the gene types with the cancer types, and store that into the database for future access.

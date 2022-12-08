@@ -1,0 +1,11 @@
+title: Irritable Bowel Syndrom Patient Symptom Diary and Data Tracker 
+author: Aaliyah Greenman, Eva Kraus, Hailee Mayer
+abstract: 
+  Irritable Bowel Syndrome (IBS) is a group of symptoms that arise from a spastic or nervous colon/bowel, refered to as a gastrointestinal disorder. 
+  The term irritable is used to describe the nerve endings in the bowel wall, which control muscle function and sensation of the gut, which are unusually sensitive in individuals with IBS.  
+  Therefore, diagnosing and managing the disorder can be difficult. 
+  According to the International Foundation for Gastrointestinal Disorders (IFFGD), utilizing a symptom diary for 2-4 weeks can help a patient gain a better understanding of their bowel disorder. 
+  The consistent record keeping of diet, medication, stool consistency, frequency, continence, pain, emotional state, and exercise can help to expose a pattern that will allow patient physicians to determine the best treatment options for specific sensitivities.
+  This project is a web interface that will be used as daily symptom diary for IBS and other irritable bowel disorder patients to Log-in and utilize.
+  A questionair related to  bowel habits, pain, and emotional symptoms will facilitate data tracking within the account and database.
+  The hope is that this technology will provide patients, and their physicians, with a better understanding of their bowel disorder.

@@ -1,0 +1,12 @@
+title: Neurocritical Care Predictor
+author: Zack Goldblum, Josh Miller, Kevin Ramirez Chavez
+abstract: Patients with severe neurological and neurosurgical conditions are
+  treated at Neurocritical Care Units (NICU). These patients present a combination
+  of unique conditions which makes it difficult for the physician to provide an 
+  accurate treatment thus, resulting on a higher mortality risk for the patients.
+  This project's purpose is to provide this physicians with an additional screening 
+  tool for new patients. This tool will collect relevant information from the patient
+  and correlate it with the MIMIC database. This database present the information of 
+  other neurocritical care patients with multiple conditions. The technique presented 
+  in this work is the finding of patients with similar conditions to the ones of the 
+  new patient and, based on their past outcome, predict the mortality risk for the patient.

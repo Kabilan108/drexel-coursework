@@ -1,0 +1,10 @@
+title: HIV Resource Locator for Citizens in Hawaii
+author: Alex Dyba, Natalie Lau, and Victoria Le
+abstract: Each of the additional lines of the abstract should be indented with 2 spaces.
+  The database created included 51 centers in Hawaii. The scope is small because all of the center information 
+  needed to be manually inputted in addition to the abilities of the devices running the code being unable to run 
+  such large amounts of data. The choice of Hawaii was used to encapsulate a smaller scope of the general population. 
+  With Hawaii being made up of  multiple islands as well as having a high amount of centers for the overall area 
+  of the state, it was an optimal choice to use for our database. The code developed in this project is the starting 
+  point for a much larger project. In the future, the scope of this project could be broadened to include additional 
+  states or locations worldwide.
