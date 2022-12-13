@@ -117,7 +117,7 @@ def main():
             ### Locate yield point
             force = _raw['force'].values
             if strain_group in ['A', 'C']:
-                J = np.where(abs(np.diff(force)) > 40)[0] - 1
+                J = np.where(abs(np.diff(force)) > 15)[0] - 1
                 J = J[0]
             elif strain_group == 'D':
                 smooth = np.convolve(force, np.ones(5)/5, mode='same')
