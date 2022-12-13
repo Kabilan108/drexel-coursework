@@ -1,6 +1,3 @@
-[submodule "cst680/AutismCNN"]
-	path = cst680/AutismCNN
-	url = git@github.com:Kabilan108/AutismCNN.git
 [submodule "rustlings"]
 	path = rustlings
 	url = git@github.com:Kabilan108/rustlings.git
