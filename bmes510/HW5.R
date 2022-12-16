@@ -4,7 +4,7 @@ pacman::p_load(dplyr, ggplot2)
 
 # Load data
 df <- readxl::read_excel(
-    "PS5_data.xlsx", 
+    "HW5_data.xlsx", 
     skip=2,
     col_names=c("duration", "heart_rate")
 )
@@ -37,4 +37,4 @@ p <- df %>%
             axis.title=element_text(size=12),
             axis.text=element_text(size=11)
         )
-ggsave("PS5_fit.png", p, width=7, height=4, dpi=300)
+ggsave("HW5_fit.png", p, width=7, height=4, dpi=300)
