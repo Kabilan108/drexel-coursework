@@ -1,7 +1,7 @@
 backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
 backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
 Bottleneck @ file:///home/conda/feedstock_root/build_artifacts/bottleneck_1649629660965/work
-certifi==2022.5.18.1
+certifi==2022.12.7
 charset-normalizer==2.0.12
 cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
 debugpy @ file:///home/conda/feedstock_root/build_artifacts/debugpy_1649586340600/work
