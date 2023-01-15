@@ -3,7 +3,9 @@
 # This script will split the given file and input each line as a cell in a
 # Jupter notebook
 
-tr '^\n' '\n\n\n' < homework.md | while read -r line; do
+$json=$(cat hwtemplate.ipynb)
+
+tr '^\n' '\n\n\n' < $1 | while read -r line; do
     
     if [[ "$line" =~ ^#\ .* ]]; then
         # Add author and date to cell with top header
@@ -31,6 +33,10 @@ EOF
 }
 EOF
 )
+
+  echo $cell
+  echo 
+  echo
 
     # Add the cell to the cells array in a json file using jq
     jq --argjson cell "$cell" '.cells += [$cell]' hwtemplate.ipynb > $2
