@@ -1,0 +1,104 @@
+---
+title: "Data Basics Assignment"
+author: "Tony Kabilan Okeke"
+date: "January 10, 2023"
+---
+
+In this assignment you are going to analyze this [Immunotherapy dataset](http://archive.ics.uci.edu/ml/datasets/Immunotherapy+Dataset). The study that has produced the dataset is described [here](https://www.ncbi.nlm.nih.gov/pubmed/28086200). The dataset contains only the immunotherapy subset of patients. Review the paper for description of the attributes.
+
+- Create a `hwdatabasics.mlx`, `hwdatabasics.ipynb` or `hwdatabasics.rmd` file
+  to perform the following tasks.
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Set the working directory to the location of the data file
+setwd("/home/muaddib/sietch/courses/bmes547/1_data/homework")
+```
+
+```{r packages message=FALSE, warning=FALSE}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse)
+```
+
+```{r data}
+# Download and read the data
+url <- "https://archive.ics.uci.edu/ml/machine-learning-databases/00428/Immunotherapy.xlsx"
+if (!file.exists("immunotherapy.xlsx")) download.file(url, "immunotherapy.xlsx")
+data <- readxl::read_excel("immunotherapy.xlsx")
+```
+
+- For each attribute, find its correlation with the result of treatment. Exclude 
+  result of treatment as an attribute so you do not find its correlation with 
+  itself. Note that correlation is not the best measurement for categroical 
+  features, especially if there are more than 2 categories. But, for this 
+  assignment, we'll ignore this caveat and calculate correlation anyway. You do 
+  not need to convert categorical features for this assignment, just use the 
+  numbers as they are.
+
+```{r correlation}
+# Calculate correlation with the result of treatment
+corr <- cor(data, use = "complete.obs")[1:7, 8]
+
+# Store the correlation values in a data frame
+results <- tibble(name=names(corr), corr)
+```
+
+- For each attribute, find if there is a statistically significant difference in 
+  that attribute, between successful and failed treatments. Use 
+  *two-sample t-test* for the comparison and find the p-value. Report the names 
+  of attributes that you found to be statistically significantly different. You 
+  need to decide your own p-value threshold.
+
+```{r t-test}
+# Test for statistically significant difference between groups
+# Assume that the data is normally distributed, and variance is equal
+pvals <- data %>%
+    pivot_longer(-Result_of_Treatment) %>%
+    group_by(name) %>%
+    rstatix::t_test(
+        value ~ Result_of_Treatment, paired = FALSE, var.equal = TRUE
+    ) %>%
+    select(name, p)
+
+# Join to the results data frame
+results <- results %>%
+    left_join(pvals, by = "name")
+
+# Report the statistically significant attributes
+p_thr <- 0.05
+sig <- results %>%
+    filter(p < p_thr) %>%
+    .$name
+paste("The following attributes are statistically significant:", 
+      paste(sig, collapse = ", "))
+```
+
+- Report the correlation coefficients and p-values of **all of** the attributes 
+  in a tabular format (First column containing variable names, second column 
+  containing correlation values, and third column containing pvalues). The 
+  reported table must be sorted in increasing order by p-values.
+
+```{r table}
+# Display the results in a table
+results %>%
+    arrange(p) %>%
+    knitr::kable()
+```
+
+- For the attribute with the most significant p-value, create a box plot showing 
+  a summary of the values of that attribute, for successfule and failed 
+  treatments.
+
+```{r boxplot}
+# boxplot of the attribute with the most significant p-value
+top <- results %>%
+    arrange(p) %>%
+    .$name %>%
+    .[1]
+data$Result_of_Treatment <- factor(data$Result_of_Treatment)
+
+data %>%
+    ggplot(
+        aes(x=Result_of_Treatment, y=!!sym(top), fill=Result_of_Treatment)
+    ) +
+        geom_boxplot()
+```
