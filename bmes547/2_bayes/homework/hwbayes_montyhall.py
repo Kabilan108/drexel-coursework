@@ -3,6 +3,7 @@ Monty Hall Simulation
 """
 
 # Imports
+import random
 
 
 def hwbayes_montyhall(strategy: int, trials: int) -> float:
@@ -28,19 +29,40 @@ def hwbayes_montyhall(strategy: int, trials: int) -> float:
        Winning ratio of the player under the given strategy.
     """
 
-    """
-    Pseudocode:
+    if strategy not in [0, 1, 2]:
+        raise ValueError("Invalid strategy.")
+    if trials < 1:
+        raise ValueError("Invalid trials.")
 
-    foreach iteration
-        - randomly determine which door has the car.
-        - player picks a door randomly.
-        - among the two doors the player did not pick, randomly discard the one
-          that doesn't have the car.
-        - apply the strategy
-        - if the player wins, count it as a win.
-    calculate the winning ratio.
-    """
+    wins = 0
 
+    for _ in range(trials):
+        doors = [1, 2, 3]
 
-    # YOUR CODE HERE
-    raise NotImplementedError()
+        # Randomy pick the door with the car
+        car = random.choice(doors)
+
+        # The player randomly picks a door
+        player = random.choice(doors)
+
+        # Doors not picked by the player
+        other_doors = [d for d in doors if d not in [player, car]]
+
+        # Discard one of the other doors that does not have the car
+        discard = random.choice(other_doors)
+        doors.remove(discard)
+
+        # Implement strategies
+        if strategy == 0:  # never switch door
+            final = player
+        elif strategy == 1:  # always switch door
+            final = [d for d in doors if d != player][0]
+        elif strategy == 2:  # switch door at random
+            final = random.choice(doors)
+        else:
+            raise ValueError("Invalid strategy.")
+
+        # Check if the player wins
+        wins += int(final == car)
+
+    return wins / trials * 100
