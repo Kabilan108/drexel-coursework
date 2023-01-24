@@ -1,6 +1,3 @@
-"""
-Monty Hall Simulation
-"""
 
 # Imports
 import random
@@ -34,19 +31,19 @@ def hwbayes_montyhall(strategy: int, trials: int) -> float:
     if trials < 1:
         raise ValueError("Invalid trials.")
 
-    wins = 0
+    wins = 0  # Win counter
 
     for _ in range(trials):
         doors = [1, 2, 3]
 
-        # Randomy pick the door with the car
+        # Randomly place a car behind one of the doors
         car = random.choice(doors)
 
-        # The player randomly picks a door
-        player = random.choice(doors)
+        # Randomly pick a door by the player
+        chosen = random.choice(doors)
 
         # Doors not picked by the player
-        other_doors = [d for d in doors if d not in [player, car]]
+        other_doors = [d for d in doors if d not in [car, chosen]]
 
         # Discard one of the other doors that does not have the car
         discard = random.choice(other_doors)
@@ -54,9 +51,9 @@ def hwbayes_montyhall(strategy: int, trials: int) -> float:
 
         # Implement strategies
         if strategy == 0:  # never switch door
-            final = player
+            final = chosen
         elif strategy == 1:  # always switch door
-            final = [d for d in doors if d != player][0]
+            final = [d for d in doors if d != chosen][0]
         elif strategy == 2:  # switch door at random
             final = random.choice(doors)
         else:
