@@ -1,3 +1,5 @@
+#!/home/muaddib/.conda/envs/pygame/bin/python
+
 #File:      blankPygameV2.py
 #Purpose:   Demo of a basic program using pygame
 #Author:    A. Medlock
