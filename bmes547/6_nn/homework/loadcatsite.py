@@ -4,6 +4,7 @@ template by: AhmetSacan.
 """
 
 # Imports for data loading and manipulation
+from sklearn.preprocessing import StandardScaler
 import scipy.io as sio
 import pandas as pd
 import numpy as np
@@ -64,6 +65,9 @@ def loadcatsite() -> tuple:
 
     # Extract numeric features
     X = df.select_dtypes(include=['float64', 'int64']).values
+
+    # Standardize the numeric features
+    X = StandardScaler().fit_transform(X)
     
     # Convert the AAName1LetterCode feature to numeric data.
     # Each amino acid should be represented by 20 binary numbers. You must use
@@ -89,11 +93,13 @@ def loadcatsite() -> tuple:
     # Remove data with missing values.
     # Remove all data rows where a numeric value is NaN (not a number), which
     # are indicated by '?' in the arff file. See matlab function ``isnan()''.
-    X = X[~np.isnan(X).any(axis=1)]
+    nanIdx = np.isnan(X).any(axis=1)
+    X = X[~nanIdx, :]
 
     # Convert the class labels to numeric +1/-1.
     # Store the class labels into a numerical vector T. Remove that column from X.
     T = df['class'].apply(eval).values
+    T = T[~nanIdx]  # Remove the rows with missing values
 
     # Convert the data into a numeric matrix X, if you haven't already.
     # X: one row per data sample, and one column for each feature.
