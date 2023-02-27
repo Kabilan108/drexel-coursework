@@ -16,65 +16,87 @@ import random
 if __name__ == '__main__':
     # Initialize pygame
     pygame.init()
+    surface = pygame.display.set_mode((800, 600))
+    surface.fill((255, 255, 255))
+    pygame.display.set_caption("Ball Stack - tko35")
+    fps = pygame.time.Clock()
 
-    # Create the screen
-    screen = pygame.display.set_mode((800, 600))
+    # Create the ball
+    ball = Ball(50, 400, True, 10, (255, 0, 0))
 
-    # Set the title and icon
-    pygame.display.set_caption("Ball Stack")
-    icon = pygame.image.load('ball.png')
-    pygame.display.set_icon(icon)
+    # Create 9 blocks (stacked in a 3x3 cube)
+    blocks = [
+        Block(400, 380, True, 20, 20, (0, 0, 255)),
+        Block(380, 380, True, 20, 20, (0, 0, 255)),
+        Block(360, 380, True, 20, 20, (0, 0, 255)),
+        Block(400, 360, True, 20, 20, (0, 0, 255)),
+        Block(380, 360, True, 20, 20, (0, 0, 255)),
+        Block(360, 360, True, 20, 20, (0, 0, 255)),
+        Block(400, 340, True, 20, 20, (0, 0, 255)),
+        Block(380, 340, True, 20, 20, (0, 0, 255)),
+        Block(360, 340, True, 20, 20, (0, 0, 255))
+    ]
 
-    # Create the game objects
-    ball = Ball(400, 300, True, 10, (255, 255, 255))
-    block = Block(400, 300, True, 20, 20, (255, 255, 255))
-    text = Text(10, 10, True, "Score: 0", (255, 255, 255))
+    # Score counter
+    text = Text(10, 10, True, "Score: 0", (0, 0, 0))
+
+    # Physics variables
+    dt = 0.1
+    g = 6.67
+    R = 0.7
+    eta = 0.5
 
     # Game loop
-    running = True
-    while running:
-        # Fill the screen with black
-        screen.fill((0, 0, 0))
+    while True:
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and 
+                                             event.key == pygame.K_q):
+                pygame.quit()
+                exit()
 
-        # Draw the game objects
-        ball.draw(screen)
-        block.draw(screen)
-        text.draw(screen)
+            # Store the mouse position
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos_1 = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos_2 = pygame.mouse.get_pos()
+
+                # Compute distance between the two points (velocity)
+                xv = pos_2[0] - pos_1[0]
+                yv = -1 * (pos_2[1] - pos_1[1])
+
+                # Launch the ball
+                if abs(yv) > 0.0001:
+                    # Current pos
+                    x, y = ball.getLoc()
+
+                    # Adjust velocity
+                    if y > 400:
+                        yv = -R * yv
+                        xv = eta * xv
+                    else:
+                        yv -= g * dt
+
+                    # Update the ball
+                    new_x = int(x + dt * xv)
+                    new_y = int(y - dt * yv)
+                    ball.setLoc((new_x, new_y))
+
+        # Draw the ground plane
+        pygame.draw.line(surface, (0, 0, 0), (0, 400), (800, 400), 1)
+
+        # Draw the ball
+        ball.draw(surface)
+
+        # Draw the blocks
+        for block in blocks:
+            block.draw(surface)
+
+        # Draw the score
+        text.draw(surface)
 
         # Update the display
         pygame.display.update()
 
-        # Check for events
-        for event in pygame.event.get():
-            # Check for quit event
-            if event.type == pygame.QUIT:
-                running = False
-
-            # Check for key press event
-            if event.type == pygame.KEYDOWN:
-                # Check for escape key
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-
-                # Check for space key
-                if event.key == pygame.K_SPACE:
-                    # Check if the ball is inside the block
-                    if block.get_rect().colliderect(ball.get_rect()):
-                        # Increase the score
-                        score = int(text.getText().split(": ")[1]) + 1
-                        text.setText(f"Score: {score}")
-
-                        # Move the ball to a random location
-                        ball.setLoc(
-                            random.randint(0, 800),
-                            random.randint(0, 600)
-                        )
-
-                        # Increase the size of the block
-                        # block.setSize(
-                        #     block.getWidth() + 10,
-                        #     block.getHeight() + 10
-                        # )
-
-    # Quit pygame
-    pygame.quit()
+        # Tick the clock
+        fps.tick(60)

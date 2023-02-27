@@ -24,10 +24,19 @@ class Block(Drawable):
 
     def draw(self, surface: Surface):
         """Draws the block on the screen"""
+        # Draw the block
         pygame.draw.rect(
             surface,
             self.__color,
-            [self.getLoc()[0], self.getLoc()[1], self.__width, self.__height]
+            [self.getLoc()[0], self.getLoc()[1], self.__width, self.__height],
+            width=0
+        )
+        # Draw the outline
+        pygame.draw.rect(
+            surface,
+            (0, 0, 0),
+            [self.getLoc()[0], self.getLoc()[1], self.__width, self.__height],
+            width=2
         )
 
     def get_rect(self):
