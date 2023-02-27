@@ -56,7 +56,7 @@ def loadcatsite() -> tuple:
     # Load the NataliaPetrova.catsite.arff file into variable catsite
     URL = ('http://sacan.biomed.drexel.edu/lib/exe/fetch.php?rev=&media=course:'
            'ml:nn:hwnn.catsite:NataliaPetrova.catsite.arff')
-    file = bmes.downloadurl(URL, 'catsite.arff');
+    file = bmes.downloadurl(URL, 'catsite.arff')
     data, _ = sio.arff.loadarff(file)
     df = pd.DataFrame(data)
 
@@ -100,6 +100,10 @@ def loadcatsite() -> tuple:
     # Store the class labels into a numerical vector T. Remove that column from X.
     T = df['class'].apply(eval).values
     T = T[~nanIdx]  # Remove the rows with missing values
+
+    # Encode the labels to make them binary (0 = -1 and 1 = 1)
+    # This makes cconfiguring the output layer of the Keras model easier
+    T = (T + 1) / 2
 
     # Convert the data into a numeric matrix X, if you haven't already.
     # X: one row per data sample, and one column for each feature.
