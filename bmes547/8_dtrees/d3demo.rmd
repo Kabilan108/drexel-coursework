@@ -1,0 +1,44 @@
+---
+title: "Decision Tree Demo"
+---
+
+```{r}
+# Install required packages if they are not already installed.
+needpackages = c('pillar','ggplot2','gdata','ggvis','C50','caret')
+needpackages = needpackages[!(needpackages %in% installed.packages()[,"Package"])]
+if(length(needpackages)) install.packages(needpackages,dependencies = TRUE,repos = "http://cran.us.r-project.org")
+```
+
+
+```{r}
+d = read.table('weightgaindata.tab',header=TRUE)
+d$deltaweight[d$deltaweight >= 0] = 'Gain' # Binarize deltaweight
+d$deltaweight[d$deltaweight < 0] = 'Loss'
+head(d) #show top few rows.
+```
+```{r}
+# Setup train/test sets (4-fold validation)
+library(caret)
+I = createDataPartition(iris$Species, p = .75, list = FALSE, times = 1)
+dtrain = d[I,]
+dtest = d[-I, ]
+C=ncol(dtrain)
+Xtrain=dtrain[, 1:C-1 ];
+Ttrain=dtrain[, C ];
+Xtest=dtest[, 1:C-1 ];
+Ttest=dtest[, C ];
+```
+
+```{r}
+library(C50)
+tree = C5.0(Xtrain,as.factor(Ttrain))
+summary(tree)
+```
+```{r}
+Ytest = predict(tree, Xtest)
+library(caret)
+confusionMatrix(Ytest,Ttest)
+```
+
+
+
