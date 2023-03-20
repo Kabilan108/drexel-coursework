@@ -12,7 +12,7 @@ class Sphere(Solid):
 
     def __init__(self, radius, color="red"):
         """Class constructor"""
-        super().__init__(kind="sphere", color=color)
+        super().__init__(kind="Sphere", color=color)
         self.__radius = radius
 
     def getRadius(self):
@@ -30,7 +30,7 @@ class Sphere(Solid):
     def __str__(self):
         """String representation of sphere"""
         s = super().__str__()
-        s += f"Volume: {self.getVolume():.2f}\nRadius: {self.getRadius():.2f}"
+        s += f"\nVolume: {self.getVolume()}\nRadius: {self.getRadius()}"
         return s
 
 
@@ -39,7 +39,7 @@ class Cone(Solid):
 
     def __init__(self, radius, height, color="red"):
         """Class constructor"""
-        super().__init__(kind="cone", color=color)
+        super().__init__(kind="Cone", color=color)
         self.__radius = radius
         self.__height = height
 
@@ -67,7 +67,7 @@ class Cone(Solid):
         """String representation of sphere"""
         s = super().__str__()
         s += (
-            f"Volume: {self.getVolume():.2f}\nRadius: {self.getRadius():.2f}"
-            f"\nHeight: {self.getHeight():.2f}"
+            f"\nVolume: {self.getVolume()}\nRadius: {self.getRadius()}\n"
+            f"Height: {self.getHeight()}"
         )
         return s
