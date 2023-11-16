@@ -1,0 +1,85 @@
+---
+title: "BMES 710: Extra Credit 2"
+author: "Tony Kabilan Okeke"
+date: "11-14-2023"
+format:
+  html:
+    theme: flat
+    fontsize: 0.9em
+    highlight: github
+    code-copy: true
+jupyter: python3
+---
+
+# Generating a Poisson Spike Train
+
+1. Select a small ∆t (0.001 seconds)
+2. Select a firing rate (in Hz)
+3. Make a time vector (100 seconds, step size is ∆t)
+4. Spikes=rand(size(time_vector)) < rate * ∆t ;
+5. Plot your spike train
+6. Plot the ISI histogram for your spike train and overlay the Poisson ISI 
+  distribution (theoretical)
+  - hint: make tau step sizes and bin sizes for your histogram the same
+1. Calculate the CV for your ISI
+
+
+``` {python}
+#| echo: true
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Select a small ∆t (0.001 seconds)
+dt = 0.001
+
+# Step 2: Select a firing rate (in Hz)
+rate = 180  # Example firing rate
+
+# Step 3: Make a time vector (100 seconds, step size is ∆t)
+time_vector = np.arange(0, 100, dt)
+
+# Step 4: Generate spikes
+spikes = (np.random.rand(len(time_vector)) < rate * dt)
+spike_locs = np.where(spikes)[0]
+
+# Step 5: Plot spike train
+plt.figure(figsize=(15, 3))
+plt.eventplot(spike_locs, lineoffsets=0.5, color="black")
+plt.title('Spike Train')
+plt.xlabel('Time (s)')
+plt.ylabel('Spikes')
+plt.xlim([0, 100])
+plt.ylim([0, 1])
+
+# Step 6: Plot ISI histogram and overlay Poisson ISI distribution
+# Calculate ISI
+isi = np.diff(time_vector[spikes])
+# Histogram of ISI
+hist_bins = np.arange(0, np.max(isi), dt)
+hist_vals, _ = np.histogram(isi, bins=hist_bins)
+# Convert to probability
+hist_vals = hist_vals / sum(hist_vals)
+
+# Poisson distribution for the given rate
+tau = hist_bins[:-1]  # use the midpoints of the bins for tau
+poisson_isi = rate * np.exp(-rate * tau) * dt
+
+# Overlay the theoretical Poisson distribution on the histogram
+plt.figure(figsize=(15, 5))
+plt.bar(tau, hist_vals, width=np.diff(hist_bins)[0], color='grey', label='Empirical ISI Distribution')
+plt.plot(tau, poisson_isi, 'r-', label='Theoretical Poisson ISI Distribution')
+plt.title('ISI Histogram and Poisson ISI Distribution Overlay')
+plt.xlabel('Interspike Interval (s)')
+plt.ylabel('Probability')
+plt.legend()
+plt.show()
+
+# Step 7: Calculate the CV for your ISI
+# CV = Standard Deviation / Mean of ISI
+CV = np.std(isi) / np.mean(isi)
+CV
+
+
+```

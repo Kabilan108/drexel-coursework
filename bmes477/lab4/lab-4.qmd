@@ -1,0 +1,405 @@
+---
+title: "BMES 710: Lab 4 - PSTH"
+author: "Tony Kabilan Okeke"
+date: "11-16-2023"
+format:
+  html:
+    theme: flat
+    fontsize: 0.9em
+    highlight-style: github
+    code-copy: true
+    code-block-bg: true
+jupyter: python3
+---
+
+# Introduction: PSTH and Neurophysiological Parameters
+
+## Dataset Organization
+
+- The file PSTH.mat is a cell array whose first two elements contain numerical 
+  arrays representing the time each spike occurs (in seconds) for two neurons
+  in the rat barrel cortex (somatosensory representation of the whisker system). 
+- Once you load this dataset in MATLAB you should be able to access all the 
+  spike times of neuron one or two with the command ‘PSTHdata{1}’ or
+  ‘PSTHdata{2}’ respectively. The remaining 2 columns (PSTHdata{3,4}) contain 
+  numerical arrays representing the stimulation times (in seconds) of two 
+  different whiskers (locations L1 and L2).
+
+## PSTH Algorithm
+
+- In general, the peristimulus time histogram (PSTH) shows the conditional 
+  probability of a spike in the spike train at time t on the condition that 
+  there is a reference stimulus at time zero. 
+- The time axis is divided into bins of size ∆t. The first bin is [XMin, XMin+∆t). 
+- The second bin is [XMin+∆t, Xmin+∆t*2), etc. 
+- The left end is included in each bin, the right end is excluded from the bin. 
+- Let ref[k] be the array of reference events (stimulation times) for one 
+  whisker and ts[i] be the array of spike times for one neuron. 
+
+::: {.callout-note}
+
+# A. If you are writing your own function, for each timestamp `ref[k]`:
+
+1. calculate the distances from this stimulus to all the spikes in the spike
+   train: `d = ts - ref[k]`
+2. for each i:
+   ```markdown
+   if d[i] is inside the first bin, increment the bin counter for the first bin:
+      if d[i] >= XMin and d[i] < XMin + ∆t:
+         then bincount[1] = bincount[1] + 1
+   
+   if d[i] is inside the second bin, increment the bin counter for the second bin:
+      if d[i] >= XMin + ∆t and d[i] < XMin + ∆t*2:
+         then bincount[2] = bincount[2] + 1
+   
+   and so on...
+   ```
+
+If the desired unit of measure is Counts/∆t, no further calculations are performed. 
+If the desired unit of measure is Probability, bin counts are divided by the number
+reference events (remember, this does not apply if ∆t is too large). If the desired 
+unit of measure is Spikes/Sec, bin counts are divided by NumRefEvents*∆t, where
+NumRefEvents is the number of reference events.
+
+:::
+
+::: {.callout-note}
+
+# B. 
+
+If you instead decide to use a function like histcounts to place spikes in bins, you still
+need to shift the spikes with respect to each stimulus time before collecting the spikes
+around that stimulus time. We will walk through this in class, but please contact Dr. von
+Reyn if you still have questions. 
+
+:::
+
+### Part 1: Generation of the PSTH for location L1 and L2
+
+a. Use your dataset to generate the peristimulus time histogram (PSTH) of the 2 neurons 
+   (‘PSTHdata{1}’ and ‘PSTHdata{2}’) for stimulus location L1 and L2 (‘PSTHdata{3}’ and 
+   ‘PSTHdata{4}’). Use a binsize (∆t) of 1ms (0.001 seconds) and let Xmin = -100 ms and 
+   Xmax = 100 ms (-0.1 seconds and 0.1 seconds). Generate a graph for each neuron for 
+   each stimulated location. Make sure you put the unit of measures on each axis (x is 
+   time, y is the probability a spike occurs in that bin).
+
+``` {python}
+#| echo: false
+
+# Import packages
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import scipy.io
+
+import os
+os.chdir("/mnt/arrakis/courses/bmes477/lab4")
+```
+
+``` {python}
+#| echo: false
+
+# Define Histogram Parameters
+BIN_SIZE = 0.001  # 1 ms
+X_MIN = -0.1      # -100 ms
+X_MAX = 0.1       # 100 ms
+
+# Calculate the edges of the bins
+BIN_EDGES = np.arange(X_MIN, X_MAX + BIN_SIZE, BIN_SIZE)
+
+
+def generate_psth(ts, ref):
+    """Generate a Peristimulus Time Histogram (PSTH)
+    Args:
+        ts  (np.ndarray): Spike times for a neuron (s)
+        ref (np.ndarray): Reference events for a whisker (s)
+    Return:
+        psth_counts(np.ndarray): the probability of spikes in each bin.
+    """
+
+    global BIN_EDGES
+
+    # Initialize list to hold counts for each bin
+    psth_counts = np.zeros(len(BIN_EDGES) - 1, dtype=int)
+
+    # Iterate over each stimulus time
+    for ref_k in ref:
+        # calculate distance from stimulus to all spike times
+        d = ts - ref_k
+
+        # calculate number of spikes in each bin
+        counts, _ = np.histogram(d, bins=BIN_EDGES)
+
+        # add counts to psth_counts (sum counts from each stimulus)
+        psth_counts += counts
+    
+    # calculate probability of spikes in each bin
+    psth_probs = psth_counts / len(ref)
+
+    return psth_probs
+
+
+def plot_psth(psth):
+    """Plot a Peristimulus Time Histogram
+    Args:
+        psth(pd.DataFrame): Data frame containing neuron, location and psth data
+    """
+
+    global BIN_EDGES, BIN_SIZE
+
+    fig, axes = plt.subplots(2, 2, figsize=(6, 4))
+    axes = axes.flatten()
+
+    for i, row in psth_data.iterrows():
+        ax = axes[i]
+        neuron, location, psth_probs = row
+
+        bin_centers = (BIN_EDGES[:-1] + BIN_EDGES[1:]) / 2
+
+        ax.bar(bin_centers, psth_probs, width=BIN_SIZE, align='center', color='#ff5c5c')
+        
+        ax.spines[['top', 'right']].set_visible(False)
+
+        if i in [2, 3]:  ax.set_xlabel('Time Relative to Stimulus (s)', fontsize=10.5)
+        if i in [0, 2]:  ax.set_ylabel('Spike Probability', fontsize=10.5)
+        ax.set_title(f"{neuron} - {location}")
+        
+        ax.set_xlim(-0.1, 0.1)
+        ax.set_ylim(0, 0.55)
+        ax.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5])
+
+    plt.tight_layout()
+```
+
+``` {python}
+#| echo: false
+#| fig-align: center
+#| fig-cap: "**Figure1:** Peristimulus Time Histograms for each neuron and whisker location"
+#| fig-cap-location: bottom
+
+# Load PSTH.mat file
+data = scipy.io.loadmat('PSTH.mat')['PSTHdata'][0]
+data = [d.reshape(-1) for d in data]
+
+# Extract variables
+ts = {k:v for k, v in zip(['neuron 1', 'neuron 2'], data[:2])}  # spike times
+ref = {k:v for k, v in zip(['location 1', 'location 2'], data[2:])} # reference events
+
+# compute psth for each neuron and whisker location
+psth_data = []
+for n in ts.keys():
+    for l in ref.keys():
+        psth_data.append({
+            'neuron': n,
+            'location': l,
+            'psth_probs': generate_psth(ts[n], ref[l])
+        })
+
+# Convert to pandas dataframe
+psth_data = pd.DataFrame(psth_data)
+
+# Plot PSTH
+plot_psth(psth_data);
+```
+
+b. Describe qualitatively if the neurons are responding to the stimulus.
+
+> For neuron 1, we see a clear peak in spike probability shortly after the stimulus
+for location 1, indicating a strong response to the stimulus. For location 2,
+there are a few small peaks, but they are not as pronounced, suggesting a weaker
+or more variable response to the stimulus.
+>
+> For neuron 2, the PSTHs for location 1 shows a small peak in spike probability
+shortly after the stimulus, indicating a weak response. For location 2,
+we observe several spikes of very low magnitude from 100ms before the stimulus
+to 100ms after; this appears to primarily be background neural activity and
+not in response to the stimulus.
+
+### Part 2: Extraction of Neurophysiological Measures from the PSTH
+
+The PSTH can be used to extract quanititative measures that characterize the
+response of the neurons to the stimulus. In order to identify significant 
+responses in the PSTHs:
+
+- a threshold is set as the average background activity (BA) of the neuron
+  (evaluated from 100 to 5ms before the stimulus) plus 3 standard deviations (SD)
+  from the BA
+- the first and last significant bin (1ms bin size) must exceed the threshold 
+  in a window between 5 and 90 ms after the stimuli are identified, and
+- the first significant bin must be followed by at least two additional
+  consecutive bins over the threshold.
+
+For every significant response, four parameters are extracted from the PSTH:
+
+i.   the response magnitude (**RM**), defined as the sum of the PSTH between
+     the first and last significant bin (**FSB** and **LSB**)
+ii.  the peak response (**PR**), defined as a the maximum probability of a spike
+     occuring in a bin
+iii. the first significant bin latency (**FBL**)
+iv.  the last significant bin latency (**LBL**)
+v.   the peak latency (**PL**), defined as the time intervals between the
+     stimulus onset and the first significant bin or the peak, respectively
+
+<hr>
+
+a. Generate a table for both neurons for both stimulated locations containing
+   each of the five parameters (**RM**, **PR**, **FBL**, **LBL**, and **PL**) 
+   given above. Make sure the starting PSTHs are generated using the 
+   probability unit of measure.
+
+``` {python}
+#| echo: false
+
+def calculate_BA(psth_probs, pre_stim_window=(-0.1, -0.005)):
+    """Calculate Background Activity
+    Args:
+        psth_probs(np.ndarray): Probability of spikes in each bin
+        pre_stim_window(tuple): Time window to calculate BA
+    Returns:
+        ba(float): Background activity
+        sd(float): Standard deviation of BA
+    """
+
+    global BIN_EDGES
+
+    # find bin indices that correspond to the pre-stimulus window
+    pre_stim_bins = np.where(
+        (BIN_EDGES >= pre_stim_window[0]) & (BIN_EDGES < pre_stim_window[1])
+    )[0]
+
+    # calculate BA and SD of BA
+    ba = np.mean(psth_probs[pre_stim_bins[:-1]])
+    sd = np.std(psth_probs[pre_stim_bins[:-1]])
+
+    return ba, sd
+
+
+def find_significant_responses(psth_probs, threshold, post_stim_window=(0.005, 0.09)):
+    """Find significant responses in a PSTH and extract neurophysiological measures 
+    Args:
+        psth_probs(np.ndarray): Probability of spikes in each bin
+        threshold(float): Threshold for significant responses
+        post_stim_window(tuple): Time window to search for significant responses
+    Returns:
+        dict: Neurophysiological measures
+    """
+
+    global BIN_EDGES
+
+    # Find bins that correspond to the post-stimulus window
+    post_stim_bins = np.where(
+        (BIN_EDGES[:-1] >= post_stim_window[0]) & (BIN_EDGES[:-1] < post_stim_window[1])
+    )[0]
+
+    # Initialize variables to store measures
+    fsb, lsb, pl, pr = None, None, None, 0
+    consecutive_bins = 0   # number of consecutive bins over threshold
+
+    # iterate through bins to find fsb and lsb
+    found_fsb = False
+    for i in post_stim_bins:
+        if psth_probs[i] > threshold:
+            if consecutive_bins == 0 and not found_fsb:  # first significant bin
+                fsb = i
+            consecutive_bins += 1
+
+            # update lsb
+            lsb = i
+
+            # update pr
+            if psth_probs[i] > pr:
+                pr = psth_probs[i]
+                pl = BIN_EDGES[i]
+        else:
+            if consecutive_bins > 2:
+                # found significant response
+                found_fsb = True
+            else:
+                # reset consecutive_bins
+                consecutive_bins = 0
+    
+    # special case: fsb == lsb -> no significant response
+    if fsb == lsb:
+        pr, pl, fsb, lsb = np.nan, np.nan, np.nan, np.nan
+    
+    # calculate measures if significant response was found
+    if fsb is not None and lsb is not None and consecutive_bins > 2:
+        # response magnitude
+        rm = np.sum(psth_probs[fsb:lsb+1])
+
+        # first significant bin latency
+        fbl = BIN_EDGES[fsb]
+
+        # last significant bin latency
+        lbl = BIN_EDGES[lsb]
+    else:
+        # if no significant response
+        rm, fbl, lbl = np.nan, np.nan, np.nan
+    
+    return {
+        "RM": rm,
+        "PR": pr,
+        "FBL": fbl,
+        "LBL": lbl,
+        "PL": pl
+    }
+```
+
+``` {python}
+#| echo: false
+#| tbl-cap: "**Table 1:** Neurophysiological measures for each neuron and whisker location"
+#| tbl-cap-location: top
+#| tbl-colwidths: [10, 20, 12, 12, 12, 12, 12]
+
+# calculate BA for each neuron-location pair
+for index, row in psth_data.iterrows():
+    ba, sd = calculate_BA(row['psth_probs'])
+    psth_data.at[index, 'ba'] = ba
+    psth_data.at[index, 'sd'] = sd
+
+# compute the threshold for each neuron-location pair
+psth_data['threshold'] = psth_data['ba'] + 3 * psth_data['sd']
+
+# find significant responses for each neuron-location pair
+for index, row in psth_data.iterrows():
+    measures = find_significant_responses(row['psth_probs'], row['threshold'])
+
+    for k, v in measures.items():
+        psth_data.at[index, k] = v
+
+(psth_data[['neuron', 'location', 'RM', 'PR', 'FBL', 'LBL', 'PL']]
+    .rename(columns={
+        'neuron': 'Neuron', 'location': 'Location',
+        'FBL': 'FBL (s)', 'LBL': 'LBL (s)', 'PL': 'PL (s)'
+    })
+    .style
+    .hide(axis='index')
+    .format('{:.4f}', subset=['RM', 'PR', 'FBL (s)', 'LBL (s)', 'PL (s)']))
+```
+
+b. How do these measures relate to the qualitative observations for part 1.b?
+
+> The response magnitude (**RM**) quantitatively reflects the overall spike activity between the first and last bins. For neuron 1 at location 1, the high RM aligns with the strong response observed quantitativelty. While, at location 2, the lower RM suggests a weaker or more variable response. For neuron 2 at location 1, the low RM aligns with the weak response observed.
+>
+> The peak response (**PR**) provides a measure of the highest probability of a spike in any bin. For neuron 1 at location 1, the high PR correlates with the clear peak in spike probability, indicating a strong response. For neuron 1 location 2 and neuron 2 location 1, the lower PR correlates with the smaller peaks in spike probability, indicating a weaker response.
+>
+> The first significant bin latency (**FBL**) and last significant bin latency (**LBL**) provide temporal context for the response. The peak latency (**PL**) indicates the timing of the maximum response. We see that neuron 1 location 1 exhibited the most rapid response, followed by neuron 2 location 1 and finally by neuron 1 location 2.
+> 
+> **Note:** No significant responses were identified for neuron 2 at location 2.
+
+
+c. Which of these parameters would you use to decide if the neuron responded
+   or not to a stimulus location and why?
+
+> The peak response (**PR**) and first bin latency (**FBL**) would be the most useful parameters for determining if a neuron responded to a stimulus location. PR indicates the strength of the response and FBL shows how quickly the neuron responded after the stimulus, both critical for determing if a significant response occurred.
+
+d. The threshold is calculated as the BA + K*SD(BA), where we set K=3 to obtain
+   the measures calculate in (2.a). What do you think it will happen, if you 
+   vary the value of K, to the measures of the table obtained in (2.a)?
+
+> By varying K, you would change thre sensitivity of the measures; lower K values could lead to more bins being considered significant (potentially including more noise), while higher K values would require stronger responses to be considered significant, thus potentially excluding weaker but still significant responses.
+
+e. Given your observation in point (2.d), what is the advantage of having K
+   different than zero?
+
+> Setting $K > 0$ ensures that only responses that are significantly above the background activity are considered significant. This helps to reduce the amount of noise in the PSTH by capturing only the most prominent responses.
