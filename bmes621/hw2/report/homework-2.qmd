@@ -1,0 +1,441 @@
+---
+title: "BMES 621: Homework 2"
+author: "Tony Kabilan Okeke"
+date: "11-09-2023"
+format:
+  html:
+    highlight: github
+    theme: flat
+jupyter: python3
+---
+
+``` {python}
+#| echo: false
+
+from skimage import io, exposure, img_as_ubyte, filters, morphology, measure, color
+from skimage.segmentation import watershed
+from skimage.feature import peak_local_max
+from skimage.morphology import disk
+from scipy import ndimage as ndi
+
+import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+import os
+os.chdir("/home/muaddib/Class/BMES 621/assignments/hw2")
+
+import warnings
+warnings.filterwarnings("ignore")
+```
+
+``` {python}
+#| echo: false
+
+def imshow(images, titles, hist=False, cbar=True, *args, **kwargs):
+    global nfig
+
+    if not isinstance(images, list):
+        images = [images]
+        titles = [titles]
+
+    n_images = len(images)
+
+    # Determine the grid size
+    ncols = min(n_images, 4)
+    nrows = (n_images + 3) // 4  # Ensure there's enough rows
+
+    # If there's only one image, don't create a grid
+    if n_images == 1:
+        if hist:
+            # Create a grid with 1 row and 2 columns
+            # First column for the histogram, second for the image
+            fig = plt.figure(figsize=(4, 4))
+            gs = GridSpec(1, 2, width_ratios=[1, 5], wspace=0.1)
+
+            # Histogram on the first column
+            ax_hist = fig.add_subplot(gs[0])
+            image_data = images[0].flatten()
+            ax_hist.hist(
+                images[0].ravel(), log=True, bins=256, orientation='horizontal',
+                color='black', histtype='step'
+            )
+            ax_hist.invert_xaxis()  # Invert x-axis to have the histogram on the left
+            ax_hist.set_xlabel('Frequency')
+            ax_hist.set_ylabel('Intensity')
+
+            # Image on the second column
+            ax_image = fig.add_subplot(gs[1])
+        else:
+            # Just create a figure for the image
+            fig, ax_image = plt.subplots(figsize=(6, 6))
+
+        cmap = 'gray' if images[0].ndim == 2 or (images[0].ndim == 3 and images[0].shape[2] == 1) else None
+        im = ax_image.imshow(images[0], *args, cmap=cmap, **kwargs)
+        if cmap and cbar:  fig.colorbar(im, ax=ax_image)
+        ax_image.set_title(f"{titles[0]}")
+        ax_image.axis('off')  # Hide axes
+        plt.show()
+    else:
+        # For multiple images, setup is similar without histogram
+        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(5*ncols, 5*nrows))
+        axes = axes.flatten()
+
+        for idx, (image, title) in enumerate(zip(images, titles)):
+            cmap = 'gray' if image.ndim == 2 or (image.ndim == 3 and image.shape[2] == 1) else None
+            im = axes[idx].imshow(image, cmap=cmap)
+            if cmap and cbar:  fig.colorbar(im, *args, ax=axes[idx], **kwargs)
+            axes[idx].set_title(f"{title}")
+            axes[idx].axis('off')  # Hide axes
+
+        # Turn off any remaining subplots
+        for ax in axes[n_images:]:
+            ax.axis('off')
+
+        plt.show()
+
+
+def watershed_segment(bimg):
+    """Apply watershed algorithm"""
+
+    # create distance image
+    dist = ndi.distance_transform_edt(bimg)
+
+    # find local maxima
+    coords = peak_local_max(dist, footprint=disk(5), labels=bimg)
+
+    # create labelled mask
+    mask = np.zeros(dist.shape, dtype=bool)
+    mask[tuple(coords.T)] = True
+    markers, N = ndi.label(mask)
+
+    # apply watershed algorithm
+    labels = watershed(-dist, markers, mask=bimg)
+
+    return labels, N
+```
+
+::: {.callout-note}
+# Question 1
+
+**Load the image "LSM-composite", which is an example taken from your lab samples. The contrast is not very well balanced, and two of the three color channels have additional deficiencies. Process the images to improve the overall color appearance and cleaniness, decribe what you did and show the improved color image \[20 pts\].**
+
+
+First, let's look at channels in the original images and the intensity histograms for each channel.
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# load original image
+img = io.imread("./LSM-Composite.tif")
+
+# make sure image is uint8
+if img.dtype != np.uint8:
+    img = img_as_ubyte(img)
+
+# split channels
+R, G, B = img[:,:,0], img[:,:,1], img[:,:,2]
+
+# visualize color channels separately
+fig = plt.figure(figsize=(8, 4))
+gs = gridspec.GridSpec(2, 4, height_ratios=[2, 1], width_ratios=[1, 1, 1, 0.05], hspace=0.1, wspace=0.3)
+
+for i, _img in enumerate([R, G, B]):
+    ax = fig.add_subplot(gs[0, i])
+    _im = ax.imshow(_img, vmin=0, vmax=255, cmap='gray')
+    ax.axis('off')
+    ax.set_title(f"channel {i+1}")
+
+    ax = fig.add_subplot(gs[1, i])
+    ax.hist(_img.ravel(), bins=256, log=True, color='#3d63a1', histtype='step')
+    ax.set_ylim(1, 1e7)
+    ax.spines[['top', 'right']].set_visible(False)
+    ax.grid(which='both', axis='both', linestyle='--', linewidth=0.5)
+
+# add colorbar
+cax = fig.add_subplot(gs[:, 3])
+cbar = fig.colorbar(_im, cax=cax)
+```
+
+- **channel 1:** 
+  - seems to contain cell nuclei
+  - image appers to have a lot of background noise
+  - *corrective actions:*
+    - apply a gaussian filter to smooth out the image
+    - create a mask to select only the cells
+    - use the mask to remove the background
+- **channel 2:**
+  - seems to contain cell cytoplasms
+  - image has artifacts (squiggly lines) that need to be removed (all with intensity = 255)
+  - *corrective actions:*
+    - remove artifacts by filtering out points with intensities = 255
+    - rescale the image intensity to improve contrast (contrast stretching)
+- **channel 3:**
+  - seems to contain structural components of the cell
+  - does not have any obvious artifacts
+  - *corrective actions:*
+    - equalize the histogram to improve contrast (used the CLAHE algorithm)
+
+Here's the results of these changes on each channel.
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# channel 0:  gaussian blur -> mask
+smoothed = filters.gaussian(R, sigma=10)
+smoothed = img_as_ubyte(smoothed)
+R_ = np.where(smoothed > 30, R, 0)
+
+# channel 1:  threshold -> contrast stretching
+G_ = np.where(G == 255, 0, G)
+G_ = exposure.rescale_intensity(G_, in_range=(0, 120))
+G_ = img_as_ubyte(G_)
+
+# channel 2: histogram equalization
+B_ = exposure.equalize_adapthist(B)
+B_ = img_as_ubyte(B_)
+
+# visualize color channels separately
+fig = plt.figure(figsize=(8, 3))
+gs = gridspec.GridSpec(1, 4, width_ratios=[1, 1, 1, 0.05], height_ratios=[1], hspace=0.1)
+
+for i, _img in enumerate([R_, G_, B_]):
+    ax = fig.add_subplot(gs[:, i])
+    _im = ax.imshow(_img, vmin=0, vmax=255, cmap='gray')
+    ax.axis('off')
+    ax.set_title(f"channel {i+1}")
+
+# add colorbar
+cax = fig.add_subplot(gs[:, 3])
+cbar = fig.colorbar(_im, cax=cax)
+```
+
+
+And here is the final image after combining the channels.
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+img_ = np.stack([R_, G_, B_], axis=-1)
+
+fig = plt.figure(figsize=(6, 4))
+gs = gridspec.GridSpec(1, 2, width_ratios=[1, 1], wspace=0.1)
+
+for i, (I, title) in enumerate(zip([img, img_], ['original', 'processed'])):
+    ax = fig.add_subplot(gs[:, i])
+    _im = ax.imshow(I, vmin=0, vmax=255)
+    ax.axis('off')
+    ax.set_title(title)
+```
+
+:::
+
+::: {.callout-note}
+
+# Question 2
+
+**Download the image "Beans" posted under the /images folder in BBLearn and select/perform the following image processing steps:**
+
+a. **Pre-process image for contrast and noise, show the improvement (use a histogram).**
+
+To preprocess the image, I applied a contrast enhancement algorithm (CLAHE) and a median filter to remove noise.
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# load original image
+img = io.imread("./Beansbw.tif")
+
+# equalize histogram
+img_ = exposure.equalize_adapthist(img)
+
+# denoise image
+img_ = filters.median(img_, disk(2))
+
+# compare
+fig = plt.figure(figsize=(8, 4))
+gs = gridspec.GridSpec(2, 2, height_ratios=[1, 0.5], wspace=0.3, hspace=0.3)
+
+for i, (_I, _title) in enumerate(zip([img, img_], ['original', 'contrast enhanced + denoised'])):
+    ax1 = fig.add_subplot(gs[0, i])
+    ax1.imshow(_I, cmap='gray', aspect='equal')
+    ax1.axis('off')
+    ax1.set_title(_title)
+
+    ax2 = fig.add_subplot(gs[1, i])
+    ax2.hist(_I.ravel(), bins=256, log=True,  color='#3d63a1', histtype='step')
+    ax2.grid(which='major', axis='both', linestyle='--', linewidth=0.5)
+    ax2.spines[['top', 'right']].set_visible(False)
+    ax2.set_ylim(1, 1e4)
+```
+
+b. **Threshold the image and provide the threshold value. Document the binary image.**
+
+Here, I used Otsu's method to find the threshold value.
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# Otsu's threshold
+thresh = filters.threshold_otsu(img_)
+bimg = img_ < thresh
+
+# report threshold value
+print(f"Threshold value = {thresh:.3f}")
+
+# visualize
+fig, ax = plt.subplots(figsize=(5,3))
+io.imshow(bimg, cmap='gray', ax=ax);
+ax.set_title('binary mask')
+ax.axis('off');
+```
+
+c. **Apply morphological operation(s) to improve the segmentation, include the resulting image and a short description of what you did in your report. Make sure you separate all objects.**
+
+To segment out the cells, I did the following:
+
+- erode the image to remove small objects
+- dilate the image to fill in holes
+- apply watershed segmentation to separate touching objects
+  - this was done by finding the distance transform of the image
+  - finding the local maxima
+  - creating a mask of the local maxima
+  - applying the watershed algorithm
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# Erode and dilate
+_img = morphology.binary_erosion(bimg, disk(2))
+_img = morphology.binary_dilation(_img, disk(2))
+
+# Segmentation (watershed)
+labels, N = watershed_segment(_img)
+
+# Visualize
+fig, ax = plt.subplots(figsize=(5,3))
+io.imshow(labels, cmap='jet', ax=ax)
+ax.set_title('Identified Objects');
+ax.axis('off');
+```
+
+d. **Measure number of objects, mean areas and standard deviation in the binary image, report those numbers in your document. Use "Analyze Particles" under the Analyze tab to perform this task. [50 pts]**
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# measure region properties
+props = measure.regionprops(labels)
+
+# extract metrics
+N = len(props)
+areas = [p.area for p in props]
+mean = np.mean(areas)
+std = np.std(areas)
+
+print(f"""\
+ Number of Cells:  {N}
+  Mean Cell Area:  {mean:.2f} sq px
+Std of Cell Area:  {std:.2f} sq px
+""")
+```
+
+:::
+
+::: {.callout-note}
+
+# Question 3
+
+a. **[only BMES 421] Load the image “KAXON”. What is the mean area of the myelin fibers (looking like dark donats)? You may use some of the steps outlined under 2). Document the segmented image. [30 pts]**
+
+b. **[only BMES 621] Load the image "Bone".  Perform the necessary steps to measure the size (area) of the dark spine bone in this cross section without the bright center (nerve canal). Next determine the area of the bright canal in the center separatly. Make sure you remove any dirt particles that may arise in the segmentation. Show the segmented images you used for your measurement (hint: consider functions under process/math). [30 pts]**
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# load original image
+img = io.imread("./Bonebw.tiff")
+
+# visualize original image with histogram
+fig = plt.figure(figsize=(6, 3))
+gs = gridspec.GridSpec(1, 2, width_ratios=[1, 1], height_ratios=[1], wspace=0.4)
+
+ax1 = fig.add_subplot(gs[0])
+ax1.imshow(img, cmap='gray')
+ax1.axis('off')
+ax1.set_title('original image')
+
+ax2 = fig.add_subplot(gs[1])
+ax2.hist(img.ravel(), bins=256, log=True,  color='#3d63a1', histtype='step')
+ax2.grid(which='major', axis='both', linestyle='--', linewidth=0.5)
+ax2.spines[['top', 'right']].set_visible(False)
+ax2.set_ylim(1, 1e6);
+```
+
+I started by segmenting out bone using the following steps:
+
+- threshold the image to get a binary mask
+- erode the image to remove small objects
+- dilate the image to fill in holes
+- apply a median filter to remove noise
+- label the image and measure the area of the bone
+
+Then, I used the following steps to segment out the canal:
+
+- invert the binary mask
+- identify holes in the mask, the canal is the second largest hole
+- label the canal and measure its area
+
+``` {python}
+#| echo: false
+#| fig-align: center
+
+# threshold image
+img_ = img < 120
+
+# erode & dilate
+img_ = morphology.binary_erosion(img_, disk(3))
+img_ = morphology.binary_dilation(img_, disk(3))
+
+# blur to remove holes
+img_ = filters.median(img_, disk(10))
+
+# identify and measure bone
+bone_labels = measure.label(img_)
+bone_area = measure.regionprops(bone_labels)[0].area
+
+# identify and measure canal
+inv = np.invert(img_)
+holes, features = ndi.label(inv)
+canal_labels = measure.label(holes == 2)
+canal_area = measure.regionprops(canal_labels)[0].area
+
+# print results
+print(f"""\
+Areas:
+    Spine Bone (dark) = {bone_area} sq px
+        Canal (light) = {canal_area} sq px
+""")
+
+# show segmentation results
+fig, axes = plt.subplots(1, 2,  figsize=(5, 4), sharex=True, sharey=True)
+for ax, labels, title in zip(axes, [bone_labels, canal_labels], ['bone', 'canal']):
+    ax.imshow(
+        color.label2rgb(labels, image=img, bg_label=0, colors=['red'])
+    )
+    ax.set_title(f"segmentation: {title}")
+    ax.axis('off')
+
+plt.tight_layout()
+```
+
+:::
