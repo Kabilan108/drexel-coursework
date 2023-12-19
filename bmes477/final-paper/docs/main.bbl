@@ -1,0 +1,42 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Wha()]{WhatNeuromodulation2009}
+What is {{Neuromodulation}}?
+\newblock URL
+  \url{https://www.news-medical.net/health/What-is-Neuromodulation.aspx}.
+
+\bibitem[Manz and Memmesheimer()]{manzPurelySTDPbasedAssembly2023}
+Paul Manz and Raoul-Martin Memmesheimer.
+\newblock Purely {{STDP-based}} assembly dynamics: {{Stability}}, learning,
+  overlaps, drift and aging.
+\newblock 19\penalty0 (4):\penalty0 e1011006.
+\newblock ISSN 1553-7358.
+\newblock \doi{10.1371/journal.pcbi.1011006}.
+\newblock URL
+  \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011006}.
+
+\bibitem[Pedrosa and Clopath()]{pedrosaRoleNeuromodulatorsCortical2017}
+Victor Pedrosa and Claudia Clopath.
+\newblock The {{Role}} of {{Neuromodulators}} in {{Cortical Plasticity}}. {{A
+  Computational Perspective}}.
+\newblock 8.
+\newblock ISSN 1663-3563.
+\newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/fnsyn.2016.00038}.
+
+\bibitem[Seol et~al.()Seol, Ziburkus, Huang, Song, Kim, Takamiya, Huganir, Lee,
+  and Kirkwood]{seolNeuromodulatorsControlPolarity2007}
+Geun~Hee Seol, Jokubas Ziburkus, ShiYong Huang, Lihua Song, In~Tae Kim, Kogo
+  Takamiya, Richard~L. Huganir, Hey-Kyoung Lee, and Alfredo Kirkwood.
+\newblock Neuromodulators control the polarity of spike-timing-dependent
+  synaptic plasticity.
+\newblock 55\penalty0 (6):\penalty0 919--929.
+\newblock ISSN 0896-6273.
+\newblock \doi{10.1016/j.neuron.2007.08.013}.
+
+\end{thebibliography}
