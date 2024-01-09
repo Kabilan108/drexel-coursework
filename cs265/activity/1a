@@ -1,0 +1,29 @@
+Follow these instructions to log onto tux.
+
+Follow these instructions to add tuxsubmit to your PATH so you can submit your assignments more easily.
+
+If you haven’t used the command line before, you may find this page helpful, which explains how to follow instructions that ask you to run commands on tux.
+
+Working in pairs, use this reference page, these slides from Prof. Schmidt, and what we covered in lecture to answer the following questions. One person should run the commands on their computer and the other person should write your answers down on paper. You’ll hand these in at the end of class:
+
+What is your current working directory (cwd)? What command shows it? How else can you see it?
+
+What is a relative versus an absolute path?
+
+What is your home directory? Give three different ways to specify an absolute path to your home directory.
+
+Run the commands cd ~ and mkdir -p ~/foo/bar. Give a single cd command that makes bar your cwd using a relative path.
+
+Asssume ~/foo/bar is your cwd. Give a single cd command using a relative path that makes your home directory the cwd.
+
+Run these commands:
+
+echo 'Hello' > ~/foo/bar/abc
+mkdir ~/foo/bar/baaz
+echo 'World' > ~/foo/bar/baaz/xyz.txt
+cd foo/bar
+~nkl43/sharedbin/tuxsubmit submit test abc baaz/xyz.txt
+~nkl43/sharedbin/tuxsubmit check test
+What did each command do?
+
+When you’re finished, run the command rm -r ~/foo to delete the foo directory and everything in it.
