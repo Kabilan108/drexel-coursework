@@ -1,0 +1,43 @@
+# Exercise 1
+
+Author: Tony K. Okeke
+Date:   01.11.2024
+
+## Q1
+
+> Explain the file permissions on the cs265 folder you created. What actions do they allow/disallow, and for what sets of users? Why did you need to set these permissions?
+
+The permissions for `$HOME/cs265` were set with `chmod 700`. The first number `7` indicates that the owner of the file can read, write and execute the contents of the folder. The next two numbers (`0`s) indicate that users who are part of the same user group, or others on the linux machine, can not read, write, or execute any of the folder contents. 
+These permissions were set to ensure no one else has access to the contents of my assignments and coursework.
+
+## Q2
+
+> Copy the folder ~nkl43/shared/exercise1/dir1 into your exercise1 directory with this command: cp -r ~nkl43/shared/exercise1/dir1 ~/cs265/exercise1. You can check to see if it’s where you expect it by running tree.
+> For each of the following tasks, give a single command that accomplishes the task. **Assume for each task that your cwd is dir1’s parent directory (the exercise1 folder).**
+> You should check that the commands are correct by running them yourself. This is the best way to learn how to use the command line (and the best way to learn generally).
+
+a. Make `whatever` the current working direcotry
+
+`cd dir1/anotherdir/whatever`
+
+b. Move `alongfilename` into `anotherdir`
+
+`mv dir1/subdir1/alongfilename dir1/anotherdir`
+
+c. Rename `bar.abc` to `baaz.xyz`
+
+`mv dir1/dir2/bar.abc dir1/dir2/baaz.xyz`
+
+d. Delete `subdir1`
+
+`rm -r dir1/subdir1`
+
+e. Copy `dir2` into `dir3`
+
+`cp -r dir1/dir2 dir1/dir3`
+
+## Q3
+
+a. Completed
+
+b. Completed
