@@ -1,0 +1,130 @@
+# Lab 1
+
+Name: Tony Kabilan Okeke
+Date: 01-18-2024
+
+
+## Question 0
+
+See the `vimlab` file.
+
+
+## Question 1
+
+Explain where each of the following paths point to and how they differ from each other:
+
+a. `/home/abc123` - home directory of the user 'abc123'
+b. `~` - home directory of the current user. equivalent to `/home/$USER`
+c. `~abc123` - home directory of the user 'abc123'. equivalent to `/home/abc123`
+d. `~/abc123` - a folder named `abc123` in the current user's home directory. equivalent to `/home/$USER/abc123`
+e. `/abc123` - a folder named `abc123` in the root directory.
+
+
+## Question 2
+
+Run `man ls` to see the manual page for the ls command. See here to learn how to read and navigate a manpage.
+
+Explain what the lsl and lsa aliases in your .bashrc do. How do the flags they pass to ls modify its behavior?
+
+	* `-A` - exclude `.` (current directory) and `..` (parent directory)
+	* `-l` - use the long listing format
+	* `-B` - excludes backup files (i.e. files ending with `~`)
+	* `--color` - make the output look pretty with colors
+
+* `alias lsa='ls -AlB --color` -> prints out files and folders in the current directory (except for the implied `.` and `..` directories and any backup files) using the long listing format
+
+* `alias lsl='ls -lB --color` -> prints out files and folders in the current directiry using the long listing format. exlcudes backup files only.
+
+
+## Question 3
+
+Say you had a folder named flibble inside a folder named blabble in your home directory. Assuming your cwd is your home directory:
+
+* Give an absolute path to flibble - `~/blabble/flibble`
+
+* Give a relative path to flibble - `./blabble/flibble`
+
+* Does the cwd matter for absolute paths? Why or why not? - The cwd is irrelevant for absolute paths. This is because absoute paths reference the root directory.
+
+
+## Question 4a
+
+Assume your cwd looks like this:
+
+```
+.
+├── 1
+│   ├── 2
+│   │   ├── hello world
+│   │   └── more_files.txt
+│   ├── abc
+│   ├── abc.txt
+│   ├── afile
+│   ├── anotherfile
+│   ├── fiddledeedee
+│   ├── file.txt
+│   ├── thirdfile
+│   └── xyz
+│       ├── another_dir
+│       │   └── hey.txt
+│       └── duran_duran
+├── applesauce
+├── banana_bread
+│   └── 3
+│       └── chocolate
+├── cuttle fish
+├── hello.bash
+└── myfile.c
+```
+
+Give one command for each of the following tasks:
+
+* Make another_dir the cwd 
+	- `cd 1/xyz/another_dir`
+
+* Copy thirdfile into 3 
+	- `cp 1/thirdfile banana_bread/3/`
+
+* Create a directory named blibble in xyz 
+	- `mkdir 1/xyz/blibble`
+
+* Rename hey.txt to hi.txt 
+	- `mv 1/xyz/another_dir/hey.txt 1/xyz/another_dir/hi.txt`
+
+* List all files with a “.txt” extension in 1 
+	- To find files in 1 only: `ls 1/*.txt`
+	- To find files in 1 and its subdirs: `find 1/ -name '*.txt'`
+
+* Delete more_files.txt and cuttle fish 
+	- `rm 1/2/more_files.txt cuttle\ fish`
+
+* Add executable permissions for the owner to hello.bash, keeping all other permissions the same.
+	- `chmod u+x hello.bash`
+
+
+## Question 4b
+
+Assume you’re given the same directory structure, but now your cwd is xyz. Give one command for each of the following tasks:
+
+* Make the outer directory (which has 1, applesauce, banana_bread, etc.) your cwd.
+	- `cd ../..`
+
+* Copy hey.txt into 3.
+	- `cp another_dir/hey.txt ../../banana_bread/3/` 
+
+* Make applesauce readable and writable by the owner, and only readable by group and world.
+	- `chmod 644 ../../applesauce`
+
+* List all files ending with “file” in 1.
+	- To find files in 1 only: `ls ../../1/*.txt`
+	- To find files in 1 and its subdirs: `find ../../1/ -name '*.txt'`
+
+* Copy banana_bread into 2.
+	- `cp ../../banana_bread ../2/`
+
+* Delete another_dir.
+	- `rm another_dir -r`
+
+* Create an empty file named a b c in the cwd.
+	- touch a\ b\ c
+

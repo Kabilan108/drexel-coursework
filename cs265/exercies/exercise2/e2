@@ -1,0 +1,66 @@
+# Exercise 2
+
+Name: Tony Kabilan Okeke
+Date: 01-18-2024
+
+
+## Question 1
+
+Give a single find command for each of the following search criteria. Assume you’re in the containing folder of the Adir directory you copied in the setup.
+
+* All directories (recursively) in `Adir`.
+
+`find Adir/ -type d`
+
+* All files ending in .html (recursively) in `Adir`.
+
+`find Adir/ -name '*.html'`
+
+* All files exactly 3 levels deep in `Adir`.
+
+`find Adir/ -mindepth 3 -maxdepth 3`
+
+
+## Question 2 
+
+a. Compare and contrast how the content of the email body was inputted into each of the three mail 
+   commands. Your answer should mention stdin and explain what `|` does.
+
+   For the first command, the email body was inputted by typing text into the `stdin` of the `mail` program.   
+   For the second mail command, the contents of the `FILE` are first concatenated to `stdout`. The `|` operator allows this to be redirected to the `stdin` of the `mail` program.  
+   Finally, for the third command, the `stdout` from running the `cowsay` program is redirected to the `stdin` of the `mail` program using the `|` operator.
+
+
+b. Why did we need to use quotes around the subject lines of the emails but not around the Neato in the cowsay command? What’s the difference between single quotes and double quotes? Did it matter which type of quotes we used for these commands, and why or why not?
+
+   The subject lines included spaces which would cause the `mail` program to treat them as separate inputs. To avoid that, placed the subject lines in quotes. The same could have been achieved by escaping the space characters `\ `.  
+   Single quotes preserve the literal value of the enclosed characters, while double quotes allow for the susbtitution of commands or variables within the string (similar to f strings in python). In this case, it didn't matter which quotes were used since no shell commands needed to be executed within the string.
+
+
+## Question 3
+
+Run each of the following commands and explain what they outputted and what they did. If the command failed, explain why.
+
+* `base64 hello` - fails because the `base64` program expects a file as input, so it tried to open a (nonexistent) file named `hello`.
+
+* `echo hello | base64` - outputs a base64 encoded string: `aGVsbG8K`. This command pipes the string 'hello' to the `stdin` of the `base64` program
+
+* `echo hello | base64 | base64 -d` - outputs 'hello' in the terminal. This command pipes the base64 encoded string produced by the previous command to the `base64 -d` command which decodes the string.
+
+* `base64 -d aGVsbG8K` - fails because `base64` expects a file as input, not a string.
+
+* `echo hello > input` - creates a file called `input` that contains 'hello' on its first line. This command redirects the stdout from `echo` to the `input` file.
+
+* `base64 input` - returns a base64 encoding ('aGVsbG8K') of the contents of `input` (a file).
+
+* `base64 input > output` - writes the base64 string ('aGVsbG8K') to a file named `output`. This command redirects the stdout from base64 to the `output` file.
+
+* `base64 -d output` - returns 'hello'. This command decodes the contents of the `output` file using the base64 command.
+
+
+## Question 4
+
+Customize your prompt. See here for a description of each prompt control character. Paste the export PS1=... line you chose into your labsheet.
+
+`export PS1='\h \W $ '`
+

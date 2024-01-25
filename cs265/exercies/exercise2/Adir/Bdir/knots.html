@@ -1,0 +1,84 @@
+<h1 id="sample-pandoc-markdown-header-1">Sample (Pandoc) Markdown (header 1)</h1>
+<h2 id="intro-level-2">Intro (Level 2)</h2>
+<p>Note, we really don't have comments. <strong>Huge</strong> ommission in markdown.</p>
+<p>Vim knows markdown, too.</p>
+<p>Pandoc is a handy utility, takes and input several formats, including text, markdown, and HTML. Outputs to many formats, including HTML, LaTeX, PDF, and RTF.</p>
+<h2 id="markdown">Markdown</h2>
+<h3 id="fonts-and-effects">Fonts and Effects</h3>
+<p>We <em>can get an</em> underscore. Huh. Italics. :/</p>
+<p><em>This is a single asterisk</em> (Bold? Italics?)</p>
+<p><strong>Two asterisks.</strong></p>
+<p><strong><em>Three asterisks</em></strong></p>
+<p><del>Strikethrough</del></p>
+<p>Seems we have super<sup>scripts</sup> and sub<sub>scripts</sub>, too.</p>
+<p>Pandoc allows us to embed a subset of LaTeX math: <span class="math inline"><em>y</em> = 3<em>n</em> + 7</span></p>
+<p><code>Back ticks give us code font, inline</code></p>
+<h3 id="layout">Layout</h3>
+<p>This is a single paragraph.</p>
+<p>This is another paragraph.</p>
+<p>We can explicitly<br />
+break lines<br />
+like this.</p>
+<h4 id="lists">Lists</h4>
+<p>Here's an unordered list:</p>
+<ul class="incremental">
+<li>Cleat Hitch</li>
+<li>Sheet Bend</li>
+<li>A reliable loop:
+<ul class="incremental">
+<li>Bowline</li>
+<li>Tugboat Hitch</li>
+</ul></li>
+<li>Spar Hitch</li>
+<li>Clove Hitch</li>
+<li>Reef Knot</li>
+</ul>
+<p>Ordered list:</p>
+<ol class="incremental" style="list-style-type: decimal">
+<li>We can use # to get PD to count for us</li>
+<li>Next thing
+<ol class="incremental" style="list-style-type: lower-alpha">
+<li>And we can nest these things, too</li>
+<li>And these things</li>
+</ol></li>
+<li>Done
+<ol class="incremental" style="list-style-type: lower-roman">
+<li>I lied</li>
+<li>Note, we can specify the characters to be used</li>
+</ol></li>
+</ol>
+<h4 id="blockquotes">Blockquotes</h4>
+<blockquote>
+<p>This is indented a bit.</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>This is indented further</p>
+</blockquote>
+</blockquote>
+<p><strong>Note:</strong> Lists, blocks, and other things need blank lines around them.</p>
+<pre><code>    /* Code blocks between lines of tildes */
+
+    void hello( char *n )
+    {
+        printf( &quot;Heeeelllo, %d\n&quot;, n ) ;
+    }</code></pre>
+<h3 id="links">Links</h3>
+<p><a href="http://animatedknots.com," title="Optional Title">Learn some knots</a></p>
+<hr />
+<h2 id="publishing">Publishing</h2>
+<p><code>-i</code> specifies the input file, and <code>-o</code> specifies the output file. Often, the formats can be gleaned from the file extensions. You can help Pandoc out. <code>-f</code> lets you specify the from formate, and <code>-t</code> the target format.</p>
+<blockquote>
+<pre><code>$ pandoc -i knots.md -o knots.html</code></pre>
+</blockquote>
+<p>Or,</p>
+<blockquote>
+<pre><code>$ pandoc -i knots.md -o knots.rtf</code></pre>
+</blockquote>
+<p>To publish to LaTeX or PDF, specify <code>latex</code> as the target format:</p>
+<blockquote>
+<pre><code>$ pandoc -t tex -i knots.md -o knots.pdf</code></pre>
+</blockquote>
+<hr />
+<h2 id="closing">Closing</h2>
+<p>There are other features, but, this is a good start.</p>

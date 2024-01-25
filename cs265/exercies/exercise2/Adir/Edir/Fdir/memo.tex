@@ -1,0 +1,97 @@
+% 
+% Kurt Schmidt
+% 22.1.2017
+%
+% pdfTeX 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian)
+% kpathsea version 6.2.1
+%
+% To compile:
+%   $ pdflatex memo.tex
+%
+% EDITOR:  textwidth=120, tabstop=2
+%
+\documentclass{letter}
+
+\usepackage[letterpaper]{geometry} % Use A4 paper margins
+
+\usepackage{block}
+
+\usepackage{graphicx}
+
+\graphicspath{ {../} }
+
+\usepackage{xcolor} % Required for color customization
+\usepackage{fouriernc} % Use the New Century Schoolbook font, comment this line to use the default LaTeX font or replace it with another
+
+%\usepackage[useregional]{datetime2}
+%\renewcommand*{\today}{\number\day~\month~\number\year} % not working
+	%\DTMlangsetup[German]{ord=raise,monthyearsep={\space}}
+
+% Adjust margins for aesthetics (maybe)
+ \addtolength{\voffset}{-0.5in}
+ \addtolength{\hoffset}{-0.3in}
+ \addtolength{\textheight}{2cm}
+
+%\longindentation=0pt % Un-commenting this line will push the closing "Sincerely," to the left of the page
+
+%----------------------------------------------------------------------------------------
+%	YOUR NAME & ADDRESS SECTION
+%----------------------------------------------------------------------------------------
+
+\signature{%
+Kurt Schmidt \\
+\textit{Associate Teaching Professor} \\ 
+%\textsc{Department of Computer Science} \\ 
+\small{ProfKSchmidt@gmail.com | 215.895.1848} 
+}
+
+\address{Department of Computer Science \\ Drexel University \\ 3141 Chestnut St. \\ Philadelphia, PA  19104} 
+
+\telephone{215.895.1848}
+\location{105 University Crossings}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	ADDRESSEE SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{letter}{%
+	Drexel Chocolate Council%
+} 
+
+	%	HEADING BOX
+\includegraphics[width=\textwidth]{cci-letterhead.png}
+
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT SECTION
+%----------------------------------------------------------------------------------------
+
+\opening{Dear Council Members,}
+ 
+Don't you think we should have a chocolate council?  Or, at least, get chocolate to faculty in need?
+
+Anyway, I seem to be behind in my chocolate allotment.  This won't do.
+
+% Waldo is hiding in a Latex paragraph
+
+I'm not talking crap chocolate, either.  I mean, decent, dark chocolate.
+
+\closing{Sincerely,}
+%\vspace{2\parskip} % Extra whitespace for aesthetics
+
+\ps{P.S. This is a postscript}
+\ps{P.P.S. And a post-postscript}
+
+\encl{No enclosure, so, comment this line out}
+ 
+
+%----------------------------------------------------------------------------------------
+
+\end{letter}
+ 
+\end{document}

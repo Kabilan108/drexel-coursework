@@ -1,0 +1,184 @@
+# Exercise 3
+
+Author: Tony K. Okeke
+Date:   01-25-2024
+
+
+## Question 1
+
+```shell
+# 1
+i=0
+ls | while read f; do
+    echo "'$f'"
+    i=$((i+1))
+done
+echo "Iterated $i time(s)"
+```
+
+This loop will iterate through the files in the cwd (ouput from ls). It will print out the names of each file (or directory) in the cwd enclosed in single quotes. One the loop exits, it will print 'Iterated 0 time(s)' because the increment operation was performed in a subshell (because of the pipe), so the value isn't altered.
+
+```
+# 2
+i=0
+for f in $(ls); do
+    echo "'$f'"
+    i=$((i+1))
+done
+echo "Iterated $i time(s)"
+```
+
+This loop will iterate through files in the current directory, incrementing i each time. The file names are printed like in 1. At the end of the loop, the number of iterations will be printed. This loop does not handle file names with spaces well though - it splits them and prints each word separately.
+
+```
+# 3
+i=0
+for f in "$(ls)"; do
+echo "'$f'"
+i=$((i+1))
+done
+echo "Iterated $i time(s)"
+```
+
+Because `$(ls)` is wrapped in double quotes, this loop will treat that as a single value and will print out all the file names surrounded by single quotes. Only a single iteration occurs in this case.
+
+```
+# 4
+i=0
+for f in *; do
+    echo "'$f'"
+    i=$((i+1))
+done
+echo "Iterated $i time(s)"
+```
+
+This loop correctly iterates through files (and folders) in the cwd, printing out their names enclosed in single quotes. The number of iterations matches the number of files in the cwd. It handles files with spaces in their names correctly as well because the '*' metacharacter was used.
+
+```
+#5
+i=0
+IFS=$'\n'
+for f in $(ls); do
+    echo "'$f'"
+    i=$((i+1))
+done
+echo "Iterated $i time(s)"  
+```
+
+This loop sets the Internal Field Separator to only split on new lines. Thus, it is able to correctly print out all the file names in the cwd. It keeps track of the iterations correctly. Due to the IFS being set, it no longer fails on files with spaces in their names like 2 did. 
+
+
+## Question 2
+
+Write a loop that prints “The file is: NAME” for every file recursively in the cwd, replacing NAME with the filename. Your code should work correctly on filenames with spaces.
+
+```bash
+find -type f | while read fpath; do
+    echo "The file is:" $(basename "$fpath")
+done
+```
+
+
+## Question 3
+
+This line is intended to only print “true” if 12 is less than 3
+
+```shell
+[[ 12 < 3 ]] && echo true
+```
+
+but it prints “true” anyway, even though 12 is not less than 3. Why doesn’t this work the way we’d expect, and how could we fix it?
+
+> The command as currently written is actually performing a lexographical comparison not a numerical one. The `<` operator treats operands as strings. The command below resolves this issue by using `-lt` instead:
+
+```shell
+[[ 12 -lt 3 ]] && echo true
+```
+
+
+## Question 4
+
+Assume there is a file named paths in the cwd where each line is supposedly a path to a file. For example, paths might look like this:
+
+```
+a/b/c
+fiddlesticks
+myfolder
+../../xyz
+afolder/anotherfolder/some file
+/home/nkl43/file.txt
+../another_file
+```
+
+Write code that, for each path p in paths (replacing p with the actual path):
+
+Prints “p is a regular file” if the path is a regular file
+Prints “p is a directory” if the path is a directory
+Prints “p doesn’t exist” if the path doesn’t exist
+
+```shell
+exists=1
+
+IFS=$'\n'
+for p in $(cat paths); do
+    if [[ -e "$p" ]]; then
+        if [[ -f "$p" ]]; then
+            echo "$p is a regular file"
+        elif [[ -d "$p" ]]; then
+            echo "$p is a directory"
+        fi
+    else
+        echo "$p doesn't exist"
+        exists=0
+    fi
+done
+[[ $exists -eq 1 ]] && echo "All paths exist" || echo "Not all paths exist"
+```
+
+
+## Question 5
+
+Give one command that prints how many lines contain the text “fiddlesticks” in the HTML source code of this page (not the course homepage).
+
+```
+curl -s 'https://www.cs.drexel.edu/~nkl43/cs265_winter_2023-24/course_site/exercises/3_iojtp/' | grep fiddlesticks | wc -l
+```
+
+
+## Question 6
+
+Given the following variable assignments
+
+```
+a=ah.bay.say
+b=alpha.bravo.charlie
+```
+
+say what each of the following parameter expansions (**PE**) will print, and explain briefly what they do:
+
+```bash
+echo ${#b}
+# prints `19` - this PE prints out the number of characters in $b
+
+echo ${b:3}
+# prints `ha.bravo.charlie` - this PE prints out the value of $b skipping the first 3 characters
+
+echo ${b:3:5}
+# prints `ha.br` - this PE prints out the value of $b sliced to only include characters from position 3 to position 5
+
+echo ${b#*.}
+# prints `bravo.charlie` - this PE removes the prefix (shortest matching pattern) from the value of $b. In this case (`*.`) it removes a section of text followed by a period
+
+echo ${b##*.}
+# prints `charlie` - this PE removes the prefix (longest matching pattern) from the value of $b.
+
+echo ${b%.*}
+# prints `alpha.bravo` - this PE removes the suffix (shortest matching pattern) from the value of $b
+
+echo ${b%%.*}
+# prints `alpha` - this PE removes the suffix (longest matching pattern) from the value of $b
+
+echo ${a/.*./.MIDDLE.}
+# prints `ah.MIDDLE.say` - this PE replaces parts of $a that match the pattern `.*.` with the string `.MIDDLE.`
+```
+

@@ -1,0 +1,62 @@
+# Lab 2
+
+Author: Tony Kabilan Okeke
+Date:   01-24-2024
+
+
+## Question 1
+
+1. Print files in 1 ending in .txt, non-recursively.
+
+`find 1/ -maxdepth 1 -name "*.txt" -type f`
+
+2. Print directories with three or more characters in the name (e.g. xyz, but not 2).
+
+`find . -name "???*" -type d`
+
+3. Print all files with a space in the name.
+
+`find . -name "* *" -type f`
+
+4. Show the contents — not names — of regular files.
+
+`find . -type f -exec cat {} +`
+
+5 .Remove all regular files ending with an e.
+
+`find . -type f -name "*e" -exec rm {} +`
+
+
+## Question 2
+
+1. Sort sample alphabetically by the third column.
+
+`sort -k3,3 sample`
+
+2. Sort sample numerically by the second column.
+
+`sort -k2,2n sample`
+
+3. Print Sample has N words, where N is replaced with the number of words in sample. The number of words should be computed with a command, not hardcoded.
+    * This should not print something like Sample has N /home/nkl43/shared/lab2/sample words.
+
+* Assuming numbers dont count as 'words': `echo "Sample has $(grep -oE '\b[a-zA-Z]+\b' sample | wc -w) words"`
+* If numbers count as 'words': `echo "Sample has $(wc -w sample | grep -oE '\b[0-9]+\b') words"`
+
+4. Count the number of lines containing the text abc in sample.
+
+`grep abc sample | wc -l`
+
+5. Sort lines containing the text abc alphabetically in sample and save the output to a file named sample_abc_sorted in your home directory.
+
+`grep abc sample | sort > ~/sample_abc_sorted`
+
+
+## Question 3
+
+Let’s imagine we had a program named flargle that can only take input from stdin, and writes to stdout the first character in each line that it read. flargle doesn’t take any command line arguments. Assume flargle is in our PATH, so we can run it by just typing flargle.
+
+Give a command that runs flargle on the contents of the file myinput and saves the output to a file named flargleout. Assume myinput is in the cwd.
+
+`cat myinput | flargle > flargleout`
+
