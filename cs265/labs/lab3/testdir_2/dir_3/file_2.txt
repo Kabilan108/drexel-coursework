@@ -1,0 +1,1 @@
+This is line 1 of dir_3/file_2.txt

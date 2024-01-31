@@ -1,0 +1,1 @@
+mkdir -p dir2 && touch dir2/'abc - 123' && touch dir2/'applesauce - bakery cupcake.foo' && touch dir2/'fibble dibble doo - abc xyz' && touch dir2/'this has  spaces - around   and within'

@@ -1,0 +1,5 @@
+This is line 1 of file_3.txt
+This is line 2 of file_3.txt
+This is line 3 of file_3.txt
+This is line 4 of file_3.txt
+This is line 5 of file_3.txt
