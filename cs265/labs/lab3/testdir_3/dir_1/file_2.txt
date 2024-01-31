@@ -1,0 +1,2 @@
+This is line 1 of dir_1/file_2.txt
+This is line 2 of dir_1/file_2.txt

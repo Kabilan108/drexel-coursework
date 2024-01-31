@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Author: Tony K. Okeke
+# Date:   01-30-2024
+
+if [[ -v 1 ]]; then
+    dir="$1"
+else
+    echo "Usage: bash reorganize <directory>"
+    exit 1
+fi
+
+find "$dir" -type f | while read file; do
+    dirname=$(echo "$(basename "$file")" | grep -Po '^.*(?= - )')
+    newname=$(echo "$(basename "$file")" | grep -Po '(?<= - ).*$')
+
+    mkdir -p "$dir/$dirname"
+    mv "$file" "$dir/$dirname/$newname"
+done
+
