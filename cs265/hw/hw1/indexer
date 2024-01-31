@@ -1,0 +1,131 @@
+#!/bin/bash
+
+# handle args
+if [[ ! -v 1 ]]; then
+    echo "Usage: indexer DIRECTORY"
+    exit 1
+else
+    topdir="$(realpath "$1")"
+fi
+
+
+# convert array to JSON-style list
+enlist() {
+    local -n arr=$1
+    local list="["
+    local IFS=$'\n'
+
+    # sort array alphabetically
+    arr=($(echo "${arr[*]}" | sort))
+
+    for item in "${arr[@]}"; do
+        list+="\""$item"\", "
+    done
+
+    list="${list%, }]"
+
+    echo "$list"
+}
+
+# check if file is in list
+check_list() {
+    listfile="$1"
+    filename="$2"
+
+    [[ -f "$listfile" ]] && cat "$listfile" | grep "^$filename$" &> /dev/null
+}
+
+# list directory contents
+list_contents() {
+    local dir="$1"
+    find "$dir" -maxdepth 1 ! -name "_blacklist" ! -name "_special" \
+        ! -name "index.json" ! -wholename "$dir" -print0 | sort
+}
+
+# compute relative paths
+function relative_path() {
+    local topdir="$1"
+    local dir="$2"
+
+    # dir must be in topdir
+    if [[ ! "$dir" = "$topdir"* ]]; then
+        echo "Error: dir must be a subdirectory of topdir"
+        return 1
+    fi
+
+    # if $topdir is $dir
+    if [[ "$dir" = "$topdir" ]]; then
+        echo "."
+        return 0
+    fi
+
+    # remove $topdir from $dir
+    local relpath="${dir#$topdir}"
+
+    # check $relpath
+    if [[ "$relpath" != /* ]]; then
+        echo "Error: unexpected path after trimming topdir"
+        return 1
+    fi
+
+    # count '/' in $relpath
+    local depth=$(echo "$relpath" | grep -o '/' | wc -l)
+
+    # create relative path
+    local result=""
+    for ((i=0; i<depth; i++)); do
+        result="../$result"
+    done
+
+    echo "$result"
+    return 0
+}
+
+# iter: folders
+while IFS= read -r -d '' dir; do
+    # init arrays
+    f=()
+    d=()
+    sf=()
+    sd=()
+
+    # iter: folder contents
+    while IFS= read -r -d '' path; do
+        filename="$(basename "$path")"
+
+        # ignore if blacklisted
+        if check_list "$dir/_blacklist" "$filename"; then
+            continue
+        fi
+
+        # track regular/special files/directories
+        if check_list "$dir/_special" "$filename"; then
+            if [[ -d "$path" ]]; then
+                sd+=("$filename")
+            elif [[ -f "$path" ]]; then
+                sf+=("$filename")
+            fi
+        else
+            if [[ -d "$path" ]]; then
+                d+=("$filename")
+            elif [[ -f "$path" ]]; then
+                f+=("$filename")
+            fi
+        fi
+    done < <(list_contents "$dir")
+
+    # compute relative path
+    outer=$(relative_path "$topdir" "$dir")
+
+    # store results
+    echo "
+{
+    \"files\": $(enlist f), 
+    \"directories\": $(enlist d), 
+    \"special_files\": $(enlist sf), 
+    \"special_directories\": $(enlist sd), 
+    \"outer\": \"$outer\"
+}
+    " | jq -c . > "$dir/index.json"
+done < <(find "$topdir" -type d -print0) 
+
