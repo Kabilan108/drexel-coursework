@@ -1,0 +1,130 @@
+# Exercise 5
+
+Author: Tony K. Okeke
+Date:   02-01-2024
+
+
+## Question 1
+
+### A: Write a function initArr that takes an array of integers and its length as arguments, returns nothing, and initializes each element of the inputted array with the numbers 0, 1, …, up to the inputted length.
+
+```c
+void initArr(int *arr, int n) {
+    for (int i = 0; i < n; i++) {
+        *(arr + 1) = i;
+    }
+}
+```
+
+### B:  Write a function initStr that takes a string as an argument, returns nothing, and initializes each character of the inputted string with the letters a, b, …, up to the letter at the inputted length. You may assume the inputted string’s length is ≤ 26 characters.
+
+```c
+void initStr(char str[], int n) {
+    char l = 'a';
+    for (int i = 0; i < n; i++) {
+        str[i] = l + i;
+        if (i > 24) {
+            break;
+        }
+    }
+}
+```
+
+
+## Question 2
+
+I heard you mention that we should avoid using headers so these functions return integers (0 and 1) as appropriate. If headers are allowed, then I would include `<stdbool.h` which includes the `bool`, `true` and `false` types.
+
+### A: Write a function equalArr that takes two arrays of integers and their lengths as arguments, and returns a boolean which is true iff they’re equal.
+
+```c
+int equalArr(int *x, int *y, int m, int n) {
+    if (m != n) {
+        return 0;
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (x[i] != y[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+```
+
+### B: Write a function equalStr that takes two strings and returns a boolean which is true iff they’re equal.
+
+```c
+int equalStr(char x[], char y[]) {
+    while (*x == *y) {
+        if (*x == '\0') {
+            return 1;
+        }
+        x++;
+        y++;
+    }
+    return 0;
+}
+```
+
+
+## Question 3
+
+Write code to iterate over an integer array (you can make one with some arbitrary values) using only pointer dereferencing, printing each of the elements. You should not use any square brackets except in array type declarations, e.g. you can’t say x[i] to refer to the value of x at index i; you must use *.
+
+```c
+#include<stdio.h>
+
+int main() {
+    int arr[] = {0, 1,2,3,4,5,6,7,8,9};
+    int n = 10;
+
+    for (int i = 0; i < n; i++) {
+        printf("%d\n", *(arr + i));
+    }
+}
+```
+
+
+## Question 4
+
+Write a function named uppercase that takes a string argument, returns nothing, and capitalizes all letters in the inputted string. If a character is not a letter or already an uppercase letter, it should remain unchanged.
+
+```c
+void uppercase(char str[]) {
+    int c;
+    while (*str != '\0') {
+        c = (int) *str;
+        if (c >= 97 && c <= 122) {
+            *str = (char) c - 32;
+        }
+        str++;
+    }
+}
+```
+
+
+## Question 5
+
+### A: Assume there’s a directory named foobar in your cwd containing filenames of the form A_B.txt, where A and B can be any string of letters and numbers. Rename the files to B_A.txt. For example, xyz_012.txt should become 012_xyz.txt. You may find this link helpful.
+
+```bash
+while read f; do
+    mv "$f" "$(echo $f | sed -E 's/(.*)_(.*).txt/\2_\1.txt/g')"
+done < <(ls *_*.txt)
+```
+
+### B: Assume there’s a directory named fiddlesticks in your cwd. Print the names of all directories in fiddlesticks, recursively, that don’t contain a file named abc in them.
+
+```bash
+find fiddlesticks -type d -exec sh -c 'find "$0" -maxdepth 1 -name abc -print -quit | grep -q . || echo "$0"' {} \;'
+```
+
+### C: Could not complete class time
+
+
+## Question 6
+
+Could not complete within class time.
+

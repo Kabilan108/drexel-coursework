@@ -1,0 +1,5 @@
+    This line has leading spaces.
+    So does this one.
+Leading whitespace should be removed.
+  Even if there's a lot of it.
+No leading space here.
