@@ -1,0 +1,22 @@
+{
+  "version": "1.2",
+  "dbname": "chitinase-proteins.fst",
+  "dbtype": "Protein",
+  "db-version": 5,
+  "description": "data/chitinase-proteins.fst",
+  "number-of-letters": 57664473,
+  "number-of-sequences": 105923,
+  "last-updated": "2024-02-16T14:51:00",
+  "number-of-volumes": 1,
+  "bytes-total": 73691925,
+  "bytes-to-cache": 58617909,
+  "files": [
+    "chitinase-proteins.fst.pdb",
+    "chitinase-proteins.fst.phr",
+    "chitinase-proteins.fst.pin",
+    "chitinase-proteins.fst.pot",
+    "chitinase-proteins.fst.psq",
+    "chitinase-proteins.fst.ptf",
+    "chitinase-proteins.fst.pto"
+  ]
+}
