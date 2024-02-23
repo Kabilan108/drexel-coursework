@@ -1,0 +1,209 @@
+{
+    'definition': 'Edaphochlamys debaryana strain IITRIND3 internal transcribed spacer 1, partial 
+sequence; 5.8S ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal
+RNA gene, partial sequence',
+    'accession': 'KT932961.1',
+    'organism': 'Edaphochlamys debaryana',
+    'source': 'Edaphochlamys debaryana'
+}
+{
+    'definition': 'Chlamydomonas irregularis 18S ribosomal RNA gene, partial sequence; internal 
+transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete sequence; and 
+28S ribosomal RNA gene, partial sequence',
+    'accession': 'KU361150.1',
+    'organism': 'Chlamydomonas irregularis',
+    'source': 'Chlamydomonas irregularis'
+}
+{
+    'definition': 'Chlamydomonas sp. KU108 internal transcribed spacer 1, partial sequence; 5.8S 
+ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal RNA gene, 
+partial sequence',
+    'accession': 'KM061448.1',
+    'organism': 'Chlamydomonas sp. KU108',
+    'source': 'Chlamydomonas sp. KU108'
+}
+{
+    'definition': 'Chlamydomonas sp. KU106 internal transcribed spacer 1, partial sequence; 5.8S 
+ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal RNA gene, 
+partial sequence',
+    'accession': 'KM061446.1',
+    'organism': 'Chlamydomonas sp. KU106',
+    'source': 'Chlamydomonas sp. KU106'
+}
+{
+    'definition': 'Chlamydomonas sp. KU105 internal transcribed spacer 1, partial sequence; 5.8S 
+ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal RNA gene, 
+partial sequence',
+    'accession': 'KM061445.1',
+    'organism': 'Chlamydomonas sp. KU105',
+    'source': 'Chlamydomonas sp. KU105'
+}
+{
+    'definition': 'Uronema sp. KGE3 partial 28S rRNA gene, strain KGE3',
+    'accession': 'HE861880.1',
+    'organism': 'Uronema sp. KGE3',
+    'source': 'Uronema sp. KGE3'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii 28S rRNA gene, strain YSW18',
+    'accession': 'HE863713.1',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii 28S rRNA gene, strain YSW17',
+    'accession': 'HE863712.1',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}
+{
+    'definition': 'Chlamydomonas sp. 18 (FA) 18S ribosomal RNA gene, partial sequence; internal 
+transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete sequence; and 
+28S ribosomal RNA gene, partial sequence',
+    'accession': 'KF803400.1',
+    'organism': 'Chlamydomonas sp. 18 (FA)',
+    'source': 'Chlamydomonas sp. 18 (FA)'
+}
+{
+    'definition': 'Chlamydomonas sp. MMG-17 internal transcribed spacer 1, partial sequence; 5.8S 
+ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal RNA gene, 
+partial sequence',
+    'accession': 'KF157407.1',
+    'organism': 'Chlamydomonas sp. MMG-17',
+    'source': 'Chlamydomonas sp. MMG-17'
+}
+{
+    'definition': 'Chlamydomonas sp. XZL-4 internal transcribed spacer 1, partial sequence; 5.8S 
+ribosomal RNA gene and internal transcribed spacer 2, complete sequence; and 28S ribosomal RNA gene, 
+partial sequence',
+    'accession': 'KF689546.1',
+    'organism': 'Chlamydomonas sp. XZL-4',
+    'source': 'Chlamydomonas sp. XZL-4'
+}
+{
+    'definition': 'Uronema minutum 5.8S rRNA gene, ITS2 and partial 28S rRNA gene, strain CCAP 386/1',
+    'accession': 'HF920661.1',
+    'organism': 'Uronema minutum',
+    'source': 'Uronema minutum'
+}
+{
+    'definition': 'Uronema sp. KGE6 partial 28S rRNA gene, strain KGE6',
+    'accession': 'HE861885.1',
+    'organism': 'Uronema sp. KGE6',
+    'source': 'Uronema sp. KGE6'
+}
+{
+    'definition': 'Uronema sp. KGE5 partial 28S rRNA gene, strain KGE5',
+    'accession': 'HE861881.1',
+    'organism': 'Uronema sp. KGE5',
+    'source': 'Uronema sp. KGE5'
+}
+{
+    'definition': 'Chlamydomonas globosa strain KMMCC 1471 18S ribosomal RNA gene, internal transcribed 
+spacer 1, 5.8S ribosomal RNA gene, internal transcribed spacer 2, and 28S ribosomal RNA gene, region',
+    'accession': 'JQ315764.1',
+    'organism': 'Chlamydomonas globosa',
+    'source': 'Chlamydomonas globosa'
+}
+{
+    'definition': 'Chlamydomonas debaryana 18S ribosomal RNA gene, partial sequence; internal transcribed
+spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete sequence; and 28S 
+ribosomal RNA gene, partial sequence',
+    'accession': 'JX456467.1',
+    'organism': 'Edaphochlamys debaryana',
+    'source': 'Edaphochlamys debaryana'
+}
+{
+    'definition': 'Chlamydomonas sp. SP2-18 18S ribosomal RNA gene, partial sequence; internal 
+transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete sequence; and 
+28S ribosomal RNA gene, partial sequence',
+    'accession': 'JX046422.1',
+    'organism': 'Chlamydomonas sp. SP2-18',
+    'source': 'Chlamydomonas sp. SP2-18'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii partial 28S rRNA gene, strain KGE24',
+    'accession': 'HE974912.1',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}
+{
+    'definition': 'Chlamydomonas sp. KGE21 partial 28S rRNA gene, strain KGE21',
+    'accession': 'HE974909.1',
+    'organism': 'Chlamydomonas sp. KGE21',
+    'source': 'Chlamydomonas sp. KGE21'
+}
+{
+    'definition': 'Chlamydomonas moewusii 18S ribosomal RNA gene, partial sequence; internal transcribed 
+spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete sequence; and 28S 
+ribosomal RNA gene, partial sequence',
+    'accession': 'JX290025.1',
+    'organism': 'Chlamydomonas moewusii',
+    'source': 'Chlamydomonas moewusii'
+}
+{
+    'definition': 'Chlamydomonas dorsoventralis isolate Iso 7 18S ribosomal RNA gene, partial sequence; 
+internal transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete 
+sequence; and 28S ribosomal RNA gene, partial sequence',
+    'accession': 'JX041603.1',
+    'organism': 'Chlamydomonas dorsoventralis',
+    'source': 'Chlamydomonas dorsoventralis'
+}
+{
+    'definition': 'Chlamydomonas dorsoventralis isolate 8-8 18S ribosomal RNA gene, partial sequence; 
+internal transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete 
+sequence; and 28S ribosomal RNA gene, partial sequence',
+    'accession': 'JX041596.1',
+    'organism': 'Chlamydomonas dorsoventralis',
+    'source': 'Chlamydomonas dorsoventralis'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii isolate 8-7 18S ribosomal RNA gene, partial sequence; 
+internal transcribed spacer 1, 5.8S ribosomal RNA gene, and internal transcribed spacer 2, complete 
+sequence; and 28S ribosomal RNA gene, partial sequence',
+    'accession': 'JX041595.1',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}
+{
+    'definition': 'Chlamydomonas incerta isolate YZR1C4 28S ribosomal RNA gene, partial sequence',
+    'accession': 'JQ776633.1',
+    'organism': 'Chlamydomonas incerta',
+    'source': 'Chlamydomonas incerta'
+}
+{
+    'definition': 'Chlamydomonas mexicana partial 28S rRNA gene, isolate YSL008',
+    'accession': 'FR751193.1',
+    'organism': 'Chlamydomonas mexicana',
+    'source': 'Chlamydomonas mexicana'
+}
+{
+    'definition': 'Uronema belkae partial 28S rRNA gene, isolate YSL010',
+    'accession': 'FR751190.1',
+    'organism': 'Uronema belkae',
+    'source': 'Uronema belkae'
+}
+{
+    'definition': 'Chlamydomonas mexicana isolate YSL07 28S ribosomal RNA gene, partial sequence',
+    'accession': 'GU732420.1',
+    'organism': 'Chlamydomonas mexicana',
+    'source': 'Chlamydomonas mexicana'
+}
+{
+    'definition': 'Chlamydomonas pitschmannii isolate YSL03 28S ribosomal RNA gene, partial sequence',
+    'accession': 'GU732416.1',
+    'organism': 'Chlamydomonas pitschmannii',
+    'source': 'Chlamydomonas pitschmannii'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii uncharacterized protein (CHLRE_06g283350v5), mRNA',
+    'accession': 'XM_001695286.2',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}
+{
+    'definition': 'Chlamydomonas reinhardtii ribosomal protein S23 (CHLRE_12g504200v5), mRNA',
+    'accession': 'XM_001690941.2',
+    'organism': 'Chlamydomonas reinhardtii',
+    'source': 'Chlamydomonas reinhardtii'
+}

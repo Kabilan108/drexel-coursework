@@ -1,0 +1,38 @@
+
+look at taxonomic composition of each
+- modify `Order` column: replace NA with 'unclassified'
+- pivot table that shows the counts for each species and order (species as rows, orders as cols, counts as values0
+- stacked bar graph (% of total) (species in each order)
+
+```python
+import pandas as pd
+df = pd.read_excel('./anderson et al supplementary table.xlsx')
+
+df['Order'] = df['Order'].fillna('unclassified')
+
+pt = pd.pivot_table(df, index='Ant genus & species', columns='Order', aggfunc='count').fillna(0)
+pt.plot(kind='bar', stacked=True)
+
+
+
+with open('anderson-2012-sequences.fasta', 'r') as f:
+    seqlines = f.readlines()
+
+sequences = []
+for l in seqlines:
+    if l[0] == '>':
+        seq = l
+    elif l == '\n':
+        sequences.append(seq.split('\n'))
+    else:
+        seq += l.rstrip()
+
+for i, (name, seq) in enumerate(sequences):
+    match = re.search(r'^>(\w+)', name)
+    if match:
+        sequences[i][0] = match.group(1)
+    else:
+        print(f"{i} failed")
+
+df.merge(pd.DataFrame(sequences), left_on='Accession', right_on=0).to_csv('anderson-sequences-with-fasta.csv', index=False)
+```

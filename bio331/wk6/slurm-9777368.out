@@ -1,0 +1,13 @@
+
+
+Building a new DB, current time: 02/16/2024 14:51:17
+New DB name:   /home/tko35/courses/bio331/wk6/data/chitinase-proteins.fst
+New DB title:  data/chitinase-proteins.fst
+Sequence type: Protein
+Deleted existing Protein BLAST database named /home/tko35/courses/bio331/wk6/data/chitinase-proteins.fst
+Keep MBits: T
+Maximum file size: 3000000000B
+Adding sequences from FASTA; added 105923 sequences in 1.7186 seconds.
+
+
+/bin/rm: cannot remove '/local/scratch/9777368': Permission denied
