@@ -1,0 +1,186 @@
+# Exercise 7
+
+Author: Tony K Okeke
+Date:   02-22-2024
+
+
+## Question 1
+
+### A
+
+Write a function named weirdSwap which takes two strings as arguments. It should return nothing and swap as many characters as possible (given differences in length) between the two strings, putting characters from the end of one string onto the front of the other string in reverse order:
+
+```c
+#include <stdio.h>
+
+int mystrlen(char* str) {
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+void weirdSwap(char* x, char* y) {
+    // get string lengths
+    int len_x = mystrlen(x);
+    int len_y = mystrlen(y);
+    int swap_len = len_y < len_x ? len_y : len_x;
+
+    // allocate temp vars
+    char temp_x[swap_len + 1];
+    char temp_y[swap_len + 1];
+
+    // copy last swap_len characters from x & y to temp_y & temp_x
+    for (int i = 0; i < swap_len; i++) {
+        temp_y[i] = x[len_x - 1 - i];
+        temp_x[i] = y[len_y - 1 - i];
+    }
+
+    // replace beginning of swap_len with temp_[xy]
+    for (int i = 0; i < swap_len; i++) {
+        x[i] = temp_x[i];
+        y[i] = temp_y[i];
+    }
+
+    x[len_x] = '\0';
+    y[len_y] = '\0';
+}
+```
+
+### B
+
+ Implement a function named weirdSwapPtrs which behaves the same as weirdSwap but uses no square brackets (except potentially in the function signature), only uses * for pointer dereferencing, and doesn’t declare any numeric counter variables — you should only use pointer arithmetic to iterate over the strings. If your solution for weirdSwap already does this, you can just submit the same function.
+
+```c
+void weirdSwapPtrs(char *s1, char *s2) {
+    char *end1 = s1;
+    char *end2 = s2;
+    char temp;
+
+    // move pointers to the last character in each string
+    while (*end1) ++end1;
+    while (*end2) ++end2;
+    --end1;
+    --end2;
+
+    // swap characters
+    while (s1 <= end1 && s2 <= end2) {
+        temp = *end1;
+        *end1 = *end2;
+        *end2 = temp;
+        --end1;
+        --end2;
+        ++s1;
+        ++s2;
+    }
+}
+```
+
+
+## Question 2
+
+### A
+
+Write a function named concatAll that takes an array of strings, an integer number of elements in the array, and a character array with enough room to hold all of the characters of all of the strings in the array. It should return nothing and concatenate all of the strings into the inputted array, like so:
+
+```c
+void concatAll(char* xs[], int n, char* dest) {
+    for (int i = 0; i < n; i++) {
+        char* p = xs[i];
+        while (*p != '\0') {
+            *dest = *p;
+            dest++;
+            p++;
+        }
+    }
+    *dest = '\0';
+}
+```
+
+### B
+
+Write a function named concatAllHeap that takes an array of strings and an integer number of elements in the array. It should allocate enough space for a new string on the heap that has just enough space to hold all of the characters in the inputted strings (plus a null terminating character), concatenate all of the inputted strings into the heap-allocated string in order (as concatAll does), and return a pointer to the heap-allocated string.
+
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
+
+int mystrlen(char* str) {
+    int len = 0;
+    while (str[len] != '\0') len++;
+    return len;
+}
+
+char* concatAllHeap(char* xs[], int n) {
+    int len = 1;
+    for (int i = 0; i < n; i++) {
+        len += mystrlen(xs[i]);
+    }
+
+    char* res = (char*) malloc(len * sizeof(char));
+    if (res == NULL) return NULL;
+
+    char* pos = res;
+    for (int i = 0; i < n; i++) {
+        char* p = xs[i];
+        while (*p) {
+            *pos++ = *p++;
+        }
+    }
+    *pos = '\0';
+
+    return res;
+}
+
+```
+
+
+## Question 3
+
+Write a program that uses getline to iterate over stdin until EOF, stores each string it reads in an array, and when it’s done reading all input, prints each string in the array.
+
+You must store the inputted strings in an array and then print them out once you’re done reading input — you cannot simply print each string as you read it.
+
+Hint: getline reuses the same memory space if it has enough room for the new string (or deallocates it and allocates a new space if not), so when you read in the next string, it will overwrite any characters that are there. You’ll need to copy each string as you read it in order to save it.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char* argv[]) {
+    char** strings = NULL;
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    int count = 0;
+
+    // read stdin
+    while ((read = getline(&line, &len, stdin)) != -1) {
+        strings = realloc(strings, (count + 1) * sizeof(char*));
+        if (strings == NULL) {
+            exit(1);
+        }
+
+        strings[count] = malloc(read + 1);
+        if (strings[count] == NULL) {
+            exit(1);
+        }
+
+        strncpy(strings[count], line, read + 1);
+        count++;
+    }
+    free(line);
+
+    for (int i = 0; i < count; i++) {
+        printf("%s", strings[i]);
+        free(strings[i]);
+    }
+
+    free(strings);
+    return 0;
+}
+```
+

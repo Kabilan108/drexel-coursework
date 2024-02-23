@@ -1,0 +1,163 @@
+# Exercise 6
+
+Author: Tony K. Okeke
+Date:   02-15-2024
+
+
+## Question 1
+
+#### A: Write a function named mystrlen that takes a string and returns the length of the string. 
+
+```c
+int mystrlen(char str[]) {
+    int len = 0;
+    while (*str != '\0') {
+        len = len + 1;
+        str++;
+    }
+    return len;
+}
+```
+
+#### B: Write a function named mystrcpy which returns nothing, takes two string arguments, and copies the second string into the first, overwriting the first’s contents. You may assume the first string has enough space to hold the contents of the second string.
+
+```c
+void mystrcpy(char p[], char q[]) {
+    while (*q != '\0') {
+        *p = *q;
+        p++;
+        q++;
+    }
+    *p = '\0';
+}
+```
+
+
+## Question 2
+
+Write a function called sumIntPtr which takes an array of pointers to integers and the length of the array, and returns the sum.
+
+```c
+int sumIntPtr(int *arr[], int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum = sum + *arr[i];
+    }
+    return sum;
+}
+```
+
+
+## Question 3
+
+#### A: Write a snippet of code that prints the memory address and value of every array element in the following array: `int x[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};`
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    int n = 9;
+
+    for (int i = 0; i < n; i++) {
+        printf("x[%d] is stored at %p and contains %d\n", i, x+i, *(x+i));
+    }
+}
+```
+
+#### B: Write a snippet of code that prints the memory address and value of every array element in the following array: `int x[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};`
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("x[%d][%d] is stored at %p and contains %d\n", i, j, &x[i][j], x[i][j]);
+        }
+    }
+}
+```
+
+#### C: Compare and contrast the two array declarations. How are the two arrays stored differently in memory? How do we reference elements in each array?
+
+**storage in memory:** 
+
+- the one-dimensional array is stored in a contiguous block of memory, with each element placed sequentially (separated by 4 bits because that's what's needed to store integers).
+- the two-dimensional array is also stored in a contiguous block of memory, however it is organized such that each row is stored contiguously, followed by the next row and so on.
+
+**referencing elements:**
+
+- in the one dimensional array, we can reference elements using the `x[i]` or `*(x+i)` syntax.
+- in the two-dimensional array, we can reference elements using the `x[i][j]` syntax where i is the row index and j is the column index.
+
+
+## Question 4
+
+The following program has a bug:
+
+```c
+#include <stdio.h>
+
+int * initArr(int n) {
+    int x[n];
+    for (int i = 0; i < n; i++) {
+        x[i] = i;
+    }
+    return x;
+} 
+
+int main() {
+    int n = 5;
+    int *x = initArr(n);
+    for (int i = 0; i < n; i++) {
+        printf("%d\n", *(x + i));
+    }
+}
+```
+
+#### A: Explain what the bug is.
+
+The bug in the program is due to its attempt to pass a pointer to a local variable back to the main routine. When `x` is defined, it is allocated in the stack memory, and its lifetime is limited to the initArr function. When the function returns, the memory allocated for `x` is no longer reserved for `x` and can thus be overwritten by other operations. this will cause undefined behavior when trying to access the variable in the main routine
+
+#### B: Explain how you would fix the bug while preserving the intented behavior of the function. (Hint: You can change the function’s type signature.)
+
+To fix it, we can allocate memory for the array in heap memory instead of stack memory. We can do this using `malloc`. This approach would allow us to preserve the functions behavior without altering the type signature. The new implementation would need to handle any memory allocation errors and should also free the memory address after use in the main function to avoid any memory leaks.
+
+#### C: Would it be possible to create a program with this bug in a language like Python, Java, JavaScript, or Racket? If yes, how? If no, why?
+
+You wouldn't be able to produce this error in high-level languages like these because the manage memory automatically with garbage collection.
+
+
+## Question 5
+
+In C, we declare the main() function like this:
+
+```c
+int main(int argc, char *argv[]) {}
+```
+
+argc is the number of command line arguments. argv is an array of strings, where each string is one of the command line arguments.
+
+Write a main() function that prints abc found if any of the arguments is equal to the string abc and abc NOT found otherwise. Paste your main() function into your labsheet.
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    for (int i = 1; i < argc; i++) {
+        char *arg = argv[i];
+        if (arg[0] == 'a' && arg[1] == 'b' && arg[2] == 'c' && arg[3] == '\0') {
+            printf("abc found\n");
+            return 0;
+        }
+    }
+    
+    printf("abc NOT found\n");
+    return 0;
+}
+```
+
