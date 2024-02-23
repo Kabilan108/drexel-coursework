@@ -1,0 +1,5 @@
+Hello, world!
+This is a test file.
+Pattern found here: fgrep
+This is a test file.
+Another line.

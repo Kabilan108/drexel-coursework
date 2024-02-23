@@ -1,0 +1,5 @@
+fgrep test on multiple lines.
+Each line will be checked for the pattern.
+The pattern is 'fgrep'.
+This file contains multiple occurrences of the pattern.
+fgrep is a useful command.
