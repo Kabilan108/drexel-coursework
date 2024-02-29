@@ -1,0 +1,215 @@
+# Exercise 8
+
+Author: Tony K. Okeke
+Date:   02-29-2024
+
+
+## Question 1
+
+Write a program that takes a pattern as a command line argument and reads input from STDIN. The program will print out the lines from STDIN that exactly match the specified pattern.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Match {
+    int lineNum;
+};
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Usage: %s PATTERN\n", argv[0]);
+        return 1;
+    }
+
+    ssize_t read;
+    size_t len = 0;
+    char* line = NULL;
+    int count = 0, currentLine = 0;
+
+    struct Match* matches = NULL;
+
+    while ((read = getline(&line, &len, stdin)) != -1) {
+        currentLine++;
+
+        if (line[read - 1] == '\n') {
+            line[read - 1] = '\0';
+            read--;
+        }
+
+        if (strcmp(line, argv[1]) == 0) {
+            struct Match* temp = realloc(matches, (count + 1) * sizeof(struct Match));
+            if (temp == NULL) {
+                free(matches);
+                fprintf(stderr, "Failed to allocate memory\n");
+                return 1;
+            }
+
+            matches = temp;
+            matches[count].lineNum = currentLine;
+            count++;
+        }
+    }
+
+    if (count == 0) {
+        printf("No matches found\n");
+    } else {
+        printf("Here are all matches:\n");
+        for (int i = 0; i < count; i++) {
+            printf("%d\n", matches[i].lineNum);
+        }
+    }
+
+    free(matches);
+    free(line);
+    return 0;
+}
+```
+
+
+## Question 2
+
+Here are the function definitions for `concatAll` and `concatAllHeap`. The test cases are in the `main` routine.
+
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
+
+int mystrlen(char* str) {
+    int len = 0;
+    while (str[len] != '\0') len++;
+    return len;
+}
+
+void concatAll(char* xs[], int n, char* dest) {
+    for (int i = 0; i < n; i++) {
+        char* p = xs[i];
+        while (*p != '\0') {
+            *dest = *p;
+            dest++;
+            p++;
+        }
+    }
+    *dest = '\0';
+}
+
+char* concatAllHeap(char* xs[], int n) {
+    int len = 1;
+    for (int i = 0; i < n; i++) {
+        len += mystrlen(xs[i]);
+    }
+
+    char* res = (char*) malloc(len * sizeof(char));
+    if (res == NULL) return NULL;
+
+    char* pos = res;
+    for (int i = 0; i < n; i++) {
+        char* p = xs[i];
+        while (*p) {
+            *pos++ = *p++;
+        }
+    }
+    *pos = '\0';
+
+    return res;
+}
+
+int main() {
+    char* x1 = "abc";
+    char* x2 = "defghi";
+    char* x3 = "z";
+    char* xs[] = {x1, x2, x3};
+
+    char* p = "Solid";
+    char* q = "Gold";
+    char* r = "Magi";
+    char* s = "karp";
+    char* t[] = {p, q, r, s};
+
+    int n_1 = sizeof(xs) / sizeof(char*);
+    int n_2 = sizeof(t) / sizeof(char*);
+
+    printf("# Testing `concatAll`:\n");
+    char dest_1[11], dest_2[18];
+    concatAll(xs, n_1, dest_1);
+    concatAll(t, n_2, dest_2);
+    printf(" - '%s' + '%s' + '%s' = '%s'\n", x1, x2, x3, dest_1);
+    printf(" - '%s' + '%s' + '%s' + '%s' = '%s'\n", p, q, r, s, dest_2);
+
+
+    printf("# Testing `concatAllHeap`:\n");
+    char* res_1 = concatAllHeap(xs, n_1);
+    char* res_2 = concatAllHeap(t, n_2);
+    printf(" - '%s' + '%s' + '%s' = '%s'\n", x1, x2, x3, res_1);
+    printf(" - '%s' + '%s' + '%s' + '%s' = '%s'\n", p, q, r, s, res_2);
+}
+
+```raw
+Here is the output from running the tests:
+
+```raw
+# Testing `concatAll`:
+ - 'abc' + 'defghi' + 'z' = 'abcdefghiz'
+ - 'Solid' + 'Gold' + 'Magi' + 'karp' = 'SolidGoldMagikarp'
+# Testing `concatAllHeap`:
+ - 'abc' + 'defghi' + 'z' = 'abcdefghiz'
+ - 'Solid' + 'Gold' + 'Magi' + 'karp' = 'SolidGoldMagikarp'
+```
+
+
+## Question 3
+
+Here is the program I wrote to solve Q3
+
+```c
+// read_stdin.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char* argv[]) {
+    char** strings = NULL;
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    int count = 0;
+
+    // read stdin
+    while ((read = getline(&line, &len, stdin)) != -1) {
+        strings = realloc(strings, (count + 1) * sizeof(char*));
+        if (strings == NULL) {
+            exit(1);
+        }
+
+        strings[count] = malloc(read + 1);
+        if (strings[count] == NULL) {
+            exit(1);
+        }
+
+        strncpy(strings[count], line, read + 1);
+        count++;
+    }
+    free(line);
+
+    for (int i = 0; i < count; i++) {
+        printf("%s", strings[i]);
+        free(strings[i]);
+    }
+
+    free(strings);
+    return 0;
+}
+```
+
+Here is the test case I used and its output:
+
+```raw
+tko35@tux5: ~/cs265/c $ echo -e 'abc\ndefghi\nz' | ./read_stdin 
+abc
+defghi
+z
+```
+
