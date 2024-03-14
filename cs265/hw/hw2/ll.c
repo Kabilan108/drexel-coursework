@@ -11,7 +11,6 @@
 Node* createNode(GradeEntry* grade) {
     Node* newNode = (Node*) malloc(sizeof(Node));
     if (newNode == NULL) {
-        printf("Error allocating memory\n");
         return NULL;
     }
     newNode->grade = *grade;

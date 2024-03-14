@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
+#include "ll.h"
 #include "mystring.h"
 
 int main(int argc, char* argv[]) {
