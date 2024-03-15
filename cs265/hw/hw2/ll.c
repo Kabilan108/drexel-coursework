@@ -7,6 +7,13 @@
 
 #include "ll.h"
 
+// initialize LL
+void initLL(LinkedList* list) {
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
 // create new LL node
 Node* createNode(GradeEntry* grade) {
     Node* newNode = (Node*) malloc(sizeof(Node));
@@ -16,13 +23,6 @@ Node* createNode(GradeEntry* grade) {
     newNode->grade = *grade;
     newNode->next = NULL;
     return newNode;
-}
-
-// initialize LL
-void initLL(LinkedList* list) {
-    list->head = NULL;
-    list->tail = NULL;
-    list->size = 0;
 }
 
 // append node to LL
@@ -43,30 +43,44 @@ void appendNode(LinkedList* list, GradeEntry* grade) {
 
 // remove node from LL
 void removeNode(LinkedList* list, char* studentId, char* assignmentName) {
-    Node* temp = list->head;
+    Node* current = list->head;
     Node* prev = NULL;
-    while (temp != NULL) {
+    while (current != NULL) {
         // TODO: replace strcmp with mystrcmp
         if (
-            strcmp(temp->grade.studentId, studentId) == 0 && 
-            strcmp(temp->grade.assignmentName, assignmentName) == 0
+            strcmp(current->grade.studentId, studentId) == 0 && 
+            strcmp(current->grade.assignmentName, assignmentName) == 0
         ) {
             if (prev == NULL) {
                 // removing head
-                list->head = temp->next;
+                list->head = current->next;
             } else {
-                prev->next = temp->next;
+                // update node references
+                prev->next = current->next;
             }
-            if (temp == list->tail) {
+            if (current == list->tail) {
                 // removing tail
                 list->tail = prev;
             }
-            free(temp);
+            free(current);
             list->size--;
             return;
         }
-        prev = temp;
-        temp = temp->next;
+        prev = current;
+        current = current->next;
     }    
 }
 
+// free LL
+void freeLL(LinkedList* list) {
+    Node* head = list->head;
+    Node* next;
+    while (head != NULL) {
+        next = head->next;
+        free(head);
+        head = next;
+    }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
