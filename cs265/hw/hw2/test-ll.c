@@ -9,7 +9,7 @@
 #include "ll.h"
 #include "mystring.h"
 
-int main(int argc, char* argv[]) {
+int main() {
     LinkedList* list = malloc(sizeof(LinkedList));
     initLL(list);
 

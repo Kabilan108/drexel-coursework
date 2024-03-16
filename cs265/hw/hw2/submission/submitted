@@ -1,0 +1,545 @@
+Latest submission for assignment assignment2 was on 2024-03-15@10:13:44PM
+Submitted before due date, no late penalties
+Submitted file Makefile, printing contents
+Begin Makefile >>>
+# Author: Tony K. Okeke
+# Date:   03.13.2024
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+all: grades 
+
+grades: grades.o ll.o mystring.o utils.o
+	$(CC) $(CFLAGS) -o grades grades.o mystring.o ll.o utils.o
+
+grades.o: grades.c ll.h mystring.h utils.h
+	$(CC) $(CFLAGS) -c grades.c
+
+ll.o: ll.c ll.h mystring.h
+	$(CC) $(CFLAGS) -c ll.c mystring.h
+
+utils.o: utils.c ll.h mystring.h utils.h
+	$(CC) $(CFLAGS) -c utils.c
+
+mystring.o: mystring.c mystring.h
+	$(CC) $(CFLAGS) -c mystring.c
+
+clean:
+	rm -f grades grades.o mystring.o ll.o utils.o
+
+<<< End Makefile
+Submitted file grades.c, printing contents
+Begin grades.c >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#include "ll.h"
+#include "utils.h"
+#include "mystring.h"
+
+int main(int argc, char* argv[]) {
+    // check for correct number of arguments
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <database_file>\n", argv[0]);
+        return 1;
+    }
+
+    // open the database file
+    char* databaseFile = argv[1];
+    FILE* fp = fopen(databaseFile, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Unable to open database file '%s'\n", databaseFile);
+        return 1;
+    }
+
+    // initialize the linked list
+    LinkedList gradeList;
+    initLL(&gradeList);
+
+    // read existing grades from the database file
+    char line[256];
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        GradeEntry grade;
+        if (parseLine(line, grade.studentId, grade.assignmentName, &grade.grade)) {
+            appendNode(&gradeList, &grade);
+        }
+    }
+    fclose(fp);
+
+    // read commands from stdin
+    char command[256];
+    while (fgets(command, sizeof(command), stdin) != NULL) {
+        command[mystrlen(command) - 1] = '\0';  // Remove trailing newline
+
+        if (mystrncmp(command, "print", 5) == 0) {
+            printGrades(&gradeList);
+        } else if (mystrncmp(command, "add", 3) == 0) {
+            char* args = command + 4;
+            GradeEntry grade;
+
+            if (parseLine(args, grade.studentId, grade.assignmentName, &grade.grade)) {
+                if (!isGradeExists(&gradeList, grade.studentId, grade.assignmentName)) {
+                    appendNode(&gradeList, &grade);
+                } else {
+                    fprintf(stderr, "Error: Grade entry already exists for student ID '%s' and assignment '%s'\n",
+                            grade.studentId, grade.assignmentName);
+                }
+            } else {
+                fprintf(stderr, "Invalid argument\n");
+            }
+        } else if (mystrncmp(command, "remove", 6) == 0) {
+            char* args = command + 7;
+            char studentId[11];
+            char assignmentName[21];
+    
+            if (parseRemoveArgs(args, studentId, assignmentName)) {
+                removeNode(&gradeList, studentId, assignmentName);
+            } else {
+                fprintf(stderr, "Invalid argument\n");
+            }
+        } else if (mystrncmp(command, "stats", 5) == 0) {
+            char* assignmentName = command + 6;
+            printStats(&gradeList, assignmentName);
+        } else {
+            fprintf(stderr, "Error: Invalid command '%s'\n", command);
+        }
+    }
+
+    if (!saveGrades(databaseFile, &gradeList)) {
+        fprintf(stderr, "Error: Unable to save grades to database file '%s'\n", databaseFile);
+        return 1;
+    }
+
+    freeLL(&gradeList);
+    return 0;
+}
+<<< End grades.c
+Submitted file ll.c, printing contents
+Begin ll.c >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#include <stddef.h>
+#include <stdlib.h>
+
+#include "ll.h"
+#include "mystring.h"
+
+// initialize LL
+void initLL(LinkedList* list) {
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
+// create new LL node
+Node* createNode(GradeEntry* grade) {
+    Node* newNode = (Node*) malloc(sizeof(Node));
+    if (newNode == NULL) {
+        return NULL;
+    }
+    newNode->grade = *grade;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// append node to LL
+void appendNode(LinkedList* list, GradeEntry* grade) {
+    Node* newNode = createNode(grade);
+    if (newNode == NULL) {
+        return;
+    }
+    if (list->head == NULL) {
+        list->head = newNode;
+        list->tail = newNode;
+    } else {
+        list->tail->next = newNode;
+        list->tail = newNode;
+    }
+    list->size++;
+}
+
+// remove node from LL
+void removeNode(LinkedList* list, char* studentId, char* assignmentName) {
+    Node* current = list->head;
+    Node* prev = NULL;
+    while (current != NULL) {
+        if (
+            mystrcmp(current->grade.studentId, studentId) == 0 && 
+            mystrcmp(current->grade.assignmentName, assignmentName) == 0
+        ) {
+            if (prev == NULL) {
+                // removing head
+                list->head = current->next;
+            } else {
+                // update node references
+                prev->next = current->next;
+            }
+            if (current == list->tail) {
+                // removing tail
+                list->tail = prev;
+            }
+            free(current);
+            list->size--;
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }    
+}
+
+// free LL
+void freeLL(LinkedList* list) {
+    Node* head = list->head;
+    Node* next;
+    while (head != NULL) {
+        next = head->next;
+        free(head);
+        head = next;
+    }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
+<<< End ll.c
+Submitted file ll.h, printing contents
+Begin ll.h >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#ifndef LL_H
+#define LL_H
+    typedef struct GradeEntry GradeEntry;
+    struct GradeEntry {
+        char studentId[11];
+        char assignmentName[21];
+        unsigned short grade;
+    };
+
+    typedef struct Node Node;
+    struct Node {
+        GradeEntry grade;
+        Node* next;
+    };
+
+    typedef struct LinkedList LinkedList;
+    struct LinkedList {
+        Node* head;
+        Node* tail;
+        int size;
+    };
+
+    void initLL(LinkedList* list);
+    void appendNode(LinkedList* list, GradeEntry* grade);
+    void removeNode(LinkedList* list, char* studentId, char* assignmentName);
+    void freeLL(LinkedList* list);
+
+    Node* createNode(GradeEntry* grade);
+#endif
+
+<<< End ll.h
+Submitted file mystring.c, printing contents
+Begin mystring.c >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#include "mystring.h"
+
+// compute the length of a string
+int mystrlen(const char* str) {
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+// compare two strings
+int mystrcmp(const char* str1, const char* str2) {
+    while (*str1 == *str2) {
+        if (*str1 == '\0') {
+            return 0;
+        }
+        str1++;
+        str2++;
+    }
+    return *str1 - *str2;
+}
+
+// compare two strings up to n characters
+int mystrncmp(const char* str1, const char* str2, int n) {
+    while (n > 0) {
+        if (*str1 != *str2) {
+            return *str1 - *str2;
+        }
+        if (*str1 == '\0') {
+            return 0;
+        }
+        str1++;
+        str2++;
+        n--;
+    }
+    return 0;
+}
+
+// copy a string to another string up to n characters
+char* mystrncpy(char* dest, const char* src, int n) {
+    char* originalDest = dest;
+    while (*src != '\0' && n > 0) {
+        *dest++ = *src++;
+        n--;
+    }
+    while (n > 0) {
+        *dest++ = '\0';
+        n--;
+    }
+    return originalDest;
+}
+
+// concatenate src to dest up to n characters
+char* mystrncat(char* dest, const char* src, int n) {
+    char* originalDest = dest;
+    while (*dest != '\0') {
+        dest++;
+    }
+    while (*src != '\0' && n > 0) {
+        *dest++ = *src++;
+        n--;
+    }
+    *dest = '\0';
+    return originalDest;
+}
+
+<<< End mystring.c
+Submitted file mystring.h, printing contents
+Begin mystring.h >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#ifndef MYSTRING_H
+#define MYSTRING_H
+    int mystrlen(const char* str);
+    int mystrcmp(const char* str1, const char* str2);
+    int mystrncmp(const char* str1, const char* str2, int n);
+
+    char* mystrncpy(char* dest, const char* src, int n);
+    char* mystrncat(char* dest, const char* src, int n);
+#endif
+
+<<< End mystring.h
+Submitted file utils.c, printing contents
+Begin utils.c >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <unistd.h> // Include for mkstemp
+
+#include "utils.h"
+#include "mystring.h"
+
+// Parse a line from the database file
+bool parseLine(
+    const char* line, 
+    char* studentId, 
+    char* assignmentName, 
+    unsigned short* grade
+) {
+    int idLen = 0;
+    int nameLen = 0;
+    int gradeVal = 0;
+
+    // read the student ID, up to the ':' character
+    const char* p = line;
+    while (*p != ':' && *p != '\0' && idLen < 10) {
+        studentId[idLen++] = *p++;
+    }
+    if (*p != ':' || idLen != 10) {
+        return false;
+    }
+    studentId[idLen] = '\0';
+
+    // read the assignment name, up to the ':' character
+    p++;
+    while (*p != ':' && *p != '\0' && nameLen < 20) {
+        assignmentName[nameLen++] = *p++;
+    }
+    if (*p != ':' || nameLen == 0) {
+        return false;
+    }
+    assignmentName[nameLen] = '\0';
+
+    // read the grade, up to the newline character
+    p++;
+    while (*p >= '0' && *p <= '9') {
+        gradeVal = gradeVal * 10 + (*p - '0');  
+        p++;
+    }
+    if (*p == '\n') p++; // ignore the newline character if present
+    if (*p != '\0' || gradeVal < 0 || gradeVal > 100) {
+        return false;
+    }
+    *grade = (unsigned short) gradeVal;
+
+    return true;
+}
+
+// Parse the arguments for the remove command
+bool parseRemoveArgs(const char* args, char* studentId, char* assignmentName) {
+    int idLen = 0;
+    int nameLen = 0;
+
+    // read the student ID, up to the ':' character
+    const char* p = args;
+    while (*p != ':' && *p != '\0' && idLen < 10) {
+        studentId[idLen++] = *p++;
+    }
+    if (*p != ':' || idLen != 10) {
+        return false;
+    }
+    studentId[idLen] = '\0';
+
+    // read the assignment name, up to the ':' character
+    p++;
+    while (*p != '\0' && nameLen < 20) {
+        assignmentName[nameLen++] = *p++;
+    }
+    if (nameLen == 0) {
+        return false;
+    }
+    assignmentName[nameLen] = '\0';
+
+    return true;
+}
+
+// traverse the list, print the grades
+void printGrades(LinkedList* list) {
+    printf("Student ID | Assignment Name      | Grade\n");
+    printf("-----------------------------------------\n");
+
+    Node* current = list->head;
+    while (current != NULL) {
+        printf("%-10s | %-20s | %hu\n",
+               current->grade.studentId,
+               current->grade.assignmentName,
+               current->grade.grade);
+        current = current->next;
+    }
+}
+
+// compute & report statistics for a specified assignment
+void printStats(LinkedList* list, const char* assignmentName) {
+    unsigned short minGrade = 100;
+    unsigned short maxGrade = 0;
+    int totalGrade = 0;
+    int count = 0;
+
+    Node* current = list->head;
+    while (current != NULL) {
+        if (mystrcmp(current->grade.assignmentName, assignmentName) == 0) {
+            unsigned short grade = current->grade.grade;
+            if (grade < minGrade) {
+                minGrade = grade;
+            }
+            if (grade > maxGrade) {
+                maxGrade = grade;
+            }
+            totalGrade += grade;
+            count++;
+        }
+        current = current->next;
+    }
+
+    if (count == 0) {
+        fprintf(stderr, "Error: No grades found for assignment '%s'\n", assignmentName);
+        return;
+    }
+
+    double meanGrade = (double) totalGrade / count;
+
+    printf("Grade statistics for %s\n", assignmentName);
+    printf("Min:  %hu\n", minGrade);
+    printf("Max:  %hu\n", maxGrade);
+    printf("Mean: %.2f\n", meanGrade);
+}
+
+// check if a grade exists in the list
+bool isGradeExists(LinkedList* list, const char* studentId, const char* assignmentName) {
+    Node* current = list->head;
+    while (current != NULL) {
+        if (mystrcmp(current->grade.studentId, studentId) == 0 &&
+            mystrcmp(current->grade.assignmentName, assignmentName) == 0) {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+// save the grades to the database file
+bool saveGrades(const char* databaseFile, LinkedList* list) {
+    // create temporary file with a unique name
+    char tempFileTemplate[] = "gradesXXXXXX"; 
+    int tempFd = mkstemp(tempFileTemplate); 
+    if (tempFd == -1) {
+        fprintf(stderr, "Error: Unable to create unique temporary file\n");
+        return false;
+    }
+
+    FILE* fp = fdopen(tempFd, "w"); 
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Unable to open temporary file '%s'\n", tempFileTemplate);
+        close(tempFd); 
+        return false;
+    }
+
+    // write the grades to the temporary file
+    Node* current = list->head;
+    while (current != NULL) {
+        fprintf(fp, "%s:%s:%hu\n",
+                current->grade.studentId,
+                current->grade.assignmentName,
+                current->grade.grade);
+        current = current->next;
+    }
+    fclose(fp); 
+
+    // remove the original file and rename the temporary file
+    if (remove(databaseFile) != 0 || rename(tempFileTemplate, databaseFile) != 0) {
+        fprintf(stderr, "Error: Unable to update database file '%s'\n", databaseFile);
+        remove(tempFileTemplate); 
+        return false;
+    }
+
+    return true;
+}
+
+<<< End utils.c
+Submitted file utils.h, printing contents
+Begin utils.h >>>
+// Author: Tony K. Okeke
+// Date:   03.13.2024
+
+#ifndef UTILS_H
+#define UTILS_H
+    #include "ll.h"
+
+    bool parseLine(const char* line, char* studentId, char* assignmentName, unsigned short* grade);
+    bool parseRemoveArgs(const char* args, char* studentId, char* assignmentName);
+    bool isGradeExists(LinkedList* list, const char* studentId, const char* assignmentName);
+    bool saveGrades(const char* databaseFile, LinkedList* list);
+    
+    void printGrades(LinkedList* list);
+    void printStats(LinkedList* list, const char* assignmentName);
+#endif
+
+<<< End utils.h
+Check assignment instructions to make sure you've submitted all necessary files

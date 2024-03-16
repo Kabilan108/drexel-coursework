@@ -13,7 +13,7 @@ grades.o: grades.c ll.h mystring.h utils.h
 	$(CC) $(CFLAGS) -c grades.c
 
 ll.o: ll.c ll.h mystring.h
-	$(CC) $(CFLAGS) -c ll.c 
+	$(CC) $(CFLAGS) -c ll.c mystring.h
 
 utils.o: utils.c ll.h mystring.h utils.h
 	$(CC) $(CFLAGS) -c utils.c
