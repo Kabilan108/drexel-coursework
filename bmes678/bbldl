@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Set strict mode
+set -euo pipefail
+
+# Function to display usage information
+usage() {
+  echo "Usage: $0 [-d OUTPUT_DIR]"
+  echo "Downloads files from URLs provided via stdin."
+  echo "  -d OUTPUT_DIR  Specify the output directory (default: current directory)"
+  exit 1
+}
+
+# Parse optional argument for output directory
+output_dir="."
+while getopts ":d:" opt; do
+  case $opt in
+    d)
+      output_dir="$OPTARG"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      ;;
+  esac
+done
+
+# Shift arguments to remove processed options
+shift $((OPTIND - 1))
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# Read URLs from stdin and download files
+while IFS= read -r url; do
+  # Extract the file name and extension from the URL
+  file_name=$(basename "$url" | sed -E 's/fetch\.php\?rev=&media=course:[^:]+:[^:]+://')
+
+  # Download the file using curl
+  curl -skSL "$url" -o "$output_dir/$file_name"
+
+  echo "Downloaded: $file_name"
+done
+
+echo "All files downloaded successfully."
