@@ -5,3 +5,4 @@ __pycache__/
 *.pkl
 *.ini
 logs/
+ruff_cache/
